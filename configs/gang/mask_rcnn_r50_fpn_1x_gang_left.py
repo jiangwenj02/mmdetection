@@ -106,10 +106,12 @@ data = dict(
     samples_per_gpu=2,
     workers_per_gpu=2,
     train=dict(
-        type=dataset_type,
+        type='RepeatDataset',
+        times=10,
+        dataset=dict(type=dataset_type,
         ann_file='/data0/zzhang/left.json',
         img_prefix='/data2/qilei_chen/DATA/ShanghaiAutograding',
-        pipeline=train_pipeline),
+        pipeline=train_pipeline)),
     val=dict(
         type=dataset_type,
         ann_file='/data0/zzhang/left.json',
