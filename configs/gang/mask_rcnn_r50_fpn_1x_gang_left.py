@@ -31,7 +31,7 @@ model = dict(
                 type='CrossEntropyLoss', use_mask=True, loss_weight=1.0))))
 
 dataset_type = 'GangDataset'
-data_root = '/data2/qilei_chen/DATA/ShanghaiAutograding/gangganpingheng_images_240'
+data_root = './data'
 
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
@@ -65,17 +65,17 @@ data = dict(
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
-        ann_file='/home/zzhang/left.json',
+        ann_file=data_root + 'left.json',
         img_prefix='/data2/qilei_chen/DATA/ShanghaiAutograding/gangganpingheng_images_240',
         pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file='/home/zzhang/left.json',
+        ann_file=data_root + '/left.json',
         img_prefix='/data2/qilei_chen/DATA/ShanghaiAutograding/gangganpingheng_images_240',
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file='/home/zzhang/left.json',
+        ann_file=data_root + 'left.json',
         img_prefix='/data2/qilei_chen/DATA/ShanghaiAutograding/gangganpingheng_images_240',
         pipeline=test_pipeline))
 evaluation = dict(metric=['bbox', 'segm'])
