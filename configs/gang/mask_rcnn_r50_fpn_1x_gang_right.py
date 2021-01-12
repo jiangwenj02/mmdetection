@@ -123,5 +123,4 @@ data = dict(
         ann_file='/data0/zzhang/right.json',
         img_prefix='/data2/qilei_chen/DATA/ShanghaiAutograding',
         pipeline=test_pipeline))
-evaluation = dict(metric=['bbox', 'segm'])
-resume_from = '/data0/zzhang/mmdetection/work_dirs/mask_rcnn_r50_fpn_1x_gang_right/latest.pth'
+#evaluation = dict(metric=['bbox', 'segm'])
