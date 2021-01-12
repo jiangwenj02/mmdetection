@@ -4,7 +4,6 @@ _base_ = [
     '../_base_/schedules/schedule_1x.py', '../_base_/default_runtime.py'
 ]
 
-# model settings
 model = dict(
     type='MaskRCNN',
     pretrained='torchvision://resnet50',
@@ -123,4 +122,4 @@ data = dict(
         ann_file='/data0/zzhang/right.json',
         img_prefix='/data2/qilei_chen/DATA/ShanghaiAutograding',
         pipeline=test_pipeline))
-#evaluation = dict(metric=['bbox', 'segm'])
+evaluation = dict(metric=['bbox', 'segm'])
