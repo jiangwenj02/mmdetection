@@ -109,17 +109,17 @@ data = dict(
         type='RepeatDataset',
         times=5,
         dataset=dict(type=dataset_type,
-        ann_file='/data0/zzhang/left.json',
-        img_prefix='/data2/qilei_chen/DATA/ShanghaiAutograding',
+        ann_file='/data0/zzhang/new_polyp_annotation_01_03/train.json',
+        img_prefix='/data2/dataset/cleaned_data',
         pipeline=train_pipeline)),
     val=dict(
         type=dataset_type,
-        ann_file='/data0/zzhang/left.json',
-        img_prefix='/data2/qilei_chen/DATA/ShanghaiAutograding',
+        ann_file='/data0/zzhang/new_polyp_annotation_01_03/test.json',
+        img_prefix='/data2/dataset/cleaned_data',
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file='/data0/zzhang/left.json',
-        img_prefix='/data2/qilei_chen/DATA/ShanghaiAutograding',
+        ann_file='/data0/zzhang/new_polyp_annotation_01_03/test.json',
+        img_prefix='/data2/dataset/cleaned_data',
         pipeline=test_pipeline))
 evaluation = dict(metric=['bbox', 'segm'])
