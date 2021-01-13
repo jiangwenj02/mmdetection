@@ -114,12 +114,12 @@ data = dict(
         pipeline=train_pipeline)),
     val=dict(
         type=dataset_type,
-        ann_file='/data0/zzhang/right.json',
+        ann_file='/data0/zzhang/shanghai_data/15_1_right.json',
         img_prefix='/data2/qilei_chen/DATA/ShanghaiAutograding',
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file='/data0/zzhang/right.json',
+        ann_file='/data0/zzhang/shanghai_data/15_1_right.json',
         img_prefix='/data2/qilei_chen/DATA/ShanghaiAutograding',
         pipeline=test_pipeline))
 evaluation = dict(metric=['bbox', 'segm'])
