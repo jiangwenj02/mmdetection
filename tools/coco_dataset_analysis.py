@@ -179,7 +179,7 @@ def main():
     parser = ArgumentParser(description='COCO Dataset Analysis Tool')
     parser.add_argument(
         '--ann',
-        default='data/right.json',
+        default='data/adenomatous/train.json',
         help='annotation file path')
     parser.add_argument(
         '--types',

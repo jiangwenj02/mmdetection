@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 ./tools/dist_train.py configs/adenomatous/mask_rcnn_r50_fpn_1x_adenomatous.py 4
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 ./tools/dist_train.sh configs/adenomatous/mask_rcnn_r50_fpn_1x_adenomatous.py 8
 python tools/test.py configs/gang/mask_rcnn_r50_fpn_1x_gang_left.py work_dirs/mask_rcnn_r50_fpn_1x_gang_left/latest.pth --eval bbox segm --options "classwise=True" --out work_dirs/mask_rcnn_r50_fpn_1x_gang_left/result.pkl
 python tools/test.py configs/gang/mask_rcnn_r50_fpn_1x_gang_right.py work_dirs/mask_rcnn_r50_fpn_1x_gang_right/latest.pth --eval bbox segm --options "classwise=True" --out work_dirs/mask_rcnn_r50_fpn_1x_gang_right/result.pkl
 python tools/test.py configs/gang/mask_rcnn_r50_fpn_1x_gang_right.py work_dirs/mask_rcnn_r50_fpn_1x_gang_right/latest.pth --format-only --options "jsonfile_prefix=work_dirs/mask_rcnn_r50_fpn_1x_polyp/"
