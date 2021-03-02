@@ -43,6 +43,10 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
         F1_list = []
         F2_list = []
         output_list = []
+        best_f1 = 0
+        best_f2 = 0
+        best_f1_string = ''
+        best_f2_string = ''
         for thresh in threshold_list:
             eval = Metric(visualize=visualize, visualization_root=visualization_folder+"/{:.3}/".format(thresh))
             for key in pred_lists.keys():
@@ -63,10 +67,18 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             recall_list.append(recall)
             F1_list.append(F1)
             F2_list.append(F2)
+            
             out = "precision: {:.4f}  recall:  {:.4f} F1: {:.4f} F2: {:.4f} thresh: {:.4f} TP: {:3} FP: {:3} FN: {:3} FP+FN: {:3}" \
                 .format(precision, recall, F1, F2, thresh, len(eval.TPs), len(eval.FPs), len(eval.FNs), len(eval.FPs)+len(eval.FNs))
             output_list.append(out)
-        print(output_list)
+            if F1 > best_f1:
+                best_f1 = F1
+                best_f1_string = out
+            if F2 > best_f2:
+                best_f2 = F2
+                best_f2_string = out
+        print(best_f1_string)
+        print(best_f2_string)
 
 def main():
     parser = ArgumentParser(description='COCO Error Analysis Tool')
