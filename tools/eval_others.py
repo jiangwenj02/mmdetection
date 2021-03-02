@@ -66,9 +66,7 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             out = "precision: {:.4f}  recall:  {:.4f} F1: {:.4f} F2: {:.4f} thresh: {:.4f} TP: {:3} FP: {:3} FN: {:3} FP+FN: {:3}" \
                 .format(precision, recall, F1, F2, thresh, len(eval.TPs), len(eval.FPs), len(eval.FNs), len(eval.FPs)+len(eval.FNs))
             output_list.append(out)
-        import pdb
-        pdb.set_trace()
-        pass
+        print(output_list)
 
 def main():
     parser = ArgumentParser(description='COCO Error Analysis Tool')
@@ -84,7 +82,7 @@ def main():
         default=False,
         help='annotation file path')
     parser.add_argument(
-        '--num_clsses', type=int, default=1)
+        '--num_clsses', type=int, default=2)
     args = parser.parse_args()
     analyze_results(args.ann, args.result, args, args.visualize, args.out_dir)
 
