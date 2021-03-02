@@ -72,11 +72,11 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
 
 def main():
     parser = ArgumentParser(description='COCO Error Analysis Tool')
-    parser.add_argument('--result', default='data/result.bbox.json', help='result file (json format) path')
+    parser.add_argument('--result', default='work_dirs/mask_rcnn_r50_fpn_1x_adenomatous/result.bbox.json', help='result file (json format) path')
     parser.add_argument('--out_dir', default = './work_dirs/', help='dir to save analyze result images')
     parser.add_argument(
         '--ann',
-        default='data/new_polyp_annotation_01_03/test.json',
+        default='/data0/zzhang/adenomatous/test.json',
         help='annotation file path')
     parser.add_argument(
         '--visualize',
