@@ -44,6 +44,10 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
         F1_list = []
         F2_list = []
         output_list = []
+        best_f1 = 0
+        best_f2 = 0
+        best_f1_string = ''
+        best_f2_string = ''
         for thresh in threshold_list:
             eval = Metric(visualize=visualize, visualization_root=visualization_folder+"/{:.3}/".format(thresh))
             for key in pred_lists.keys():
@@ -65,20 +69,26 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             recall_list.append(recall)
             F1_list.append(F1)
             F2_list.append(F2)
+            
             out = "precision: {:.4f}  recall:  {:.4f} F1: {:.4f} F2: {:.4f} thresh: {:.4f} TP: {:3} FP: {:3} FN: {:3} FP+FN: {:3}" \
                 .format(precision, recall, F1, F2, thresh, len(eval.TPs), len(eval.FPs), len(eval.FNs), len(eval.FPs)+len(eval.FNs))
             output_list.append(out)
-        import pdb
-        pdb.set_trace()
-        pass
+            if F1 > best_f1:
+                best_f1 = F1
+                best_f1_string = out
+            if F2 > best_f2:
+                best_f2 = F2
+                best_f2_string = out
+        print(best_f1_string)
+        print(best_f2_string)
 
 def main():
     parser = ArgumentParser(description='COCO Error Analysis Tool')
-    parser.add_argument('--result', default='data/result.bbox.json', help='result file (json format) path')
+    parser.add_argument('--result', default='work_dirs/mask_rcnn_r50_fpn_1x_adenomatous/result.bbox.json', help='result file (json format) path')
     parser.add_argument('--out_dir', default = './work_dirs/', help='dir to save analyze result images')
     parser.add_argument(
         '--ann',
-        default='data/new_polyp_annotation_01_03/test.json',
+        default='/data0/zzhang/adenomatous/test.json',
         help='annotation file path')
     parser.add_argument(
         '--visualize',
@@ -86,7 +96,7 @@ def main():
         default=False,
         help='annotation file path')
     parser.add_argument(
-        '--num_clsses', type=int, default=1)
+        '--num_clsses', type=int, default=2)
     args = parser.parse_args()
     analyze_results(args.ann, args.result, args, args.visualize, args.out_dir)
 
