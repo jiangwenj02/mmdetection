@@ -1,7 +1,8 @@
 from argparse import ArgumentParser
 import json
 import numpy as np
-from Metric import Metric
+#from Metric import Metric
+from metric_polyp_multiclass import Metric
 from pycocotools.coco import COCO
 import numpy as np
 
@@ -56,9 +57,10 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
                     image, target = testset.pull_image(i)
                     image = image.astype(np.uint8)[:,:,(2,1,0)].copy()
                 eval.eval_add_result(filterd_target, filtered_p,image=image, image_name=i)
-            precision, recall = eval.get_result()
-            F1 = 2 * (precision * recall) / max((precision + recall), 1e-5)
-            F2 = 5 * (precision * recall) / max((4 * precision + recall), 1e-5)
+            res = eval.get_result()
+
+            F1 = res['overall']['F1']
+            F2 = res['overall']['F2']
             precision_list.append(precision)
             recall_list.append(recall)
             F1_list.append(F1)
