@@ -65,13 +65,13 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
 
             F1 = res['overall']['F1']
             F2 = res['overall']['F2']
-            precision_list.append(precision)
-            recall_list.append(recall)
+            precision_list.append(res['overall']['precision'])
+            recall_list.append(res['overall']['recall'])
             F1_list.append(F1)
             F2_list.append(F2)
             
             out = "precision: {:.4f}  recall:  {:.4f} F1: {:.4f} F2: {:.4f} thresh: {:.4f} TP: {:3} FP: {:3} FN: {:3} FP+FN: {:3}" \
-                .format(precision, recall, F1, F2, thresh, len(eval.TPs), len(eval.FPs), len(eval.FNs), len(eval.FPs)+len(eval.FNs))
+                .format(res['overall']['precision'], res['overall']['recall'], F1, F2, thresh, len(eval.TPs), len(eval.FPs), len(eval.FNs), len(eval.FPs)+len(eval.FNs))
             output_list.append(out)
             if F1 > best_f1:
                 best_f1 = F1
