@@ -51,12 +51,17 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
     best_f1 = 0
     best_f2 = 0
     num_cls = 2
+    best_binary_f1 = 0
+    best_binary_f2 = 0
+
     best_f1_cls = [0 for i in range(num_cls)]
     best_f2_cls = [0 for i in range(num_cls)]
     best_f1_cls_string = ['' for i in range(num_cls)]
     best_f2_cls_string = ['' for i in range(num_cls)]
     best_f1_string = ''
     best_f2_string = ''
+    best_f1_binary_string = ''
+    best_f2_binary_string = ''
     for thresh in threshold_list:
         eval = Metric(visualize=visualize, visualization_root=visualization_folder+"/{:.3}/".format(thresh))
         for key in pred_lists.keys():
@@ -97,7 +102,17 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             best_f2 = F2
             best_f2_string = res
             best_f2_string['thresh'] = thresh
+        if res['binary']['F1'] > best_binary_f1:
+            best_binary_f1 = res['binary']['F1']
+            best_f1_binary_string = res
+            best_f1_binary_string['thresh'] = thresh
+        if res['binary']['F2'] > best_binary_f2:
+            best_binary_f2 = res['binary']['F2']
+            best_f2_binary_string = res
+            best_f2_binary_string['thresh'] = thresh
     
+    out = '\n====================overall====================='
+    print(out)
     print(best_f1_string)
     print(best_f2_string)
     for i in range(num_cls):
@@ -105,6 +120,10 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
         print(out)
         print(best_f1_cls_string[i])
         print(best_f2_cls_string[i])
+    out = '\n====================binary====================='
+    print(out)
+    print(best_f1_binary_string)
+    print(best_f2_binary_string)
     # pprint.pprint(best_f1_string)
     # pprint.pprint(best_f2_string)
 
@@ -114,7 +133,7 @@ def main():
     parser.add_argument('--out_dir', default = './work_dirs/', help='dir to save analyze result images')
     parser.add_argument(
         '--ann',
-        default='/data0/zzhang/adenomatous/test.json',
+        default='/data0/zzhang/annotations/adenomatous/test.json',
         #default='data/adenomatous/test.json',
         help='annotation file path')
     parser.add_argument(
