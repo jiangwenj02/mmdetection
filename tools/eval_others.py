@@ -126,8 +126,8 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
     print(out)
     print(best_f1_binary_string)
     print(best_f2_binary_string)
-    # pprint.pprint(best_f1_string)
-    # pprint.pprint(best_f2_string)
+    pprint.pprint(best_f1_string)
+    pprint.pprint(best_f2_string)
 
 def main():
     parser = ArgumentParser(description='COCO Error Analysis Tool')
