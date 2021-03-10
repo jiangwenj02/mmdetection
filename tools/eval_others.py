@@ -91,9 +91,11 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             if res[i+1]['F1'] > best_f1_cls[i]:
                 best_f1_cls[i] = res[i+1]['F1']
                 best_f1_cls_string[i] = res[i+1]
+                best_f1_cls_string[i]['thresh'] = thresh
             if res[i+1]['F2'] > best_f2_cls[i]:
                 best_f2_cls_string[i] = res[i+1]
                 best_f2_cls[i] = res[i+1]['F2']
+                best_f2_cls_string[i]['thresh'] = thresh
         if F1 > best_f1:
             best_f1 = F1
             best_f1_string = res['overall']
