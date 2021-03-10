@@ -90,25 +90,25 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
         for i in range(num_cls):
             if res[i+1]['F1'] > best_f1_cls[i]:
                 best_f1_cls[i] = res[i+1]['F1']
-                best_f1_cls_string[i] = res
+                best_f1_cls_string[i] = res[i+1]
             if res[i+1]['F2'] > best_f2_cls[i]:
-                best_f2_cls_string[i] = res
+                best_f2_cls_string[i] = res[i+1]
                 best_f2_cls[i] = res[i+1]['F2']
         if F1 > best_f1:
             best_f1 = F1
-            best_f1_string = res
+            best_f1_string = res['overall']
             best_f1_string['thresh'] = thresh
         if F2 > best_f2:
             best_f2 = F2
-            best_f2_string = res
+            best_f2_string = res['overall']
             best_f2_string['thresh'] = thresh
         if res['binary']['F1'] > best_binary_f1:
             best_binary_f1 = res['binary']['F1']
-            best_f1_binary_string = res
+            best_f1_binary_string = res['binary']
             best_f1_binary_string['thresh'] = thresh
         if res['binary']['F2'] > best_binary_f2:
             best_binary_f2 = res['binary']['F2']
-            best_f2_binary_string = res
+            best_f2_binary_string = res['binary']
             best_f2_binary_string['thresh'] = thresh
     
     out = '\n====================overall====================='
