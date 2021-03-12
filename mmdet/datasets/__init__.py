@@ -14,11 +14,12 @@ from .xml_style import XMLDataset
 from .gangganpingheng import GangDataset
 from .polyp import PolypDataset
 from .adenomatous import Adenomatous
+from .erosive import Erosive
 __all__ = [
     'CustomDataset', 'XMLDataset', 'CocoDataset', 'DeepFashionDataset',
     'VOCDataset', 'CityscapesDataset', 'LVISDataset', 'LVISV05Dataset',
     'LVISV1Dataset', 'GroupSampler', 'DistributedGroupSampler',
     'DistributedSampler', 'build_dataloader', 'ConcatDataset', 'RepeatDataset',
-    'ClassBalancedDataset', 'WIDERFaceDataset', 'DATASETS', 'PIPELINES',
+    'ClassBalancedDataset', 'WIDERFaceDataset', 'DATASETS', 'PIPELINES', 'Erosive',
     'build_dataset', 'replace_ImageToTensor', 'GangDataset', 'PolypDataset', 'Adenomatous'
 ]
