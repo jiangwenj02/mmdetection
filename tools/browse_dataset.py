@@ -55,6 +55,7 @@ def main():
         filename = os.path.join(args.output_dir,
                                 Path(item['filename']).name
                                 ) if args.output_dir is not None else None
+        print(filename)
         mmcv.imshow_det_bboxes(
             item['img'],
             item['gt_bboxes'],
@@ -63,6 +64,7 @@ def main():
             show=not args.not_show,
             out_file=filename,
             wait_time=args.show_interval)
+        print(filename)
         progress_bar.update()
 
 
