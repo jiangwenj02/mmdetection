@@ -54,7 +54,7 @@ test_pipeline = [
 data = dict(
     samples_per_gpu=2,
     workers_per_gpu=2,
-    train=dict(type='dataset_type',
+    train=dict(type=dataset_type,
         ann_file='/data0/zzhang/annotation/erosive/train.json',
         img_prefix='/data2/dataset/gastric_object_detection/erosive',
         pipeline=train_pipeline),
