@@ -51,6 +51,7 @@ def main():
     dataset = build_dataset(cfg.data.train)
 
     progress_bar = mmcv.ProgressBar(len(dataset))
+    print(dataset)
     for item in dataset:
         print(item)
         filename = os.path.join(args.output_dir,
