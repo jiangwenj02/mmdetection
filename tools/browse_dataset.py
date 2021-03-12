@@ -52,6 +52,8 @@ def main():
 
     progress_bar = mmcv.ProgressBar(len(dataset))
     print(dataset)
+    import pdb
+    pdb.set_trace()
     for item in dataset:
         print(item)
         filename = os.path.join(args.output_dir,
