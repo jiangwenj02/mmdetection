@@ -35,6 +35,9 @@ def parse_args():
 def retrieve_data_cfg(config_path, skip_type):
     cfg = Config.fromfile(config_path)
     train_data_cfg = cfg.data.train
+    print(train_data_cfg)
+    import pdb
+    pdb.set_trace()
     print(train_data_cfg['pipeline'])
     train_data_cfg['pipeline'] = [
         x for x in train_data_cfg.pipeline if x['type'] not in skip_type
