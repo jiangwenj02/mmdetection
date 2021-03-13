@@ -52,14 +52,13 @@ def main():
 
     progress_bar = mmcv.ProgressBar(len(dataset))
     print(dataset)
-    import pdb
-    pdb.set_trace()
-    for item in dataset:
-        print(item)
+
+    for i in range(len(dataset)):
+        item = dataset.__getitem__(i)
         filename = os.path.join(args.output_dir,
                                 Path(item['filename']).name
                                 ) if args.output_dir is not None else None
-        print(filename)
+
         mmcv.imshow_det_bboxes(
             item['img'],
             item['gt_bboxes'],
