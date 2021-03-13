@@ -1,34 +1,54 @@
 import json
-import glob
+import os
+import shutil
 
-# ANNOT_PATH = '/home/zxy/Datasets/VOC/annotations/'
-#ANNOT_PATH = 'voc/annotations/'
-OUT_PATH = './data/erosive/annotations/'
-# INPUT_FILES = ['pascal_train2012.json', 'pascal_val2012.json',
-#                'pascal_train2007.json', 'pascal_val2007.json']
-dirs = './data/erosive/annotations/test/'
-INPUT_FILES = glob.glob(dirs+'*.json')
-OUTPUT_FILE = 'test.json'
-KEYS = ['images', 'annotations', 'categories']
-MERGE_KEYS = ['images', 'annotations']
+image_id = 1
+annotation_id = 0
 
-out = {}
-tot_anns = 0
-for i, file_name in enumerate(INPUT_FILES):
-  data = json.load(open(file_name, 'r'))
-  print('keys', data.keys())
-  if i == 0:
-    for key in KEYS:
-      out[key] = data[key]
-      print(file_name, key, len(data[key]))
-  else:
-    out['images'] += data['images']
-    for j in range(len(data['annotations'])):
-      data['annotations'][j]['id'] += tot_anns
-    out['annotations'] += data['annotations']
-    print(file_name, 'images', len(data['images']))
-    print(file_name, 'annotations', len(data['annotations']))
-  tot_anns = len(out['annotations'])
-print('tot', len(out['annotations']))
-print('images', len(out['images']))
-json.dump(out, open(OUT_PATH + OUTPUT_FILE, 'w'))
+adenomatous_json_dir = 'annotations/test'
+inflammatory_json_dir = '/Users/xinzisun/Documents/new_polyp_annotation/Inflammatory/train'
+hyperplastic_json_dir = '/Users/xinzisun/Documents/new_polyp_annotation/Hyperplastic/train'
+image_root = ''
+dataset_root = ''
+out_json = 'test.json'
+
+merged_data = {
+                "licenses": [{"name": "", "id": 0, "url": ""}],
+                "info": {"contributor": "", "date_created": "2021-03", "description": "", "url": "", "version": 1, "year": "2021"},
+                "categories": [{"id": 1, "name": "erosive", "supercategory": ""}],
+                "images": [],
+                "annotations": []
+}
+
+
+img_id_test = set()
+imgs_num = 0
+anno_num = 0
+for f in os.listdir(adenomatous_json_dir):
+    if f == '.DS_Store':
+        continue
+    json_dir = os.path.join(adenomatous_json_dir, f)
+    with open(json_dir) as json_file:
+        data = json.load(json_file)
+        id_list = set()
+        for img in data["images"]:
+            img['id'] += image_id
+            img['file_name'] = 'colon_inflammatory/' + '/'.join(img['file_name'].split('/')[2:])
+            merged_data["images"].append(img)
+            imgs_num += 1
+
+        for anno in data["annotations"]:
+            anno['id'] += annotation_id
+            anno['category_id'] = 1
+            anno['image_id'] += image_id    
+            
+            merged_data['annotations'].append(anno)
+
+            anno_num += 1
+        image_id += len(data["images"])
+        annotation_id += len(data["annotations"])
+print('images %d, annos %d'%(imgs_num, anno_num))
+
+
+with open(out_json, 'w') as out_file:
+    json.dump(merged_data, out_file)
