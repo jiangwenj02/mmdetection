@@ -48,7 +48,7 @@ def main():
     args = parse_args()
     cfg = retrieve_data_cfg(args.config, args.skip_type)
 
-    dataset = build_dataset(cfg.data.train)
+    dataset = build_dataset(cfg.data.test)
 
     progress_bar = mmcv.ProgressBar(len(dataset))
     print(dataset)
