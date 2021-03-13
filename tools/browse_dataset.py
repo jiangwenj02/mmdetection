@@ -48,14 +48,13 @@ def main():
     args = parse_args()
     cfg = retrieve_data_cfg(args.config, args.skip_type)
 
-    dataset = build_dataset(cfg.data.test)
+    dataset = build_dataset(cfg.data.train)
 
     progress_bar = mmcv.ProgressBar(len(dataset))
     print(dataset)
 
     for i in range(len(dataset)):
         item = dataset.__getitem__(i)
-        print(item)
         filename = os.path.join(args.output_dir,
                                 Path(item['filename']).name
                                 ) if args.output_dir is not None else None
