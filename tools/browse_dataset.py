@@ -55,6 +55,7 @@ def main():
 
     for i in range(len(dataset)):
         item = dataset.__getitem__(i)
+        print(item)
         filename = os.path.join(args.output_dir,
                                 Path(item['filename']).name
                                 ) if args.output_dir is not None else None
