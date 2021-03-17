@@ -103,6 +103,7 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             best_f1_string['thresh'] = thresh
             best_f1_string['confusion_matrix'] = res['confusion_matrix']
             best_f1_string_all = res
+            best_f1_string_all['thresh'] = thresh
         if F2 > best_f2:
             best_f2 = F2
             best_f2_string = res['overall']
