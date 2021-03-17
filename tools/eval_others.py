@@ -15,7 +15,7 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
     threshold_list = np.arange(0, 1, 0.01).tolist()
     coco = COCO(anno)
     img_ids = coco.getImgIds()
-
+    num_cls = cfg.num_clsses
     pred = json_load(result)
 
     pred_lists = {}
@@ -50,7 +50,6 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
     output_list = []
     best_f1 = 0
     best_f2 = 0
-    num_cls = 2
     best_binary_f1 = 0
     best_binary_f2 = 0
 
@@ -87,6 +86,7 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
         out = "precision: {:.4f}  recall:  {:.4f} F1: {:.4f} F2: {:.4f} thresh: {:.4f} TP: {:3} FP: {:3} FN: {:3} FP+FN: {:3}" \
             .format(res['overall']['precision'], res['overall']['recall'], F1, F2, thresh, len(eval.TPs), len(eval.FPs), len(eval.FNs), len(eval.FPs)+len(eval.FNs))
         output_list.append(out)
+        print(res)
         for i in range(num_cls):
             if res[i+1]['F1'] > best_f1_cls[i]:
                 best_f1_cls[i] = res[i+1]['F1']
