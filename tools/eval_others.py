@@ -103,7 +103,6 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             best_f1_string['thresh'] = thresh
             best_f1_string['confusion_matrix'] = res['confusion_matrix']
             best_f1_string_all = res
-            best_f1_string_all['thresh'] = thresh
         if F2 > best_f2:
             best_f2 = F2
             best_f2_string = res['overall']
@@ -136,7 +135,6 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
     pprint.pprint(out)
     print(best_f1_string_all['binary'])
     print(best_f1_string_all['thresh'])
-    pprint.pprint(best_f1_string_all['confusion_matrix'])
     # pprint.pprint(best_f1_binary_string)
     # pprint.pprint(best_f2_binary_string)
     # pprint.pprint(best_f1_string)
