@@ -86,7 +86,6 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
         out = "precision: {:.4f}  recall:  {:.4f} F1: {:.4f} F2: {:.4f} thresh: {:.4f} TP: {:3} FP: {:3} FN: {:3} FP+FN: {:3}" \
             .format(res['overall']['precision'], res['overall']['recall'], F1, F2, thresh, len(eval.TPs), len(eval.FPs), len(eval.FNs), len(eval.FPs)+len(eval.FNs))
         output_list.append(out)
-        print(res)
         for i in range(num_cls):
             if res[i+1]['F1'] > best_f1_cls[i]:
                 best_f1_cls[i] = res[i+1]['F1']
@@ -129,7 +128,7 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
     for i in range(num_cls):
         out = '\n====================class {}====================='.format(i)
         pprint.pprint(out)
-        print(best_f1_string_all[i])
+        print(best_f1_string_all[i+1])
         # pprint.pprint(best_f1_cls_string[i])
         # pprint.pprint(best_f2_cls_string[i])
     out = '\n====================binary====================='
