@@ -15,7 +15,7 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
     threshold_list = np.arange(0, 1, 0.01).tolist()
     coco = COCO(anno)
     img_ids = coco.getImgIds()
-
+    num_cls = cfg.num_clsses
     pred = json_load(result)
 
     pred_lists = {}
@@ -50,7 +50,6 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
     output_list = []
     best_f1 = 0
     best_f2 = 0
-    num_cls = 2
     best_binary_f1 = 0
     best_binary_f2 = 0
 
@@ -103,6 +102,7 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             best_f1_string = res['overall']
             best_f1_string['thresh'] = thresh
             best_f1_string['confusion_matrix'] = res['confusion_matrix']
+            best_f1_string_all = res
         if F2 > best_f2:
             best_f2 = F2
             best_f2_string = res['overall']
@@ -122,17 +122,21 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
     
     out = '\n====================overall====================='
     print(out)
-    pprint.pprint(best_f1_string)
-    pprint.pprint(best_f2_string)
+    print(best_f1_string_all['overall'])
+    # pprint.pprint(best_f1_string)
+    # pprint.pprint(best_f2_string)
     for i in range(num_cls):
         out = '\n====================class {}====================='.format(i)
         pprint.pprint(out)
-        pprint.pprint(best_f1_cls_string[i])
-        pprint.pprint(best_f2_cls_string[i])
+        print(best_f1_string_all[i+1])
+        # pprint.pprint(best_f1_cls_string[i])
+        # pprint.pprint(best_f2_cls_string[i])
     out = '\n====================binary====================='
     pprint.pprint(out)
-    pprint.pprint(best_f1_binary_string)
-    pprint.pprint(best_f2_binary_string)
+    print(best_f1_string_all['binary'])
+    print(best_f1_string_all['thresh'])
+    # pprint.pprint(best_f1_binary_string)
+    # pprint.pprint(best_f2_binary_string)
     # pprint.pprint(best_f1_string)
     # pprint.pprint(best_f2_string)
 
