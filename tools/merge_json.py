@@ -5,12 +5,12 @@ import shutil
 image_id = 1
 annotation_id = 0
 
-adenomatous_json_dir = 'data/erosive/annotations/test'
+adenomatous_json_dir = 'data/erosive/test'
 inflammatory_json_dir = '/Users/xinzisun/Documents/new_polyp_annotation/Inflammatory/train'
 hyperplastic_json_dir = '/Users/xinzisun/Documents/new_polyp_annotation/Hyperplastic/train'
 image_root = ''
 dataset_root = ''
-out_json = 'data/erosive/annotations/test.json'
+out_json = 'data/erosive/test.json'
 
 # merged_data = {
 #                 "licenses": [{"name": "", "id": 0, "url": ""}],
@@ -48,7 +48,7 @@ for f in os.listdir(adenomatous_json_dir):
         id_list = set()
         for img in data["images"]:
             img['id'] += image_id
-            img['file_name'] = 'colon_inflammatory/' + '/'.join(img['file_name'].split('/')[2:])
+            img['file_name'] = img['file_name'].split('/')[-1]
             merged_data["images"].append(img)
             imgs_num += 1
 
