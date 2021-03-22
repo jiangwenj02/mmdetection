@@ -2,15 +2,13 @@ import json
 import os
 import shutil
 
-image_id = 1
+image_id = 0
 annotation_id = 0
 
-adenomatous_json_dir = 'data/ulcer/train'
-inflammatory_json_dir = '/Users/xinzisun/Documents/new_polyp_annotation/Inflammatory/train'
-hyperplastic_json_dir = '/Users/xinzisun/Documents/new_polyp_annotation/Hyperplastic/train'
+adenomatous_json_dir = 'data/ulcer/test'
 image_root = ''
 dataset_root = ''
-out_json = 'data/ulcer/train.json'
+out_json = 'data/ulcer/test.json'
 
 # merged_data = {
 #                 "licenses": [{"name": "", "id": 0, "url": ""}],
