@@ -134,7 +134,6 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
     out = '\n====================binary====================='
     pprint.pprint(out)
     print(best_f1_string_all['binary'])
-    print(best_f1_string_all['thresh'])
     # pprint.pprint(best_f1_binary_string)
     # pprint.pprint(best_f2_binary_string)
     # pprint.pprint(best_f1_string)
