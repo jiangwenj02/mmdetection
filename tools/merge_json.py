@@ -5,12 +5,12 @@ import shutil
 image_id = 1
 annotation_id = 0
 
-adenomatous_json_dir = 'data/erosive/test'
+adenomatous_json_dir = 'data/ulcer/train'
 inflammatory_json_dir = '/Users/xinzisun/Documents/new_polyp_annotation/Inflammatory/train'
 hyperplastic_json_dir = '/Users/xinzisun/Documents/new_polyp_annotation/Hyperplastic/train'
 image_root = ''
 dataset_root = ''
-out_json = 'data/erosive/test.json'
+out_json = 'data/ulcer/train.json'
 
 # merged_data = {
 #                 "licenses": [{"name": "", "id": 0, "url": ""}],
@@ -22,8 +22,8 @@ out_json = 'data/erosive/test.json'
 
 merged_data = {
                 "licenses": [{"name": "", "id": 0, "url": ""}],
-                "info": {"contributor": "", "date_created": "2021-03", "description": "", "url": "", "version": 1, "year": "2021"},
-                "categories": [{"id": 1, "name": "erosive", "supercategory": ""}],
+                "info": {"contributor": "", "date_created": "", "description": "", "url": "", "version": "", "year": ""},
+                "categories": [{"id": 1, "name": "ulcer", "supercategory": ""}],
                 "images": [],
                 "annotations": []
 }
