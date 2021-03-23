@@ -6,12 +6,14 @@ from metric_polyp_multiclass import Metric
 from pycocotools.coco import COCO
 import numpy as np
 import pprint
+from mmdet.datasets.builder import build_dataset
+
 def json_load(file_name):
     with open(file_name,'r') as f:
         data = json.load(f)
         return data
 
-def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./work_dirs/mask_rcnn_r50_fpn_1x_polyp/'):
+def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./work_dirs/mask_rcnn_r50_fpn_1x_polyp/', testset=None):
     threshold_list = np.arange(0, 1, 0.01).tolist()
     coco = COCO(anno)
     img_ids = coco.getImgIds()
@@ -71,7 +73,8 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             filterd_target = [p for p in target_list]
             image= None
             if visualize:
-                image, target = testset.pull_image(i)
+                item = testset.__getitem__(key)
+                image = item['img']
                 image = image.astype(np.uint8)[:,:,(2,1,0)].copy()
             eval.eval_add_result(filterd_target, filtered_p,image=image, image_name=i)
             #break
@@ -139,6 +142,17 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
     # pprint.pprint(best_f1_string)
     # pprint.pprint(best_f2_string)
 
+def retrieve_data_cfg(config_path, skip_type):
+    cfg = Config.fromfile(config_path)
+    train_data_cfg = cfg.data.train
+    if train_data_cfg.type == 'RepeatDataset':
+        train_data_cfg = train_data_cfg.dataset
+    train_data_cfg['pipeline'] = [
+        x for x in train_data_cfg.pipeline if x['type'] not in skip_type
+    ]
+
+    return cfg
+
 def main():
     parser = ArgumentParser(description='COCO Error Analysis Tool')
     parser.add_argument('--result', default='work_dirs/mask_rcnn_r50_fpn_1x_adenomatous/result.bbox.json', help='result file (json format) path')
@@ -155,8 +169,18 @@ def main():
         help='annotation file path')
     parser.add_argument(
         '--num_clsses', type=int, default=2)
+    parser.add_argument('--config', help='train config file path')
+    parser.add_argument(
+        '--skip-type',
+        type=str,
+        nargs='+',
+        default=['DefaultFormatBundle', 'Normalize', 'Collect'],
+        help='skip some useless pipeline')
     args = parser.parse_args()
-    analyze_results(args.ann, args.result, args, args.visualize, args.out_dir)
+    cfg = retrieve_data_cfg(args.config, args.skip_type)
+
+    dataset = build_dataset(cfg.data.train)
+    analyze_results(args.ann, args.result, args, args.visualize, args.out_dir, dataset)
 
 if __name__ == '__main__':
     main()
