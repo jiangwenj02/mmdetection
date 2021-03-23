@@ -29,7 +29,7 @@ except AssertionError:
 @DATASETS.register_module
 class Ulcer(CustomDataset):
 
-    CLASSES = ('ulcer')
+    CLASSES = ('ulcer',)
 
     def load_annotations(self, ann_file):
         """Load annotation from COCO style annotation file.
