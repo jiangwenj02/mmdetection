@@ -33,7 +33,8 @@ class Metric(object):
     def __init__(self, mode='center', iou_thresh=0, visualize=False, visualization_root='demo/',
                  image_classification=False, classes=None):
 
-        self.classes = classes
+        self.classes = ['background']
+        self.classes = self.classes.extend(list(classes))
         self.TPs = defaultdict(list)
         self.FNs = defaultdict(list)
         self.FPs = defaultdict(list)
