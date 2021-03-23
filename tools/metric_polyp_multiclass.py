@@ -193,12 +193,7 @@ class Metric(object):
                 pt1 = tuple([int(fp[0]), int(fp[1])])
                 pt2 = tuple([int(fp[2]), int(fp[3])])
                 cv2.rectangle(FPimage, pt1, pt2, self.FP_color, 2)
-                cv2.putText(FPimage,
-                            fp[4],
-                            pt1,
-                            cv2.FONT_HERSHEY_SIMPLEX,
-                            .5, self.FP_color, 1
-                            )
+                cv2.putText(FPimage, self.classes[fp[4]], pt1, cv2.FONT_HERSHEY_SIMPLEX, .5, self.FP_color, 1)
 
             cv2.imwrite(self.false_positive_folder + str(image_name) + '.jpg', FPimage)
         # 剩下的predict框都是FP
