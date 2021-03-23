@@ -7,6 +7,7 @@ from pycocotools.coco import COCO
 import numpy as np
 import pprint
 from mmdet.datasets.builder import build_dataset
+from mmcv import Config
 
 def json_load(file_name):
     with open(file_name,'r') as f:
@@ -74,6 +75,8 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             image= None
             if visualize:
                 item = testset.__getitem__(key)
+                import pdb
+                pdb.set_trace()
                 image = item['img']
                 image = image.astype(np.uint8)[:,:,(2,1,0)].copy()
             eval.eval_add_result(filterd_target, filtered_p,image=image, image_name=i)
@@ -169,7 +172,7 @@ def main():
         help='annotation file path')
     parser.add_argument(
         '--num_clsses', type=int, default=2)
-    parser.add_argument('--config', help='train config file path')
+    parser.add_argument('--config', default=None, help='train config file path')
     parser.add_argument(
         '--skip-type',
         type=str,
@@ -177,9 +180,9 @@ def main():
         default=['DefaultFormatBundle', 'Normalize', 'Collect'],
         help='skip some useless pipeline')
     args = parser.parse_args()
-    cfg = retrieve_data_cfg(args.config, args.skip_type)
-
-    dataset = build_dataset(cfg.data.train)
+    if args.config is not None:
+        cfg = retrieve_data_cfg(args.config, args.skip_type)
+        dataset = build_dataset(cfg.data.train)
     analyze_results(args.ann, args.result, args, args.visualize, args.out_dir, dataset)
 
 if __name__ == '__main__':
