@@ -77,8 +77,6 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             image= None
             if visualize:
                 item = testset.__getitem__(key)
-                import pdb
-                pdb.set_trace()
                 img_tensor = item['img'].data.unsqueeze(0)
                 img_metas = item['img_metas'].data
                 img = tensor2imgs(img_tensor, **img_metas['img_norm_cfg'])[0]
