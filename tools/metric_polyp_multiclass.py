@@ -31,8 +31,9 @@ def findContours(*args, **kwargs):
 # import json
 class Metric(object):
     def __init__(self, mode='center', iou_thresh=0, visualize=False, visualization_root='demo/',
-                 image_classification=False):
+                 image_classification=False, classes=None):
 
+        self.classes = classes
         self.TPs = defaultdict(list)
         self.FNs = defaultdict(list)
         self.FPs = defaultdict(list)
@@ -176,7 +177,7 @@ class Metric(object):
                     import pdb
                     pdb.set_trace()
                     cv2.putText(FNimage,
-                                gt[4],
+                                self.classes[gt[4]],
                                 pt1,
                                 cv2.FONT_HERSHEY_SIMPLEX,
                                 .5, self.GT_color, 1

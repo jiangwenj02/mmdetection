@@ -67,7 +67,7 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
     best_f1_binary_string = ''
     best_f2_binary_string = ''
     for thresh in threshold_list:
-        eval = Metric(visualize=visualize, visualization_root=visualization_folder+"/{:.3}/".format(thresh))
+        eval = Metric(visualize=visualize, visualization_root=visualization_folder+"/{:.3}/".format(thresh), dataset.CLASSES)
         for key in pred_lists.keys():
             pred_list = pred_lists[key]
             target_list = target_lists[key]
