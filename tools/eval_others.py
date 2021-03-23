@@ -147,7 +147,7 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
 
 def retrieve_data_cfg(config_path, skip_type):
     cfg = Config.fromfile(config_path)
-    train_data_cfg = cfg.data.train
+    train_data_cfg = cfg.data.test
     if train_data_cfg.type == 'RepeatDataset':
         train_data_cfg = train_data_cfg.dataset
     train_data_cfg['pipeline'] = [
