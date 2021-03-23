@@ -7,7 +7,9 @@ from pycocotools.coco import COCO
 import numpy as np
 import pprint
 from mmdet.datasets.builder import build_dataset
+import mmcv
 from mmcv import Config
+from mmcv.image import tensor2imgs
 
 def json_load(file_name):
     with open(file_name,'r') as f:
@@ -77,8 +79,14 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
                 item = testset.__getitem__(key)
                 import pdb
                 pdb.set_trace()
-                image = item['img']
-                image = image.astype(np.uint8)[:,:,(2,1,0)].copy()
+                img_tensor = item['img'].data.unsqueeze(0)
+                img = tensor2imgs(img_tensor, **img_metas['img_norm_cfg'])[0]
+                img_metas = item['img_metas'].data
+                h, w, _ = img_metas['img_shape']
+                ori_h, ori_w = img_metas['ori_shape'][:-1]
+                image = img[:h, :w, :]
+                image = mmcv.imresize(image, (ori_w, ori_h))
+                #image = image.astype(np.uint8)[:,:,(2,1,0)].copy()
             eval.eval_add_result(filterd_target, filtered_p,image=image, image_name=i)
             #break
         res = eval.get_result()
