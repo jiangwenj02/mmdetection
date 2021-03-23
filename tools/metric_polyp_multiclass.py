@@ -176,14 +176,7 @@ class Metric(object):
                     pt1 = tuple([int(gt[0]), int(gt[1])])
                     pt2 = tuple([int(gt[2]), int(gt[3])])
                     cv2.rectangle(FNimage, pt1, pt2, self.GT_color, 2)
-                    import pdb
-                    pdb.set_trace()
-                    cv2.putText(FNimage,
-                                self.classes[gt[4]],
-                                pt1,
-                                cv2.FONT_HERSHEY_SIMPLEX,
-                                .5, self.GT_color, 1
-                                )
+                    cv2.putText(FNimage, self.classes[gt[4]], pt1, cv2.FONT_HERSHEY_SIMPLEX, .5, self.GT_color, 1)
 
             if self.visualize:
                 # Draw groundturth on detection and FP images
