@@ -184,8 +184,8 @@ class Metric(object):
                 pt2 = tuple([int(gt[2]), int(gt[3])])
                 cv2.rectangle(Detectionimage, pt1, pt2, self.GT_color, 2)
                 cv2.rectangle(FPimage, pt1, pt2, self.GT_color, 2)
-                cv2.putText(Detectionimage, gt[4], pt1, cv2.FONT_HERSHEY_SIMPLEX, .5, self.GT_color, 1)
-                cv2.putText(FPimage, gt[4], pt1, cv2.FONT_HERSHEY_SIMPLEX, .5, self.GT_color, 1)
+                cv2.putText(Detectionimage, self.classes[gt[4]], pt1, cv2.FONT_HERSHEY_SIMPLEX, .5, self.GT_color, 1)
+                cv2.putText(FPimage, self.classes[gt[4]], pt1, cv2.FONT_HERSHEY_SIMPLEX, .5, self.GT_color, 1)
 
         if self.visualize:
             if missing:
