@@ -82,8 +82,6 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             filterd_target = [p for p in target_list]
             image= None
             if visualize:
-                import pdb
-                pdb.set_trace()
                 image = mmcv.imread(os.path.join(image_pre, filename_lists[key]))
                 # item = testset.__getitem__(key)
                 #img_tensor = item['img'].data.unsqueeze(0)
