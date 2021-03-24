@@ -184,8 +184,8 @@ class Metric(object):
 
         if self.visualize:
             if missing:
-                cv2.imwrite(self.false_negative_folder + str(image_name) + '.jpg', FNimage)
-            cv2.imwrite(self.detection_folder + str(image_name) + '.jpg', Detectionimage)
+                cv2.imwrite(self.false_negative_folder + str(image_name), FNimage)
+            cv2.imwrite(self.detection_folder + str(image_name), Detectionimage)
 
         if len(pred_points) > 0 and self.visualize:
             # Draw false positive rect
@@ -195,8 +195,8 @@ class Metric(object):
                 cv2.rectangle(FPimage, pt1, pt2, self.FP_color, 2)
                 cv2.putText(FPimage, self.classes[fp[4]], pt1, cv2.FONT_HERSHEY_SIMPLEX, .5, self.FP_color, 1)
 
-            cv2.imwrite(self.false_positive_folder + str(image_name) + '.jpg', FPimage)
-            print(image_name)
+            cv2.imwrite(self.false_positive_folder + str(image_name), FPimage)
+
         # 剩下的predict框都是FP
         for p in pred_points:
             self.FPs[int(p[4])].append(p)
