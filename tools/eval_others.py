@@ -193,6 +193,7 @@ def main():
     args = parser.parse_args()
     if args.config is not None:
         cfg = retrieve_data_cfg(args.config, args.skip_type)
+        cfg.data.test.test_mode = True
         dataset = build_dataset(cfg.data.test)
     analyze_results(args.ann, args.result, args, args.visualize, args.out_dir, dataset)
 
