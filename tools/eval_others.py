@@ -84,7 +84,7 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             if visualize:
                 import pdb
                 pdb.set_trace()
-                image = mmcv.imread(os.path.join(image_pre, filename_lists['key']))
+                image = mmcv.imread(os.path.join(image_pre, filename_lists[key]))
                 # item = testset.__getitem__(key)
                 #img_tensor = item['img'].data.unsqueeze(0)
                 #img_metas = item['img_metas'].data
