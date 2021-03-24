@@ -31,8 +31,8 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
     for i in img_ids:
         anns_ids = coco.getAnnIds(imgIds=i,  iscrowd=None)
         anns = coco.loadAnns(anns_ids)
-        import pdb
-        pdb.set_trace()
+        image_info = coco.loadImgs(i)
+        filename_lists[i] = image_info['file_name']
         target_lists[i] = []
         for ann in anns:
             ann['bbox'][2] += ann['bbox'][0]
