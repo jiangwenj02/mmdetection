@@ -95,7 +95,7 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
                 # image = img[:h, :w, :]
                 # image = mmcv.imresize(image, (ori_w, ori_h))
                 #image = image.astype(np.uint8)[:,:,(2,1,0)].copy()
-            eval.eval_add_result(filterd_target, filtered_p,image=image, image_name=key)
+            eval.eval_add_result(filterd_target, filtered_p,image=image, image_name=filename_lists[key])
             #break
         res = eval.get_result()
         F1 = res['overall']['F1']
