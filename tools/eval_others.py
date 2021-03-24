@@ -11,13 +11,14 @@ import mmcv
 from mmcv import Config
 from mmcv.image import tensor2imgs
 from tqdm import tqdm
+import os
 
 def json_load(file_name):
     with open(file_name,'r') as f:
         data = json.load(f)
         return data
 
-def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./work_dirs/mask_rcnn_r50_fpn_1x_polyp/', testset=None):
+def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./work_dirs/mask_rcnn_r50_fpn_1x_polyp/', testset=None, image_pre = ''):
     #threshold_list = np.arange(0, 1, 0.01).tolist()
     threshold_list = [0.25]
     coco = COCO(anno)
@@ -83,7 +84,7 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             if visualize:
                 import pdb
                 pdb.set_trace()
-                image = mmcv.imread(os.path.join(testset, filename_lists['key']))
+                image = mmcv.imread(os.path.join(image_pre, filename_lists['key']))
                 # item = testset.__getitem__(key)
                 #img_tensor = item['img'].data.unsqueeze(0)
                 #img_metas = item['img_metas'].data
@@ -201,7 +202,7 @@ def main():
         cfg = retrieve_data_cfg(args.config, args.skip_type)
         cfg.data.test.test_mode = True
         dataset = build_dataset(cfg.data.test)
-    analyze_results(args.ann, args.result, args, args.visualize, args.out_dir, cfg.data.test.img_prefix)
+    analyze_results(args.ann, args.result, args, args.visualize, args.out_dir, dataset, cfg.data.test.img_prefix)
 
 if __name__ == '__main__':
     main()
