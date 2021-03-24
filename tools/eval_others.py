@@ -79,12 +79,11 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             image= None
             if visualize:
                 item = testset.__getitem__(key)
-                import pdb
-                pdb.set_trace()
-                img_tensor = item['img'].data.unsqueeze(0)
-                img_metas = item['img_metas'].data
+                #img_tensor = item['img'].data.unsqueeze(0)
+                #img_metas = item['img_metas'].data
+                img_tensor = item['img'][0].unsqueeze(0)
+                img_metas = item['img_metas'][0].data
                 img = tensor2imgs(img_tensor, **img_metas['img_norm_cfg'])[0]
-                img_metas = item['img_metas'].data
                 h, w, _ = img_metas['img_shape']
                 ori_h, ori_w = img_metas['ori_shape'][:-1]
                 image = img[:h, :w, :]
