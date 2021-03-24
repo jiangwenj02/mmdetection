@@ -81,18 +81,20 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             filterd_target = [p for p in target_list]
             image= None
             if visualize:
-                item = testset.__getitem__(key)
-                #img_tensor = item['img'].data.unsqueeze(0)
-                #img_metas = item['img_metas'].data
                 import pdb
                 pdb.set_trace()
-                img_tensor = item['img'][0].unsqueeze(0)
-                img_metas = item['img_metas'][0].data
-                img = tensor2imgs(img_tensor, **img_metas['img_norm_cfg'])[0]
-                h, w, _ = img_metas['img_shape']
-                ori_h, ori_w = img_metas['ori_shape'][:-1]
-                image = img[:h, :w, :]
-                image = mmcv.imresize(image, (ori_w, ori_h))
+                image = mmcv.imread(os.path.join(testset, filename_lists['key']))
+                # item = testset.__getitem__(key)
+                #img_tensor = item['img'].data.unsqueeze(0)
+                #img_metas = item['img_metas'].data
+
+                # img_tensor = item['img'][0].unsqueeze(0)
+                # img_metas = item['img_metas'][0].data
+                # img = tensor2imgs(img_tensor, **img_metas['img_norm_cfg'])[0]
+                # h, w, _ = img_metas['img_shape']
+                # ori_h, ori_w = img_metas['ori_shape'][:-1]
+                # image = img[:h, :w, :]
+                # image = mmcv.imresize(image, (ori_w, ori_h))
                 #image = image.astype(np.uint8)[:,:,(2,1,0)].copy()
             eval.eval_add_result(filterd_target, filtered_p,image=image, image_name=key)
             #break
@@ -199,7 +201,7 @@ def main():
         cfg = retrieve_data_cfg(args.config, args.skip_type)
         cfg.data.test.test_mode = True
         dataset = build_dataset(cfg.data.test)
-    analyze_results(args.ann, args.result, args, args.visualize, args.out_dir, dataset)
+    analyze_results(args.ann, args.result, args, args.visualize, args.out_dir, cfg.data.test.img_prefix)
 
 if __name__ == '__main__':
     main()
