@@ -196,6 +196,7 @@ class Metric(object):
                 cv2.putText(FPimage, self.classes[fp[4]], pt1, cv2.FONT_HERSHEY_SIMPLEX, .5, self.FP_color, 1)
 
             cv2.imwrite(self.false_positive_folder + str(image_name) + '.jpg', FPimage)
+            print(image_name)
         # 剩下的predict框都是FP
         for p in pred_points:
             self.FPs[int(p[4])].append(p)
