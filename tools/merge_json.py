@@ -8,7 +8,7 @@ annotation_id = 0
 adenomatous_json_dir = '/data0/zzhang/annotation/ulcer/'
 image_root = ''
 dataset_root = ''
-out_json = 'data/ulcer/trainall.json'
+out_json = '/data0/zzhang/annotation/ulcer/trainall.json'
 
 merged_data = {
                 "licenses": [{"name": "", "id": 0, "url": ""}],
