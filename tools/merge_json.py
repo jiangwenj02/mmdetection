@@ -22,7 +22,7 @@ img_id_test = set()
 imgs_num = 0
 anno_num = 0
 for f in os.listdir(adenomatous_json_dir):
-    if f == '.DS_Store' or not('.josn' in f):
+    if f == '.DS_Store' or not('.json' in f):
         continue
     json_dir = os.path.join(adenomatous_json_dir, f)
     with open(json_dir) as json_file:
