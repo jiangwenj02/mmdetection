@@ -61,12 +61,12 @@ data = dict(
         pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file='/data0/zzhang/annotation/erosive/test.json',
+        ann_file='/data0/zzhang/annotation/erosive/trainall.json',
         img_prefix='/data2/dataset/gastric_object_detection/erosive',
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file='/data0/zzhang/annotation/erosive/test.json',
+        ann_file='/data0/zzhang/annotation/erosive/trainall.json',
         img_prefix='/data2/dataset/gastric_object_detection/erosive',
         pipeline=test_pipeline))
 evaluation = dict(metric=['bbox'])
