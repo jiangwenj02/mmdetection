@@ -74,6 +74,7 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
     best_f2_binary_string = ''
     for thresh in threshold_list:
         eval = Metric(mode='iou', iou_thresh=0.1,visualize=visualize, visualization_root=visualization_folder+"/{:.3}/".format(thresh), classes=testset.CLASSES)
+        eval_none = Metric(mode='iou', iou_thresh=0.1,visualize=visualize, visualization_root=visualization_folder+"/none/", classes=testset.CLASSES)
         for key in tqdm(pred_lists.keys()):
             pred_list = pred_lists[key]
             target_list = target_lists[key]
@@ -95,7 +96,10 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
                 # image = img[:h, :w, :]
                 # image = mmcv.imresize(image, (ori_w, ori_h))
                 #image = image.astype(np.uint8)[:,:,(2,1,0)].copy()
-            eval.eval_add_result(filterd_target, filtered_p,image=image, image_name=filename_lists[key])
+            if len(pred_list) > 0 and len(target_list) == 0:
+                eval_none.eval_add_result(filterd_target, filtered_p, image=image, image_name=filename_lists[key])
+            else:
+                eval.eval_add_result(filterd_target, filtered_p, image=image, image_name=filename_lists[key])
             #break
         res = eval.get_result()
         F1 = res['overall']['F1']
