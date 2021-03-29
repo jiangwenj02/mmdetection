@@ -123,6 +123,7 @@ class Metric(object):
 
         missing = False
         self.total_gt += len(ground_truth)
+        mul_match_flag = False
         for index_gt_box, gt_box in enumerate(ground_truth):
             hasTP = False
             gt = gt_box
@@ -165,6 +166,9 @@ class Metric(object):
                 else:
                     not_matched.append(j)
             pred_points = not_matched
+
+            if match_num > 1:
+                mul_match_flag = True
             # 如果GT 没有被match过 FN+1
             if not hasTP:
                 self.FNs[int(gt[4])].append(gt)
@@ -190,7 +194,8 @@ class Metric(object):
             if missing:
                 cv2.imwrite(self.false_negative_folder + str(image_name), FNimage)
             cv2.imwrite(self.detection_folder + str(image_name), Detectionimage)
-            cv2.imwrite(self.detection_mul_match_folder + str(image_name), Detectionimage)
+            if mul_match_flag:
+                cv2.imwrite(self.detection_mul_match_folder + str(image_name), Detectionimage)
 
         if len(pred_points) > 0 and self.visualize:
             # Draw false positive rect
