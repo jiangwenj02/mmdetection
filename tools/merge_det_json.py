@@ -50,7 +50,7 @@ with open(pre_json) as json_file:
             merged_data["images"].append(img)            
 
     for pred in preds:
-        if pred['image_id'] in filter_file:
+        if pred['image_id'] in img_id_map.keys():
             anno = {}
             anno['id'] = annotation_id
             annotation_id = annotation_id + 1
