@@ -116,7 +116,7 @@ class Metric(object):
                 pt1 = tuple([int(pt[0]), int(pt[1])])
                 pt2 = tuple([int(pt[2]), int(pt[3])])
                 cv2.rectangle(Detectionimage, pt1, pt2, self.Detection_color, 2)
-                cv2.putText(Detectionimage, self.classes[pt[4]], (int(pt[0]), int(pt[1])), cv2.FONT_HERSHEY_SIMPLEX, .5, self.Detection_color, 1)
+                cv2.putText(Detectionimage, self.classes[pt[4]] + '_' + pt[5], (int(pt[0]), int(pt[1])), cv2.FONT_HERSHEY_SIMPLEX, .5, self.Detection_color, 1)
 
             if masks is not None:
                 Detectionimage = self.overlay_mask(Detectionimage, masks)
