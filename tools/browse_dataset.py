@@ -67,7 +67,6 @@ def main():
             show=not args.not_show,
             out_file=filename,
             wait_time=args.show_interval)
-        print(filename)
         progress_bar.update()
 
 
