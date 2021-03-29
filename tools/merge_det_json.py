@@ -50,15 +50,16 @@ with open(pre_json) as json_file:
             merged_data["images"].append(img)            
 
     for pred in preds:
-        anno = {}
-        anno['id'] = annotation_id
-        annotation_id = annotation_id + 1
-        anno['category_id'] = pred['category_id']
-        anno['image_id'] = img_id_map[pred[image_id]]
-        anno['bbox'] = pred['bbox']  
-        anno['iscrowd'] = 0
-        anno['attributes'] = {"occluded": 'false'}
-        merged_data['annotations'].append(anno)
+        if pred['image_id'] in filter_file:
+            anno = {}
+            anno['id'] = annotation_id
+            annotation_id = annotation_id + 1
+            anno['category_id'] = pred['category_id']
+            anno['image_id'] = img_id_map[pred['image_id']]
+            anno['bbox'] = pred['bbox']  
+            anno['iscrowd'] = 0
+            anno['attributes'] = {"occluded": 'false'}
+            merged_data['annotations'].append(anno)
 
 
 print('images %d, annos %d'%(image_id, annotation_id))
