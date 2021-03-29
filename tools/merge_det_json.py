@@ -58,6 +58,7 @@ with open(pre_json) as json_file:
             anno['image_id'] = img_id_map[pred['image_id']]
             anno['bbox'] = pred['bbox']  
             anno['iscrowd'] = 0
+            anno['area'] = pred['bbox'][-2] * pred['bbox'][-1]
             anno['attributes'] = {"occluded": 'false'}
             merged_data['annotations'].append(anno)
 
