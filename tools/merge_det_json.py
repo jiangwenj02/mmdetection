@@ -10,11 +10,10 @@ def json_load(file_name):
 image_id = 0
 annotation_id = 0
 
-adenomatous_json_dir = 'data/erosive/'
 image_root = ''
 dataset_root = ''
-pre_json = 'data/erosive/trainall.json'
-out_json = 'data/erosive/filter.json'
+pre_json = '/data0/zzhang/annotation/erosive/trainall.json'
+out_json = '/data0/zzhang/annotation/erosive/filter.json'
 filter_filename = '/data0/zzhang/tmp/erosive_gt_det/erosive_gt_detfilename.txt'
 det_json = 'work_dirs/faster_rcnn_r50_fpn_1x_erosive_9x/result.bbox.json'
 preds = json_load(det_json)
