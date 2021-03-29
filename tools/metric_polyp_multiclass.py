@@ -76,14 +76,17 @@ class Metric(object):
             self.false_positive_folder = visualization_root + 'FP/'
             self.false_negative_folder = visualization_root + 'FN/'
             self.detection_mul_match_folder = visualization_root + 'mulmatch/'
+            self.detection_mul_det_folder = visualization_root + 'muldet/'
             os.makedirs(self.detection_folder, exist_ok=True)
             os.makedirs(self.false_positive_folder, exist_ok=True)
             os.makedirs(self.false_negative_folder, exist_ok=True)
             os.makedirs(self.detection_mul_match_folder, exist_ok=True)
+            os.makedirs(self.detection_mul_det_folder, exist_ok=True)
             os.popen('rm -r ' + self.detection_folder + '*')
             os.popen('rm -r ' + self.false_positive_folder + '*')
             os.popen('rm -r ' + self.false_negative_folder + '*')
             os.popen('rm -r ' + self.detection_mul_match_folder + '*')
+            os.popen('rm -r ' + self.detection_mul_det_folder + '*')
 
     def eval_add_result(self, ground_truth: list,
                         pred_points: list,
@@ -196,6 +199,8 @@ class Metric(object):
             cv2.imwrite(self.detection_folder + str(image_name), Detectionimage)
             if mul_match_flag:
                 cv2.imwrite(self.detection_mul_match_folder + str(image_name), Detectionimage)
+            if len(pred_points) > len(ground_truth):
+                cv2.imwrite(self.detection_mul_det_folder + str(image_name), Detectionimage)
 
         if len(pred_points) > 0 and self.visualize:
             # Draw false positive rect
