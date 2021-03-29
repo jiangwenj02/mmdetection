@@ -75,6 +75,7 @@ class Metric(object):
             self.detection_folder = visualization_root + 'ALL/'
             self.false_positive_folder = visualization_root + 'FP/'
             self.false_negative_folder = visualization_root + 'FN/'
+            self.detection_mul_match_folder = visualization_root + 'mulmatch/'
             os.makedirs(self.detection_folder, exist_ok=True)
             os.makedirs(self.false_positive_folder, exist_ok=True)
             os.makedirs(self.false_negative_folder, exist_ok=True)
@@ -123,7 +124,7 @@ class Metric(object):
         for index_gt_box, gt_box in enumerate(ground_truth):
             hasTP = False
             gt = gt_box
-
+            match_num = 0
             not_matched = []
             for index_pred, j in enumerate(pred_points):
                 if self.mode == 'center':
@@ -143,6 +144,7 @@ class Metric(object):
                     bbox_matched = overlaps > self.iou_thresh
                 # 如果打中GT框
                 if bbox_matched:
+                    match_num += 1
                     # 如果GT框没有被match 过， 并且pred和GT 的class一样 判定为TP +1
                     if not hasTP and gt[4] == j[4]:
                         self.TPs[int(j[4])].append(j)
@@ -186,6 +188,7 @@ class Metric(object):
             if missing:
                 cv2.imwrite(self.false_negative_folder + str(image_name), FNimage)
             cv2.imwrite(self.detection_folder + str(image_name), Detectionimage)
+            cv2.imwrite(self.detection_mul_match_folder + str(image_name), Detectionimage)
 
         if len(pred_points) > 0 and self.visualize:
             # Draw false positive rect
@@ -194,7 +197,7 @@ class Metric(object):
                 pt2 = tuple([int(fp[2]), int(fp[3])])
                 cv2.rectangle(FPimage, pt1, pt2, self.FP_color, 2)
                 cv2.putText(FPimage, self.classes[fp[4]], pt1, cv2.FONT_HERSHEY_SIMPLEX, .5, self.FP_color, 1)
-
+            
             cv2.imwrite(self.false_positive_folder + str(image_name), FPimage)
 
         # 剩下的predict框都是FP
