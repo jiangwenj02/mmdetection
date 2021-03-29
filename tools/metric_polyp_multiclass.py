@@ -69,6 +69,7 @@ class Metric(object):
         self.GT_color = (0, 0, 255)
         self.visualize = visualize
         self.total_gt = 0.0
+        self.filter_filename = []
 
         if visualize:
             #  create image folder for saving detection result
@@ -172,6 +173,8 @@ class Metric(object):
 
             if match_num > 1:
                 mul_match_flag = True
+            if match_num > 1 or len(pred_points) > len(ground_truth):
+                self.filter_filename.append(image_name)
             # 如果GT 没有被match过 FN+1
             if not hasTP:
                 self.FNs[int(gt[4])].append(gt)

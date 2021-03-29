@@ -74,7 +74,7 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
     best_f2_binary_string = ''
     for thresh in threshold_list:
         eval = Metric(mode='iou', iou_thresh=0.1,visualize=visualize, visualization_root=visualization_folder+"/{:.3}/".format(thresh), classes=testset.CLASSES)
-        eval_none = Metric(mode='iou', iou_thresh=0.1,visualize=visualize, visualization_root=visualization_folder+"/none/", classes=testset.CLASSES)
+        #eval_none = Metric(mode='iou', iou_thresh=0.1,visualize=visualize, visualization_root=visualization_folder+"/none/", classes=testset.CLASSES)
         for key in tqdm(pred_lists.keys()):
             pred_list = pred_lists[key]
             target_list = target_lists[key]
@@ -101,6 +101,10 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             # else:
             eval.eval_add_result(filterd_target, filtered_p, image=image, image_name=filename_lists[key])
             #break
+        with open(visualization_folder + 'filename.txt', 'w') as f:
+            for filename in eval.filter_filename:
+                f.write(filename + '\n')
+            f.close()
         res = eval.get_result()
         F1 = res['overall']['F1']
         F2 = res['overall']['F2']
