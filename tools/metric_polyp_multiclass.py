@@ -79,9 +79,11 @@ class Metric(object):
             os.makedirs(self.detection_folder, exist_ok=True)
             os.makedirs(self.false_positive_folder, exist_ok=True)
             os.makedirs(self.false_negative_folder, exist_ok=True)
+            os.makedirs(self.detection_mul_match_folder, exist_ok=True)
             os.popen('rm -r ' + self.detection_folder + '*')
             os.popen('rm -r ' + self.false_positive_folder + '*')
             os.popen('rm -r ' + self.false_negative_folder + '*')
+            os.popen('rm -r ' + self.detection_mul_match_folder + '*')
 
     def eval_add_result(self, ground_truth: list,
                         pred_points: list,
