@@ -173,7 +173,7 @@ class Metric(object):
 
             if match_num > 1:
                 mul_match_flag = True
-            if match_num > 1 or len(pred_points) > len(ground_truth):
+            if mul_match_flag or (len(pred_points) > len(ground_truth)):
                 self.filter_filename.append(image_name)
             # 如果GT 没有被match过 FN+1
             if not hasTP:

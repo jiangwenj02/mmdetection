@@ -102,6 +102,7 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             eval.eval_add_result(filterd_target, filtered_p, image=image, image_name=filename_lists[key])
             #break
         with open(visualization_folder + '/filter_filename.txt', 'w') as f:
+            print('the number of filter image: %d' % (len(eval.filter_filename)))
             for filename in eval.filter_filename:
                 f.write(filename + '\n')
             f.close()
