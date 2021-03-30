@@ -204,7 +204,7 @@ class Metric(object):
             cv2.imwrite(self.detection_folder + str(image_name), Detectionimage)
             if mul_match_flag:
                 cv2.imwrite(self.detection_mul_match_folder + str(image_name), Detectionimage)
-            if len(pred_points) > len(ground_truth):
+            if mul_det_flag:
                 cv2.imwrite(self.detection_mul_det_folder + str(image_name), Detectionimage)
 
         if mul_det_flag or mul_match_flag:
