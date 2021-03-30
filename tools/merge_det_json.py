@@ -39,7 +39,8 @@ with open(pre_json) as json_file:
     merged_data["licenses"] = data["licenses"]
     merged_data["info"] = data["info"]
     merged_data["categories"] = data["categories"]
-
+    import pdb
+    pdb.set_trace()
     id_list = set()
     img_id_map = {}
     for img in tqdm(data["images"]):
