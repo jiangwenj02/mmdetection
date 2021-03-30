@@ -39,16 +39,20 @@ with open(pre_json) as json_file:
     merged_data["licenses"] = data["licenses"]
     merged_data["info"] = data["info"]
     merged_data["categories"] = data["categories"]
-    import pdb
-    pdb.set_trace()
+    
     id_list = set()
     img_id_map = {}
+    file_names = []
     for img in tqdm(data["images"]):
+        file_names.append(img['file_name'])
         if img['file_name'] in filter_file:
             img_id_map[img['id']] = image_id
             img['id'] = image_id
             image_id = image_id + 1
             merged_data["images"].append(img)            
+
+    import pdb
+    pdb.set_trace()
 
     for pred in tqdm(preds):
         if pred['image_id'] in img_id_map.keys():
