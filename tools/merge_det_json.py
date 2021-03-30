@@ -51,8 +51,6 @@ with open(pre_json) as json_file:
             image_id = image_id + 1
             merged_data["images"].append(img)            
 
-    import pdb
-    pdb.set_trace()
     file_names = set(file_names)
     filter_file = set(filter_file)
 
