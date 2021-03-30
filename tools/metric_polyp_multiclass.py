@@ -78,16 +78,19 @@ class Metric(object):
             self.false_negative_folder = visualization_root + 'FN/'
             self.detection_mul_match_folder = visualization_root + 'mulmatch/'
             self.detection_mul_det_folder = visualization_root + 'muldet/'
+            self.ori_image_folder = visualization_root + 'ori/'
             os.makedirs(self.detection_folder, exist_ok=True)
             os.makedirs(self.false_positive_folder, exist_ok=True)
             os.makedirs(self.false_negative_folder, exist_ok=True)
             os.makedirs(self.detection_mul_match_folder, exist_ok=True)
             os.makedirs(self.detection_mul_det_folder, exist_ok=True)
+            os.makedirs(self.ori_image_folder, exist_ok=True)
             os.popen('rm -r ' + self.detection_folder + '*')
             os.popen('rm -r ' + self.false_positive_folder + '*')
             os.popen('rm -r ' + self.false_negative_folder + '*')
             os.popen('rm -r ' + self.detection_mul_match_folder + '*')
             os.popen('rm -r ' + self.detection_mul_det_folder + '*')
+            os.popen('rm -r ' + self.ori_image_folder + '*')
 
     def eval_add_result(self, ground_truth: list,
                         pred_points: list,
@@ -207,6 +210,7 @@ class Metric(object):
                 cv2.imwrite(self.detection_mul_det_folder + str(image_name), Detectionimage)
 
         if mul_det_flag or mul_match_flag:
+            cv2.imwrite(self.ori_image_folder + str(image_name), image)
             self.filter_filename.append(image_name)
 
         if len(pred_points) > 0 and self.visualize:
