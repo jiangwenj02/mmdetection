@@ -128,7 +128,7 @@ class Metric(object):
         missing = False
         self.total_gt += len(ground_truth)
         mul_match_flag = False
-        mul_det_flag = False
+        mul_det_flag = len(pred_points) > len(ground_truth)
         for index_gt_box, gt_box in enumerate(ground_truth):
             hasTP = False
             gt = gt_box
@@ -170,12 +170,11 @@ class Metric(object):
                         self.mask_iou_count += 1
                 else:
                     not_matched.append(j)
+
             pred_points = not_matched
 
             if match_num > 1:
                 mul_match_flag = True
-            if (len(pred_points) > len(ground_truth)):
-                mul_det_flag = True
                 
             # 如果GT 没有被match过 FN+1
             if not hasTP:
