@@ -30,7 +30,7 @@ merged_data = {
 with open(filter_filename, 'r') as f:
     filter_file = f.readlines()
     filter_file = [file.strip() for file in filter_file]
-
+print(len(filter_file))
 img_id_test = set()
 imgs_num = 0
 anno_num = 0
