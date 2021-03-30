@@ -1,7 +1,7 @@
 import json
 import os
 import shutil
-
+from tqdm import tqdm
 def json_load(file_name):
     with open(file_name,'r') as f:
         data = json.load(f)
@@ -42,14 +42,14 @@ with open(pre_json) as json_file:
 
     id_list = set()
     img_id_map = {}
-    for img in data["images"]:
+    for img in tqdm(data["images"]):
         if img['file_name'] in filter_file:
             img_id_map[img['id']] = image_id
             img['id'] = image_id
             image_id = image_id + 1
             merged_data["images"].append(img)            
 
-    for pred in preds:
+    for pred in tqdm(preds):
         if pred['image_id'] in img_id_map.keys():
             anno = {}
             anno['id'] = annotation_id
