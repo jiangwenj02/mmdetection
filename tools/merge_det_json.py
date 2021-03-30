@@ -53,6 +53,8 @@ with open(pre_json) as json_file:
 
     import pdb
     pdb.set_trace()
+    file_names = set(file_names)
+    filter_file = set(filter_file)
 
     for pred in tqdm(preds):
         if pred['image_id'] in img_id_map.keys():
