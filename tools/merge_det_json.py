@@ -14,7 +14,7 @@ image_root = ''
 dataset_root = ''
 pre_json = '/data0/zzhang/annotation/erosive/trainall.json'
 out_json = '/data0/zzhang/annotation/erosive/filter.json'
-filter_filename = '/data0/zzhang/tmp/erosive_gt_det/erosive_gt_detfilename.txt'
+filter_filename = '/data0/zzhang/tmp/erosive_gt_det/filter_filename.txt'
 det_json = 'work_dirs/faster_rcnn_r50_fpn_1x_erosive_9x/result.bbox.json'
 preds = json_load(det_json)
 
