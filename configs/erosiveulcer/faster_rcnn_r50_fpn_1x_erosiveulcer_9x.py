@@ -30,7 +30,7 @@ test_cfg = dict(
     # e.g., nms=dict(type='soft_nms', iou_threshold=0.5, min_score=0.05)
 )
 
-dataset_type = 'Erosive'
+dataset_type = 'ErosiveUlcer'
 data_root = './data'
 
 img_norm_cfg = dict(

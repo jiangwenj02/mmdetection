@@ -21,7 +21,7 @@ model = dict(
                 type='CrossEntropyLoss', use_sigmoid=False, loss_weight=1.0),
             loss_bbox=dict(type='SmoothL1Loss', beta=1.0, loss_weight=1.0))))
 
-dataset_type = 'Erosive'
+dataset_type = 'ErosiveUlcer'
 data_root = './data'
 
 img_norm_cfg = dict(
