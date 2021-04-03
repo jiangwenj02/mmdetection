@@ -59,7 +59,7 @@ def main():
                                 Path(item['filename']).name
                                 ) if args.output_dir is not None else None
         if '3a6f2f9f-bbbe-4373-a82f-363cde7508b1.jpg' in filename:
-            print(item['gt_bboxes'], item['gt_labels'])
+            print(item['gt_bboxes'], item['gt_labels'], dataset.CLASSES)
         mmcv.imshow_det_bboxes(
             item['img'],
             item['gt_bboxes'],
