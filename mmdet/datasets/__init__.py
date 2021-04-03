@@ -16,11 +16,13 @@ from .polyp import PolypDataset
 from .adenomatous import Adenomatous
 from .erosive import Erosive
 from .ulcer import Ulcer
+from .erosiveulcer import ErosiveUlcer
 __all__ = [
     'CustomDataset', 'XMLDataset', 'CocoDataset', 'DeepFashionDataset',
     'VOCDataset', 'CityscapesDataset', 'LVISDataset', 'LVISV05Dataset',
     'LVISV1Dataset', 'GroupSampler', 'DistributedGroupSampler',
     'DistributedSampler', 'build_dataloader', 'ConcatDataset', 'RepeatDataset',
     'ClassBalancedDataset', 'WIDERFaceDataset', 'DATASETS', 'PIPELINES', 'Erosive', 'Ulcer',
-    'build_dataset', 'replace_ImageToTensor', 'GangDataset', 'PolypDataset', 'Adenomatous'
+    'build_dataset', 'replace_ImageToTensor', 'GangDataset', 'PolypDataset', 'Adenomatous',
+    'ErosiveUlcer'
 ]
