@@ -5,10 +5,10 @@ import shutil
 image_id = 0
 annotation_id = 0
 
-adenomatous_json_dir = 'data/erosive/test/'
+adenomatous_json_dir = 'data/erosiveulcer/train/'
 image_root = ''
 dataset_root = ''
-out_json = 'data/erosive/test.json'
+out_json = 'data/erosiveulcer/train.json'
 
 merged_data = {
                 "licenses": [{"name": "", "id": 0, "url": ""}],
@@ -31,7 +31,9 @@ for idx, f in enumerate(os.listdir(adenomatous_json_dir)):
         data = json.load(json_file)
         for img_idx in range(len(data['images'])):
             data['images'][img_idx]['file_name'] = data['images'][img_idx]['file_name'].split('/')[-1]
-
+            # if data['images'][img_idx]['file_name'] == '3a6f2f9f-bbbe-4373-a82f-363cde7508b1.jpg':
+            #     print(f)
+        print(f)
         if idx == 0:
             merged_data["licenses"] = data["licenses"]
             merged_data["info"] = data["info"]
@@ -65,7 +67,7 @@ for idx, f in enumerate(os.listdir(adenomatous_json_dir)):
                     oldcatid_to_new_id[item['id']] = len(category_to_id) + 1
                     item['id'] = len(category_to_id)
                     merged_data['categories'].append(item)
-
+            print(oldcatid_to_new_id)
             for anno in data["annotations"]:
                 anno['id'] = len(merged_data['annotations']) + 1
                 anno['category_id'] = oldcatid_to_new_id[anno['category_id']]
