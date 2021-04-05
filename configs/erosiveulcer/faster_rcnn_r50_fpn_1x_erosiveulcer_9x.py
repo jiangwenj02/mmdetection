@@ -5,6 +5,15 @@ _base_ = [
 ]
 
 model = dict(
+    rpn_head=dict(
+        anchor_generator=dict(
+            type='AnchorGenerator',
+            scales=[8],
+            ratios=[0.78, 1.29, 2.35],
+            strides=[4, 8, 16, 32, 64]),
+        loss_cls=dict(
+            type='CrossEntropyLoss', use_sigmoid=True, loss_weight=1.0),
+        loss_bbox=dict(type='L1Loss', loss_weight=1.0)),
     roi_head=dict(
         bbox_head=dict(
             type='Shared2FCBBoxHead',
