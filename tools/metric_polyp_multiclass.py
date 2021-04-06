@@ -136,6 +136,8 @@ class Metric(object):
         for index_gt_box, gt_box in enumerate(ground_truth):
             hasTP = False
             gt = gt_box
+            if gt[4] == 3:
+                gt[4] = 2
             match_num = 0
             not_matched = []
             for index_pred, j in enumerate(pred_points):
@@ -179,7 +181,7 @@ class Metric(object):
 
             if match_num > 1:
                 mul_match_flag = True
-                
+    
             # 如果GT 没有被match过 FN+1
             if not hasTP:
                 self.FNs[int(gt[4])].append(gt)
