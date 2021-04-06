@@ -10,10 +10,11 @@ def test_data():
     #model = init_detector(config_file, checkpoint_file, device='cuda:0')
     # test images and show the results
     set_name = 'test' #['train','test']
-    anns_file = './data/erosive/annotations/test.json'
+    anns_file = './data/ulcer/train.json'
     #anns_file = '/data1/qilei_chen/DATA/erosive/annotations/'+set_name+'.json'
     coco_instance = COCO(anns_file)
     coco_imgs = coco_instance.imgs
+    print(len(coco_imgs))
     count_images_with_anns = 0
     count_images_without_anns = 0
     count_anns = 0
@@ -58,10 +59,10 @@ def test_data():
     for key, value in img_file_name_list.items():
         if len(value[0])==0:
             count_zero_ann+=1
-    print(len(img_file_name_dict))
-    print(count_images_with_anns)
-    print(count_anns)
-    print(count_images_without_anns)
+    print('the number of images: ', len(img_file_name_dict))
+    print('the number of images with annotation: ', count_images_with_anns)
+    print('the number of annotations: ', count_anns)
+    print('the number of images without annotation: ', count_images_without_anns)
     print(len(img_file_name_list))
     print(count_zero_ann)
 
