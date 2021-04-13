@@ -35,7 +35,6 @@ def parse_args():
 def list_files(path, ends):
     files = []
     list_dir = os.walk(path)
-    print(list_dir)
     for maindir, subdir, all_file in list_dir:
         
         for filename in all_file:
@@ -57,10 +56,9 @@ def detectvideo(model, video_in, video_out, args):
     videoWriter = cv2.VideoWriter(video_out, fourcc, fps_video, (frame_width, frame_height))
     count=0
     print('Press "Esc", "q" or "Q" to exit.')
-    print(len(cap))
-    import pdb
-    pdb.set_trace()
-    while True:
+    length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    pbar = tqdm(range(length))
+    for i in pbar:
         torch.cuda.empty_cache()
         ret_val, img = cap.read()
         if ret_val:
@@ -102,6 +100,7 @@ def detectvideo(model, video_in, video_out, args):
         else:
             print('fail！！')
             break
+        pbar.set_description("Processing video %s, frame : %d" % (video_in.replace(args.video_in_dir, ''), i))
     cap.release()
     videoWriter.release()
  
