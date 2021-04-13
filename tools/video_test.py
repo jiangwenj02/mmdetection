@@ -35,6 +35,7 @@ def parse_args():
 def list_files(path, ends):
     files = []
     list_dir = os.walk(path)
+    print(list_dir)
     for maindir, subdir, all_file in list_dir:
         
         for filename in all_file:
@@ -111,7 +112,7 @@ def main():
  
     model = init_detector(args.config, args.checkpoint, device=device)
     
-    input_videos = list_files(args.video_in_dir, '*.avi')
+    input_videos = list_files(args.video_in_dir, '.avi')
     print(input_videos)
     for video in tqdm(input_videos):        
         video_out = video.replace(args.video_in_dir, args.video_out_dir)
