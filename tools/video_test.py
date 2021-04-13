@@ -56,6 +56,9 @@ def detectvideo(model, video_in, video_out, args):
     videoWriter = cv2.VideoWriter(video_out, fourcc, fps_video, (frame_width, frame_height))
     count=0
     print('Press "Esc", "q" or "Q" to exit.')
+    print(len(cap))
+    import pdb
+    pdb.set_trace()
     while True:
         torch.cuda.empty_cache()
         ret_val, img = cap.read()
