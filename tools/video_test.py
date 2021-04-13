@@ -25,6 +25,8 @@ def parse_args():
     '--out', type=str, help='output video path')
     parser.add_argument(
         '--score-thr', type=float, default=0.3, help='bbox score threshold')
+    parser.add_argument(
+        '--show', type=bool, default=False, help='bbox score threshold')
     args = parser.parse_args()
     return args
  
@@ -67,7 +69,8 @@ def main():
                 break
             frame=model.show_result(
                 img, result, score_thr=args.score_thr, wait_time=1, show=False,thickness=1,font_scale=1)
-            cv2.imshow('frame',frame)
+            if args.show:
+                cv2.imshow('frame',frame)
             if len(frame)>=1 or frame:
                 #写入视频
                 videoWriter.write(frame)
