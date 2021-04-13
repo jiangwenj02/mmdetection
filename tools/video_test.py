@@ -113,7 +113,7 @@ def main():
     
     input_videos = list_files(args.video_in_dir, '.avi')
     print(input_videos)
-    for video in tqdm(input_videos):        
+    for video in input_videos:        
         video_out = video.replace(args.video_in_dir, args.video_out_dir)
         dir_name = osp.abspath(osp.dirname(video_out))
         mkdir_or_exist(dir_name)
