@@ -106,10 +106,6 @@ def detectvideo(model, video_in, video_out, args):
  
 def main():
     args = parse_args()
- 
-    if not args.file:
-        print("no input test file")
-        exit(0)
     
     device = torch.device(args.device)
  
