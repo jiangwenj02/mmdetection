@@ -14,7 +14,7 @@ import os.path as osp
 import glob
 from mmdet.apis import inference_detector, init_detector
 from mmcv.utils import mkdir_or_exist
- 
+from tqdm import tqdm
 def parse_args():
     parser = argparse.ArgumentParser(description='MMDetection webcam demo')
     parser.add_argument('config', help='test config file path')
@@ -77,7 +77,6 @@ def detectvideo(model, video_in, video_out, args):
                 #写入视频
                 videoWriter.write(frame)
                 count+=1
-                print('Write {} in result Successfully!'.format(count))
             #############################
             """
             # if count%24==0:  #快些看到效果
@@ -114,7 +113,8 @@ def main():
     model = init_detector(args.config, args.checkpoint, device=device)
     
     input_videos = list_files(args.video_in_dir, '*.avi')
-    for video in input_videos:        
+    print(input_videos)
+    for video in tqdm(input_videos):        
         video_out = video.replace(args.video_in_dir, args.video_out_dir)
         dir_name = osp.abspath(osp.dirname(video_out))
         mkdir_or_exist(dir_name)
