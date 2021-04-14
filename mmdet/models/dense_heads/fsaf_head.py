@@ -118,6 +118,10 @@ class FSAFHead(RetinaHead):
                 pos_bbox_targets = self.bbox_coder.encode(
                     sampling_result.pos_bboxes, sampling_result.pos_gt_bboxes)
             else:
+                # When the regression loss (e.g. `IouLoss`, `GIouLoss`)
+                # is applied directly on the decoded bounding boxes, both
+                # the predicted boxes and regression targets should be with
+                # absolute coordinate format.
                 pos_bbox_targets = sampling_result.pos_gt_bboxes
             bbox_targets[pos_inds, :] = pos_bbox_targets
             bbox_weights[pos_inds, :] = 1.0
@@ -390,7 +394,7 @@ class FSAFHead(RetinaHead):
                 - cls_loss: Reduced corrected classification loss. Scalar.
                 - reg_loss: Reduced corrected regression loss. Scalar.
                 - pos_flags (Tensor): Corrected bool tensor indicating the
-                  final postive anchors. Shape: (num_anchors, ).
+                  final positive anchors. Shape: (num_anchors, ).
         """
         loc_weight = torch.ones_like(reg_loss)
         cls_weight = torch.ones_like(cls_loss)
