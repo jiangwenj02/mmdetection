@@ -33,7 +33,7 @@ for idx, f in enumerate(os.listdir(adenomatous_json_dir)):
             data['images'][img_idx]['file_name'] = data['images'][img_idx]['file_name'].split('/')[-1]
             # if data['images'][img_idx]['file_name'] == '3a6f2f9f-bbbe-4373-a82f-363cde7508b1.jpg':
             #     print(f)
-        print(f)
+        
         if idx == 0:
             merged_data["licenses"] = data["licenses"]
             merged_data["info"] = data["info"]
@@ -64,7 +64,7 @@ for idx, f in enumerate(os.listdir(adenomatous_json_dir)):
                     oldcatid_to_new_id[item['id']] = category_to_id[item['name']]
                 else:                    
                     category_to_id[item['name']] = len(category_to_id) + 1
-                    oldcatid_to_new_id[item['id']] = len(category_to_id) + 1
+                    oldcatid_to_new_id[item['id']] = len(category_to_id)
                     item['id'] = len(category_to_id)
                     merged_data['categories'].append(item)
             print(oldcatid_to_new_id)
@@ -73,10 +73,10 @@ for idx, f in enumerate(os.listdir(adenomatous_json_dir)):
                 anno['category_id'] = oldcatid_to_new_id[anno['category_id']]
                 anno['image_id'] = filename_to_id[oldid_to_filename[anno['image_id']]]                  
                 merged_data['annotations'].append(anno)
-
-        image_id = len(merged_data["images"])
-        annotation_id = len(merged_data["annotations"])
-print('images %d, annos %d'%(image_id, annotation_id))
+        print(f, len(data['images']), len(merged_data["images"]))
+        image_id = len(merged_data["images"]) + 1
+        annotation_id = len(merged_data["annotations"]) + 1
+print('images %d, annos %d'%(len(merged_data["images"]), len(merged_data["annotations"])))
 
 with open(out_json, 'w') as out_file:
     json.dump(merged_data, out_file)

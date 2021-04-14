@@ -1,6 +1,8 @@
 from pycocotools.coco import COCO
+from tqdm import tqdm 
+import glob
 
-def test_data():
+def test_data(anns_file):
     # Specify the path to model config and checkpoint file
     # model_name = 'reppoints_moment_r50_fpn_1x_coco'
     # score_thr=0.25
@@ -10,19 +12,25 @@ def test_data():
     #model = init_detector(config_file, checkpoint_file, device='cuda:0')
     # test images and show the results
     set_name = 'test' #['train','test']
-    anns_file = './data/erosive/annotations/test.json'
     #anns_file = '/data1/qilei_chen/DATA/erosive/annotations/'+set_name+'.json'
     coco_instance = COCO(anns_file)
     coco_imgs = coco_instance.imgs
+    print(len(coco_imgs))
     count_images_with_anns = 0
     count_images_without_anns = 0
     count_anns = 0
     img_file_name_list = {}
     img_file_name_dict = {}
     count_zero_ann = 0
-    for key in coco_imgs:
+    for key in tqdm(coco_imgs):
         annIds = coco_instance.getAnnIds(imgIds= coco_imgs[key]['id'])
         anns = coco_instance.loadAnns(annIds)
+
+        for ann in anns:
+            if len(ann['segmentation']) > 0 and len(ann['bbox']) == 0:
+                import pdb
+                pdb.set_trace()
+                print(coco_imgs[key]["file_name"])
         if not len(anns)==0:
             count_images_with_anns+=1
             count_anns+=len(anns)
@@ -41,6 +49,7 @@ def test_data():
             print(img_file_name)
             print(img_file_name_list[img_file_name])
             if len(img_file_name_list[img_file_name][0])==0:
+                print(img_file_name)
                 count_zero_ann+=1
             print(anns)
         '''
@@ -58,11 +67,17 @@ def test_data():
     for key, value in img_file_name_list.items():
         if len(value[0])==0:
             count_zero_ann+=1
-    print(len(img_file_name_dict))
-    print(count_images_with_anns)
-    print(count_anns)
-    print(count_images_without_anns)
+    
+    print(anns_file)
+    print('the number of images: ', len(img_file_name_dict))
+    print('the number of images with annotation: ', count_images_with_anns)
+    print('the number of annotations: ', count_anns)
+    print('the number of images without annotation: ', count_images_without_anns)
     print(len(img_file_name_list))
     print(count_zero_ann)
 
-test_data()
+
+anns_dir = './data/ulcer/*.json'
+files = glob.glob(anns_dir)
+for ann_file in files:
+    test_data(ann_file)
