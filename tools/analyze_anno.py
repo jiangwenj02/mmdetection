@@ -66,7 +66,7 @@ def test_data(anns_file):
         '''
     with open('non_gt.filename', 'w') as f:
         for key, value in img_file_name_list.items():
-            f.write(key)
+            f.write(key + '\n')
             if len(value[0])==0:
                 count_zero_ann+=1
         f.close()
