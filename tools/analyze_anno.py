@@ -64,9 +64,12 @@ def test_data(anns_file):
                         text_color = (255,0,0),font_size=5,
                         out_file='/data1/qilei_chen/DATA/erosive/work_dirs/'+model_name+'/'+set_name+'_result_'+str(score_thr)+'/'+img_file_name)
         '''
-    for key, value in img_file_name_list.items():
-        if len(value[0])==0:
-            count_zero_ann+=1
+    with open('non_gt.filename', 'w') as f:
+        for key, value in img_file_name_list.items():
+            f.write(key)
+            if len(value[0])==0:
+                count_zero_ann+=1
+        f.close()
     
     print(anns_file)
     print('the number of images: ', len(img_file_name_dict))
@@ -77,7 +80,7 @@ def test_data(anns_file):
     print(count_zero_ann)
 
 
-anns_dir = './data/ulcer/*.json'
+anns_dir = '/data0/zzhang/annotation/erosiveulcer/train.json'
 files = glob.glob(anns_dir)
 for ann_file in files:
     test_data(ann_file)
