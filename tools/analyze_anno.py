@@ -65,9 +65,9 @@ def test_data(anns_file):
                         out_file='/data1/qilei_chen/DATA/erosive/work_dirs/'+model_name+'/'+set_name+'_result_'+str(score_thr)+'/'+img_file_name)
         '''
     with open('non_gt.filename', 'w') as f:
-        for key, value in img_file_name_list.items():
-            f.write(key + '\n')
+        for key, value in img_file_name_list.items():            
             if len(value[0])==0:
+                f.write(key + '\n')
                 count_zero_ann+=1
         f.close()
     
