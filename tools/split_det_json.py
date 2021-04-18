@@ -34,7 +34,7 @@ with open(pre_json) as json_file:
     for img in tqdm(data["images"]):
         file_names.append(img['file_name'])
         if img['file_name'] not in filter_file: 
-            f_list[count % len(outputfile)].write(img['file_name'])
+            f_list[count % len(outputfile)].write(img['file_name'] + '\n')
             count = count + 1
 
 for f in f_list:
