@@ -30,12 +30,12 @@ with open(pre_json) as json_file:
     id_list = set()
     img_id_map = {}
     file_names = []
-    num_images = len(img['file_name'])
     count = 0 
     for img in tqdm(data["images"]):
         file_names.append(img['file_name'])
         if img['file_name'] not in filter_file: 
             f_list[count % len(outputfile)].write(img['file_name'])
+            count = count + 1
 
 for f in f_list:
     f.close()
