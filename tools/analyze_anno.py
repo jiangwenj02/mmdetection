@@ -80,8 +80,8 @@ def test_data(anns_file):
     print(count_zero_ann)
 
 
-anns_dir = '/data0/zzhang/annotation/erosiveulcer/train.json'
-anns_dir = 'data/erosiveulcer/train.json'
+anns_dir = '/data0/zzhang/annotation/erosive2/train.json'
+anns_dir = 'data/erosive2/test.json'
 files = glob.glob(anns_dir)
 for ann_file in files:
     test_data(ann_file)
