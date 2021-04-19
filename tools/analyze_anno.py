@@ -81,7 +81,7 @@ def test_data(anns_file):
 
 
 anns_dir = '/data0/zzhang/annotation/erosive2/train.json'
-anns_dir = 'data/erosive2/test.json'
+anns_dir = 'data/erosive2/annotations/train_removed.json'
 files = glob.glob(anns_dir)
 for ann_file in files:
     test_data(ann_file)
