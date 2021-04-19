@@ -65,7 +65,7 @@ data = dict(
     samples_per_gpu=2,
     workers_per_gpu=2,
     train=dict(type='RepeatDataset',
-        times=18,
+        times=9,
         dataset=dict(
         type=dataset_type,
         ann_file='/data0/zzhang/annotation/erosive2/train.json',
