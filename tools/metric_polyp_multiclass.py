@@ -80,18 +80,21 @@ class Metric(object):
             self.detection_mul_match_folder = visualization_root + 'mulmatch/'
             self.detection_mul_det_folder = visualization_root + 'muldet/'
             self.ori_image_folder = visualization_root + 'ori/'
+            self.non_positive_folder = visualization_root + 'non_gt_ori/'
             os.makedirs(self.detection_folder, exist_ok=True)
             os.makedirs(self.false_positive_folder, exist_ok=True)
             os.makedirs(self.false_negative_folder, exist_ok=True)
             os.makedirs(self.detection_mul_match_folder, exist_ok=True)
             os.makedirs(self.detection_mul_det_folder, exist_ok=True)
             os.makedirs(self.ori_image_folder, exist_ok=True)
+            os.makedirs(self.non_positive_folder, exist_ok=True)
             os.popen('rm -r ' + self.detection_folder + '*')
             os.popen('rm -r ' + self.false_positive_folder + '*')
             os.popen('rm -r ' + self.false_negative_folder + '*')
             os.popen('rm -r ' + self.detection_mul_match_folder + '*')
             os.popen('rm -r ' + self.detection_mul_det_folder + '*')
             os.popen('rm -r ' + self.ori_image_folder + '*')
+            os.popen('rm -r ' + self.non_positive_folder + '*')
 
     def eval_add_result(self, ground_truth: list,
                         pred_points: list,
@@ -226,6 +229,9 @@ class Metric(object):
                 cv2.putText(FPimage, self.classes[fp[4]], pt1, cv2.FONT_HERSHEY_SIMPLEX, .5, self.FP_color, 1)
             
             cv2.imwrite(self.false_positive_folder + str(image_name), FPimage)
+        
+        if len(ground_truth) == 0:
+            cv2.imwrite(self.non_positive_folder + str(image_name), image)
 
         # 剩下的predict框都是FP
         for p in pred_points:
