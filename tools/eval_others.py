@@ -19,8 +19,8 @@ def json_load(file_name):
         return data
 
 def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./work_dirs/mask_rcnn_r50_fpn_1x_polyp/', testset=None, image_pre = ''):
-    #threshold_list = np.arange(0, 1, 0.01).tolist()
-    threshold_list = [0.25]
+    threshold_list = np.arange(0, 1, 0.01).tolist()
+    #threshold_list = [0.25]
     coco = COCO(anno)
     img_ids = coco.getImgIds()
     num_cls = cfg.num_clsses
@@ -101,11 +101,11 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             # else:
             eval.eval_add_result(filterd_target, filtered_p, image=image, image_name=filename_lists[key])
             #break
-        with open(visualization_folder + '/filter_filename.txt', 'w') as f:
-            print('the number of filter image: %d' % (len(eval.filter_filename)))
-            for filename in eval.filter_filename:
-                f.write(filename + '\n')
-            f.close()
+        # with open(visualization_folder + '/filter_filename.txt', 'w') as f:
+        #     print('the number of filter image: %d' % (len(eval.filter_filename)))
+        #     for filename in eval.filter_filename:
+        #         f.write(filename + '\n')
+        #     f.close()
         res = eval.get_result()
         F1 = res['overall']['F1']
         F2 = res['overall']['F2']
@@ -209,6 +209,8 @@ def main():
         cfg = retrieve_data_cfg(args.config, args.skip_type)
         cfg.data.test.test_mode = True
         dataset = build_dataset(cfg.data.test)
+    else:
+        dataset = None
     analyze_results(args.ann, args.result, args, args.visualize, args.out_dir, dataset, cfg.data.test.img_prefix)
 
 if __name__ == '__main__':
