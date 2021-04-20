@@ -230,7 +230,7 @@ class Metric(object):
             
             cv2.imwrite(self.false_positive_folder + str(image_name), FPimage)
         
-        if len(ground_truth) == 0:
+        if len(ground_truth) == 0 and self.visualize:
             cv2.imwrite(self.non_positive_folder + str(image_name), image)
 
         # 剩下的predict框都是FP
