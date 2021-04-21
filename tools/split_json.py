@@ -49,10 +49,12 @@ with open(adenomatous_json_dir) as json_file:
 
     
     oldid_com_to_filename = [{}, {}]
+    split_factor = 0.617
     for idx, img in enumerate(data["images"]):
-        merged_data = merged_com_data[idx > 0.7 * len(data["images"])]
-        oldid_to_filename = oldid_com_to_filename[idx > 0.7 * len(data["images"])]
-        filename_to_id = filename_com_to_id[idx > 0.7 * len(data["images"])]
+        com_idx = split_factor * len(data["images"])
+        merged_data = merged_com_data[com_idx]
+        oldid_to_filename = oldid_com_to_filename[com_idx]
+        filename_to_id = filename_com_to_id[com_idx]
         oldid_to_filename[img['id']] = img['file_name']
         image_id = len(merged_data["images"]) + 1
         img['id'] = image_id
