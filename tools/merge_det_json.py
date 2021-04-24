@@ -13,8 +13,8 @@ annotation_id = 0
 image_root = ''
 dataset_root = ''
 pre_json = '/data0/zzhang/annotation/erosive/trainall.json'
-out_jsons = ['/data0/zzhang/annotation/erosive/filter3.json']
-filter_filenames = ['/data0/zzhang/tmp/erosive_gt_det/filter_filename2.txt']
+out_jsons = ['/data0/zzhang/tmp/ulcer_gt_det/filterfilejson/filter' + str(i) + '.json' for i in range(12)]
+filter_filenames = ['/data0/zzhang/tmp/ulcer_gt_det/filterfiletxt/filter_filename' + str(i) + '.txt' for i in range(12)]
 det_json = 'work_dirs/faster_rcnn_r50_fpn_1x_erosive_9x/result.bbox.json'
 preds = json_load(det_json)
 
