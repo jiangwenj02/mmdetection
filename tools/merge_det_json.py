@@ -68,7 +68,7 @@ for i in range(len(filter_filenames)):
                 merged_data['annotations'].append(anno)
 
 
-    print('images %d, annos %d'%(image_id, len(merged_data['annotations'])))
+    print('images %d, annos %d'%(len(merged_data["images"]), len(merged_data['annotations'])))
 
     with open(out_json, 'w') as out_file:
         json.dump(merged_data, out_file)
