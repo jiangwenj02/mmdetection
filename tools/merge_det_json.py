@@ -17,15 +17,14 @@ filter_filenames = ['/data0/zzhang/tmp/ulcer_gt_det/filterfiletxt/filter_filenam
 det_json = 'work_dirs/faster_rcnn_r50_fpn_1x_ulcer_9x/result.bbox.json'
 preds = json_load(det_json)
 
-merged_data = {
+for i in range(len(filter_filenames)):
+    merged_data = {
                 "licenses": [{"name": "", "id": 0, "url": ""}],
                 "info": {"contributor": "", "date_created": "", "description": "", "url": "", "version": "", "year": ""},
                 "categories": [],
                 "images": [],
                 "annotations": []
-}
-
-for i in range(len(filter_filenames)):
+                }
     filter_filename = filter_filenames[i]
     out_json = out_jsons[i]
 
