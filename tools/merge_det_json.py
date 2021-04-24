@@ -12,16 +12,16 @@ annotation_id = 0
 
 image_root = ''
 dataset_root = ''
-pre_json = '/data0/zzhang/annotation/erosive/trainall.json'
+pre_json = '/data0/zzhang/annotation/ulcer/trainall.json'
 out_jsons = ['/data0/zzhang/tmp/ulcer_gt_det/filterfilejson/filter' + str(i) + '.json' for i in range(12)]
 filter_filenames = ['/data0/zzhang/tmp/ulcer_gt_det/filterfiletxt/filter_filename' + str(i) + '.txt' for i in range(12)]
-det_json = 'work_dirs/faster_rcnn_r50_fpn_1x_erosive_9x/result.bbox.json'
+det_json = 'work_dirs/faster_rcnn_r50_fpn_1x_ulcer_9x/result.bbox.json'
 preds = json_load(det_json)
 
 merged_data = {
                 "licenses": [{"name": "", "id": 0, "url": ""}],
                 "info": {"contributor": "", "date_created": "", "description": "", "url": "", "version": "", "year": ""},
-                "categories": [{"id": 1, "name": "erosive", "supercategory": ""}],
+                "categories": [],
                 "images": [],
                 "annotations": []
 }
