@@ -7,8 +7,7 @@ def json_load(file_name):
         data = json.load(f)
         return data
 
-image_id = 0
-annotation_id = 0
+
 
 image_root = ''
 dataset_root = ''
@@ -49,9 +48,9 @@ for i in range(len(filter_filenames)):
         for img in tqdm(data["images"]):
             file_names.append(img['file_name'])
             if img['file_name'] in filter_file:
+                image_id = len( merged_data["images"]) + 1
                 img_id_map[img['id']] = image_id
                 img['id'] = image_id
-                image_id = image_id + 1
                 merged_data["images"].append(img)            
 
         file_names = set(file_names)
@@ -60,8 +59,7 @@ for i in range(len(filter_filenames)):
         for pred in tqdm(preds):
             if pred['image_id'] in img_id_map.keys():
                 anno = {}
-                anno['id'] = annotation_id
-                annotation_id = annotation_id + 1
+                anno['id'] = len(merged_data['annotations']) + 1
                 anno['category_id'] = pred['category_id']
                 anno['image_id'] = img_id_map[pred['image_id']]
                 anno['bbox'] = pred['bbox']  
@@ -71,7 +69,7 @@ for i in range(len(filter_filenames)):
                 merged_data['annotations'].append(anno)
 
 
-    print('images %d, annos %d'%(image_id, annotation_id))
+    print('images %d, annos %d'%(image_id, len(merged_data['annotations'])))
 
     with open(out_json, 'w') as out_file:
         json.dump(merged_data, out_file)
