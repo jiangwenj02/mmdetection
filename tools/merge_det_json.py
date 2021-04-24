@@ -45,14 +45,15 @@ for i in range(len(filter_filenames)):
         img_id_map = {}
         file_names = []
         for img in tqdm(data["images"]):
-            file_names.append(img['file_name'])
+            
             if img['file_name'] in filter_file:
+                file_names.append(img['file_name'])
                 image_id = len(merged_data["images"]) + 1
                 img_id_map[img['id']] = image_id
                 img['id'] = image_id
                 merged_data["images"].append(img)            
 
-        file_names = set(merged_data["images"])
+        file_names = set(file_names)
         filter_file = set(filter_file)
 
         for pred in tqdm(preds):
