@@ -47,12 +47,12 @@ for i in range(len(filter_filenames)):
         for img in tqdm(data["images"]):
             file_names.append(img['file_name'])
             if img['file_name'] in filter_file:
-                image_id = len( merged_data["images"]) + 1
+                image_id = len(merged_data["images"]) + 1
                 img_id_map[img['id']] = image_id
                 img['id'] = image_id
                 merged_data["images"].append(img)            
 
-        file_names = set(file_names)
+        file_names = set(merged_data["images"])
         filter_file = set(filter_file)
 
         for pred in tqdm(preds):
@@ -67,7 +67,7 @@ for i in range(len(filter_filenames)):
                 anno['attributes'] = {"occluded": 'false'}
                 merged_data['annotations'].append(anno)
 
-
+    print(len(file_names))
     print('images %d, annos %d'%(len(merged_data["images"]), len(merged_data['annotations'])))
 
     with open(out_json, 'w') as out_file:
