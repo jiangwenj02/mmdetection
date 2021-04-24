@@ -12,11 +12,12 @@ annotation_id = 0
 
 image_root = ''
 dataset_root = ''
-pre_json = '/data0/zzhang/annotation/erosive/trainall.json'
-filter_filename = '/data0/zzhang/tmp/erosive_gt_det/filter_filename.txt'
-outputfile = ['/data0/zzhang/tmp/erosive_gt_det/filter_filename1.txt', '/data0/zzhang/tmp/erosive_gt_det/filter_filename2.txt']
+pre_json = '/data0/zzhang/annotation/ulcer/trainall.json'
+filter_filename = '/data0/zzhang/tmp/ulcer_gt_det/filter_filename.txt'
+outputfile = ['/data0/zzhang/tmp/ulcer_gt_det/filter_filename' + str(i) + '.txt' for i in range(12)]
 f_list = [open(file, 'w') for file in outputfile]
 
+filter_file = []
 with open(filter_filename, 'r') as f:
     filter_file = f.readlines()
     filter_file = [file.strip() for file in filter_file]
