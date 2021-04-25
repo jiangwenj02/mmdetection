@@ -11,7 +11,7 @@ def json_load(file_name):
 
 image_root = ''
 dataset_root = ''
-pre_json = '/data0/zzhang/annotation/ulcer/trainall.json'
+pre_json = '/data3/zzhang/annotation/ulcer/trainall.json'
 out_jsons = ['/data3/zzhang/tmp/ulcer_gt_det/filterfilejson/filter' + str(i) + '.json' for i in range(12)]
 filter_filenames = ['/data3/zzhang/tmp/ulcer_gt_det/filterfiletxt/filter_filename' + str(i) + '.txt' for i in range(12)]
 det_json = 'work_dirs/faster_rcnn_r50_fpn_1x_ulcer_9x/result.bbox.json'
