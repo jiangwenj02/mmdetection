@@ -55,20 +55,20 @@ data = dict(
     samples_per_gpu=2,
     workers_per_gpu=2,
     train=dict(type='RepeatDataset',
-        times=18,
+        times=9,
         dataset=dict(
         type=dataset_type,
-        ann_file='/data0/zzhang/annotation/ulcer/train.json',
+        ann_file='/data3/zzhang/annotation/ulcer/trainall.json',
         img_prefix='/data2/dataset/gastric_object_detection/ulcer',
         pipeline=train_pipeline)),
     val=dict(
         type=dataset_type,
-        ann_file='/data0/zzhang/annotation/ulcer/test.json',
+        ann_file='/data3/zzhang/annotation/ulcer/trainall.json',
         img_prefix='/data2/dataset/gastric_object_detection/ulcer',
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file='/data0/zzhang/annotation/ulcer/test.json',
+        ann_file='/data3/zzhang/annotation/ulcer/trainall.json',
         img_prefix='/data2/dataset/gastric_object_detection/ulcer',
         pipeline=test_pipeline))
 evaluation = dict(metric=['bbox'])
