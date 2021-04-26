@@ -1,19 +1,22 @@
 import json
 import os
 import shutil
+from mmcv.utils import mkdir_or_exist
 from tqdm import tqdm
+import shutil
+import os.path as osp
 def json_load(file_name):
     with open(file_name,'r') as f:
         data = json.load(f)
         return data
 
-
-
 image_root = ''
 dataset_root = ''
 pre_json = '/data3/zzhang/annotation/ulcer/trainall.json'
 out_jsons = ['/data3/zzhang/tmp/ulcer_gt_det/filterfilejson/filter' + str(i) + '.json' for i in range(12)]
+before_images = '/data2/dataset/gastric_object_detection/ulcer/'
 filter_filenames = ['/data3/zzhang/tmp/ulcer_gt_det/filterfiletxt/filter_filename' + str(i) + '.txt' for i in range(12)]
+filter_images_dir = ['/data3/zzhang/tmp/ulcer_gt_det/filterimages/filter' + str(i) for i in range(12)]
 det_json = 'work_dirs/faster_rcnn_r50_fpn_1x_ulcer_9x/result.bbox.json'
 preds = json_load(det_json)
 
@@ -31,6 +34,9 @@ for i in range(len(filter_filenames)):
     with open(filter_filename, 'r') as f:
         filter_file = f.readlines()
         filter_file = [file.strip() for file in filter_file]
+        mkdir_or_exist(filter_images_dir[i])
+        for file in filter_file:
+            shutil.copy(osp.join(before_images, file), osp.join(filter_images_dir[i], file))
     print('the number of filter image: %d' % (len(filter_file)))
     img_id_test = set()
     imgs_num = 0
