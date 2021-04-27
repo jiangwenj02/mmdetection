@@ -5,7 +5,7 @@ import shutil
 image_id = 0
 annotation_id = 0
 
-adenomatous_json_dir = 'data/erosive2/annotations/train_removed.json'
+adenomatous_json_dir = 'data/erosive2/annotations/trainall.json'
 image_root = ''
 out_json = ['data/erosive2/annotations/fine_train.json', 'data/erosive2/annotations/fine_test.json']
 

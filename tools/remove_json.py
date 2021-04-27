@@ -5,10 +5,11 @@ import shutil
 image_id = 0
 annotation_id = 0
 
-adenomatous_json_dir = 'data/erosive2/annotations/instances_default.json'
+
+adenomatous_json_dir = 'data/erosive2/jingxiu2/annotations/instances_default.json'
 image_root = ''
-out_json = 'data/erosive2/annotations/train_removed.json'
-remove_txt = 'data/erosive2/remove.txt'
+out_json = 'data/erosive2/jingxiu2/annotations/train_removed.json'
+remove_txt = 'data/erosive2/jingxiu2/remove.txt'
 merged_data = {
                 "licenses": [{"name": "", "id": 0, "url": ""}],
                 "info": {"contributor": "", "date_created": "", "description": "", "url": "", "version": "", "year": ""},
@@ -47,7 +48,7 @@ with open(adenomatous_json_dir) as json_file:
     
     oldid_to_filename = {}
     for img in data["images"]:
-        if img['file_name'] in lines:
+        if img['file_name'].split('/')[-1] in lines:
             continue
         else:
             oldid_to_filename[img['id']] = img['file_name']
