@@ -20,7 +20,8 @@ def json_load(file_name):
 
 def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./work_dirs/mask_rcnn_r50_fpn_1x_polyp/', testset=None, image_pre = ''):
     threshold_list = np.arange(0, 1, 0.01).tolist()
-    # threshold_list = [0.25]
+    if visualize:
+        threshold_list = [0.25]
     coco = COCO(anno)
     img_ids = coco.getImgIds()
     num_cls = cfg.num_clsses
