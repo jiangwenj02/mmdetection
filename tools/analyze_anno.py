@@ -26,11 +26,11 @@ def test_data(anns_file):
         annIds = coco_instance.getAnnIds(imgIds= coco_imgs[key]['id'])
         anns = coco_instance.loadAnns(annIds)
 
-        for ann in anns:
-            if len(ann['segmentation']) > 0 and len(ann['bbox']) == 0:
-                import pdb
-                pdb.set_trace()
-                print(coco_imgs[key]["file_name"])
+        # for ann in anns:
+        #     if len(ann['segmentation']) > 0 and len(ann['bbox']) == 0:
+        #         import pdb
+        #         pdb.set_trace()
+        #         print(coco_imgs[key]["file_name"])
         if not len(anns)==0:
             count_images_with_anns+=1
             count_anns+=len(anns)
