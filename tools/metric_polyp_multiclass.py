@@ -167,15 +167,16 @@ class Metric(object):
                     iw = max(0, iw)
                     ih = max(0, ih)
                     # ua = query_area + gt_area - (iw * ih)
-                    overlaps = (iw * ih) / float(query_area)
+                    overlaps = (iw * ih) / float(query_area + 1e-4)
                     bbox_matched = overlaps > self.iou_thresh
                 # 如果打中GT框
                 if bbox_matched:
                     match_num += 1
                     # 如果GT框没有被match 过， 并且pred和GT 的class一样 判定为TP +1
                     if (not hasTP and gt[4] == j[4]) or (self.mode == 'siou' and gt[4] == j[4]):
-                        self.TPs[int(j[4])].append(j)
-                        hasTP = True
+                        if not hasTP:
+                            self.TPs[int(j[4])].append(j)
+                            hasTP = True
                     # 如果match到GT 但是 class不一样 添加到候选框，等待下一轮GT match
                     elif gt[4] != j[4]:
                         not_matched.append(j)
@@ -279,12 +280,13 @@ class Metric(object):
                     iw = max(0, iw)
                     ih = max(0, ih)
                     # ua = query_area + gt_area - (iw * ih)
-                    overlaps = (iw * ih) / float(query_area)
+                    overlaps = (iw * ih) / float(query_area + 1e-4)
                     bbox_matched = overlaps > self.iou_thresh
                 if bbox_matched:
                     if not hasTP or self.mode == 'siou':
-                        self.TPs_binary.append(j)
-                        hasTP = True
+                        if not hasTP:
+                            self.TPs_binary.append(j)
+                            hasTP = True
                 else:
                     not_matched.append(j)
             pred_points = not_matched
