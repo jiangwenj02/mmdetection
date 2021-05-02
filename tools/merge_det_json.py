@@ -17,7 +17,7 @@ out_jsons = ['/data3/zzhang/tmp/ulcer_gt_det/filterfilejson/filter' + str(i) + '
 before_images = '/data2/dataset/gastric_object_detection/ulcer/'
 filter_filenames = ['/data3/zzhang/tmp/ulcer_gt_det/filterfiletxt/filter_filename' + str(i) + '.txt' for i in range(12)]
 filter_images_dir = ['/data3/zzhang/tmp/ulcer_gt_det/filterimages/filter' + str(i) for i in range(12)]
-det_json = '/data3/zzhang/mmdetectionwork_dirs/faster_rcnn_r50_fpn_1x_ulcer_9x/result.bbox.json'
+det_json = '/data3/zzhang/mmdetection/work_dirs/faster_rcnn_r50_fpn_1x_ulcer_9x/result.bbox.json'
 preds = json_load(det_json)
 
 for i in range(len(filter_filenames)):
