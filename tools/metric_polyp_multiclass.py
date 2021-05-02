@@ -271,8 +271,18 @@ class Metric(object):
                     ua = query_area + gt_area - (iw * ih)
                     overlaps = (iw * ih) / float(ua)
                     bbox_matched = overlaps > self.iou_thresh
+                elif self.mode == 'siou':
+                    query_area = (j[2] - j[0]) * (j[3] - j[1])
+                    gt_area = (gt[2] - gt[0]) * (gt[3] - gt[1])
+                    iw = (min(j[2], gt[2]) - max(j[0], gt[0]))
+                    ih = (min(j[3], gt[3]) - max(j[1], gt[1]))
+                    iw = max(0, iw)
+                    ih = max(0, ih)
+                    # ua = query_area + gt_area - (iw * ih)
+                    overlaps = (iw * ih) / float(query_area)
+                    bbox_matched = overlaps > self.iou_thresh
                 if bbox_matched:
-                    if not hasTP:
+                    if not hasTP or self.mode == 'siou':
                         self.TPs_binary.append(j)
                         hasTP = True
                 else:
