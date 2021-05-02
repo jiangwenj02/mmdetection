@@ -57,7 +57,7 @@ class Metric(object):
              |   
         """
         self.confusion_matrix = defaultdict(lambda: defaultdict(int))
-        assert mode == 'center' or mode == 'iou', f'({mode}) mode is not supported'
+        assert mode == 'center' or mode == 'iou' or mode == 'siou', f'({mode}) mode is not supported'
         self.mode = mode
         self.iou_thresh = iou_thresh
         self.image_classification = image_classification
