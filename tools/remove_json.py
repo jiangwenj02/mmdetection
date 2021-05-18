@@ -1,15 +1,16 @@
 import json
 import os
 import shutil
+import os.path as osp
 
 image_id = 0
 annotation_id = 0
 
-
-adenomatous_json_dir = 'data/erosive2/jingxiu2/annotations/instances_default.json'
+name='filter11'
+adenomatous_json_dir = osp.join('data/ulcer_fine/before/', name + '.json')
 image_root = ''
-out_json = 'data/erosive2/jingxiu2/annotations/train_removed.json'
-remove_txt = 'data/erosive2/jingxiu2/remove.txt'
+out_json = osp.join('data/ulcer_fine/after/', name + '_removed.json')
+remove_txt = osp.join('data/ulcer_fine/before/', name + 'remove.txt')
 merged_data = {
                 "licenses": [{"name": "", "id": 0, "url": ""}],
                 "info": {"contributor": "", "date_created": "", "description": "", "url": "", "version": "", "year": ""},
@@ -81,7 +82,7 @@ with open(adenomatous_json_dir) as json_file:
     annotation_id = len(merged_data["annotations"]) + 1
 print('images %d, annos %d'%(len(merged_data["images"]), len(merged_data["annotations"])))
 
-merged_data["categories"] = [{"id": 1, "name": "erosive", "supercategory": ""}]
+# merged_data["categories"] = [{"id": 1, "name": "erosive", "supercategory": ""}]
 
 for img in merged_data["images"]:
     img['file_name'] = img['file_name'].split('/')[-1]
