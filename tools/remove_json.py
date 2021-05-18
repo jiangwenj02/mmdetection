@@ -82,7 +82,7 @@ with open(adenomatous_json_dir) as json_file:
     annotation_id = len(merged_data["annotations"]) + 1
 print('images %d, annos %d'%(len(merged_data["images"]), len(merged_data["annotations"])))
 
-merged_data["categories"] = [{"id": 1, "name": "erosive", "supercategory": ""}]
+# merged_data["categories"] = [{"id": 1, "name": "erosive", "supercategory": ""}]
 
 for img in merged_data["images"]:
     img['file_name'] = img['file_name'].split('/')[-1]
