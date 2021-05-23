@@ -29,7 +29,7 @@ def findContours(*args, **kwargs):
     return contours, hierarchy
 
 # import json
-class Metric(object):
+class MetricMulticlass(object):
     def __init__(self, mode='center', iou_thresh=0, visualize=False, visualization_root='demo/',
                  image_classification=False, classes=None):
 

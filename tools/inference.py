@@ -7,7 +7,7 @@ import cv2
 import json
 import pickle
 from metric_polyp import Metric
-from metric_polyp_multiclass import Metric
+from metric_polyp_multiclass import MetricMulticlass
 from img_crop import crop_img
 from extra_nms import *
 import datetime
@@ -276,8 +276,8 @@ def peval_m(result_dir, coco_instance, thresh=0.3, with_empty_images=True,catego
     
     fp = open(result_dir, 'rb')
     results = pickle.load(fp)
-    # eval_m = MetricMulticlass()
-    eval_m = Metric()
+    eval_m = MetricMulticlass()
+
 
     category = eval_m.classes
 
