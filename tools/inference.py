@@ -257,6 +257,8 @@ def peval(result_dir, coco_instance, thresh=0.3, with_empty_images=True):
     eval = Metric()
 
     for img_id in results:
+        import pdb
+        pdb.set_trace()
         print(img_id)
         filed_boxes = filt_boxes(results[img_id]['result'],categories, thresh)
         gtannIds = coco_instance.getAnnIds(imgIds=img_id)
