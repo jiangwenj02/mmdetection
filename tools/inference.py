@@ -29,19 +29,19 @@ def convert_result(bbox_result):
 
 def test_data(with_gt=False):
     # Specify the path to model config and checkpoint file
-    model_name = 'reppoints_moment_r50_fpn_1x_coco'
+    model_name = 'faster_rcnn_r50_fpn_1x_ulcer_9x'
     score_thr = 0.3
 
     config_file = 'configs/erosive/'+model_name+'.py'
-    checkpoint_file = '/data1/qilei_chen/DATA/erosive/work_dirs/' + \
-        model_name+'/epoch_83.pth'
+    checkpoint_file = 'work_dirs/' + \
+        model_name+'/latest.pth'
 
     # build the model from a config file and a checkpoint file
     model = init_detector(config_file, checkpoint_file, device='cuda:0')
 
     # test images and show the results
-    set_name = 'test'  # ['train','test']
-    anns_file = '/data1/qilei_chen/DATA/erosive/annotations/'+set_name+'.json'
+    set_name = 'fine_test'  # ['train','test']
+    anns_file = '/data3/zzhang/annotation/ulcer_fine/'+set_name+'.json'
     coco_instance = COCO(anns_file)
     coco_imgs = coco_instance.imgs
 
@@ -74,7 +74,7 @@ def test_data(with_gt=False):
 
         img_file_name = coco_imgs[key]["file_name"]
         img_dir = os.path.join(
-            "/data1/qilei_chen/DATA/erosive/images", img_file_name)
+            "/data2/dataset/gastric_object_detection/ulcer", img_file_name)
         img = mmcv.imread(img_dir)
 
         result = inference_detector(model, img)
@@ -86,7 +86,7 @@ def test_data(with_gt=False):
 
         model.show_result(img, result, score_thr=score_thr, bbox_color=(255, 0, 0),
                           text_color=(255, 0, 0), font_size=5,
-                          out_file='/data1/qilei_chen/DATA/erosive/work_dirs/'+model_name+'/'+set_name+'_result_'+str(score_thr)+'/'+img_file_name)
+                          out_file='work_dirs/'+model_name+'/'+set_name+'_result_'+str(score_thr)+'/'+img_file_name)
 
     print(count_images_with_anns)
     print(count_anns)
@@ -417,11 +417,11 @@ def test_images(model_name = 'cascade_rcnn_r50_fpn_1x_coco_fine',model_epoch = '
     # test images and show the results
     # test_data()
 
-    sets = ['train', 'test']
+    sets = ['train', 'fine_test']
     set_name = sets[1]
     #anns_file = '/data1/qilei_chen/DATA/polyp_xinzi/annotations/'+set_name+'.json'
     #anns_file = '/data1/qilei_chen/DATA/erosive/annotations/'+set_name+'4.19.json'
-    anns_file = '/data1/qilei_chen/DATA/erosive/annotations/fine_'+set_name+'.json'
+    anns_file = '/data3/zzhang/annotation/ulcer_fine/'+set_name+'.json'
     coco_instance = COCO(anns_file)
 
     
@@ -439,7 +439,7 @@ def test_images(model_name = 'cascade_rcnn_r50_fpn_1x_coco_fine',model_epoch = '
     #model_epoch = 'epoch_61.pth'
 
     #work_dir = '/data1/qilei_chen/DATA/polyp_xinzi/work_dirs/'
-    work_dir = '/data1/qilei_chen/DATA/erosive/work_dirs/'
+    work_dir = 'work_dirs/'
 
     print("----------------")
     print(model_name)
@@ -674,4 +674,5 @@ if __name__ == "__main__":
     test_images(model_name = 'faster_rcnn_mobilev2_fpn_1x_coco_fine',model_epoch = 'epoch_22.pth')
     test_images(model_name = 'faster_rcnn_r50_fpn_1x_coco_fine',model_epoch = 'epoch_9.pth')
     '''
-    test_video_batch()
+    # test_video_batch()
+    test_images(model_name = 'faster_rcnn_r50_fpn_1x_ulcer_9x',model_epoch = 'latest.pth')
