@@ -170,7 +170,7 @@ def generate_result(model_name, work_dir, model_epoch,
     # Specify the path to model config and checkpoint file
     #model_name = 'reppoints_moment_r50_fpn_1x_coco'
 
-    config_file = 'configs/'+data_set_name+'/'+model_name.replace("_fine","")+'.py'
+    config_file = 'configs/'+data_set_name+'/'+model_name +'.py'
     checkpoint_file = os.path.join(work_dir, model_name, model_epoch)
 
     # build the model from a config file and a checkpoint file
@@ -181,7 +181,7 @@ def generate_result(model_name, work_dir, model_epoch,
         draw_result(model.show_result, coco_instance, '/data1/qilei_chen/DATA/'+data_set_name+'/images',
                     checkpoint_file+"_"+set_name+".pkl", imshow=imshow, score_thr=score_thr)
     else:
-        inference_and_save_result(model, coco_instance, '/data1/qilei_chen/DATA/'+data_set_name+'/images',
+        inference_and_save_result(model, coco_instance, '/data2/dataset/gastric_object_detection/ulcer',
                                   checkpoint_file+"_"+set_name+".pkl", imshow=imshow, score_thr=score_thr)
 
     return checkpoint_file+"_"+set_name+".pkl"
@@ -257,9 +257,6 @@ def peval(result_dir, coco_instance, thresh=0.3, with_empty_images=True):
     eval = Metric()
 
     for img_id in results:
-        import pdb
-        pdb.set_trace()
-        print(img_id)
         filed_boxes = filt_boxes(results[img_id]['result'],categories, thresh)
         gtannIds = coco_instance.getAnnIds(imgIds=img_id)
         gtanns = coco_instance.loadAnns(gtannIds)
@@ -449,10 +446,10 @@ def test_images(model_name = 'cascade_rcnn_r50_fpn_1x_coco_fine',model_epoch = '
     print(model_name)
     print("----------------")
 
-    results_file_dir = os.path.join(
-        work_dir, model_name, model_epoch+"_"+set_name+".pkl")
-    #results_file_dir = generate_result(
-    #    model_name, work_dir, model_epoch, coco_instance,data_set_name = 'erosive', set_name = set_name, imshow=True)
+    # results_file_dir = os.path.join(
+    #     work_dir, model_name, model_epoch+"_"+set_name+".pkl")
+    results_file_dir = generate_result(
+       model_name, work_dir, model_epoch, coco_instance,data_set_name = 'ulcer', set_name = set_name, imshow=True)
     for thresh in range(0,100,5):
         thresh = float(thresh)/100
         print('------------threshold:'+str(thresh)+'--------------')
