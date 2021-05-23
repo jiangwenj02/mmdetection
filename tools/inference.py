@@ -178,7 +178,7 @@ def generate_result(model_name, work_dir, model_epoch,
     model = init_detector(config_file, checkpoint_file, device='cuda:0')
 
     if os.path.exists(checkpoint_file+"_"+set_name+".pkl"):
-        draw_result(model.show_result, coco_instance, '/data1/qilei_chen/DATA/'+data_set_name+'/images',
+        draw_result(model.show_result, coco_instance, '/data2/dataset/gastric_object_detection/ulcer',
                     checkpoint_file+"_"+set_name+".pkl", imshow=imshow, score_thr=score_thr)
     else:
         inference_and_save_result(model, coco_instance, '/data2/dataset/gastric_object_detection/ulcer',
