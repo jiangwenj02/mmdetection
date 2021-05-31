@@ -6,6 +6,7 @@ import os
 import cv2
 import json
 import pickle
+from tqdm import tqdm
 from metric_polyp import Metric
 from metric_polyp_multiclass import MetricMulticlass
 from img_crop import crop_img
@@ -104,7 +105,7 @@ def inference_and_save_result(model, coco_instance, img_folder_dir,
                               result_save_dir, imshow=False, score_thr=0.3):
     coco_imgs = coco_instance.imgs
     results = dict()
-    for key in coco_imgs:
+    for key in tqdm(coco_imgs):
         img_file_name = coco_imgs[key]["file_name"]
         img_dir = os.path.join(img_folder_dir, img_file_name)
         img = mmcv.imread(img_dir)
@@ -250,7 +251,7 @@ def anns2gtboxes(gtanns,categories):
 
 
 def peval(result_dir, coco_instance, thresh=0.3, with_empty_images=True):
-    categories = [1]
+    categories = [1, 2]
     #print(categories)
     fp = open(result_dir, 'rb')
     results = pickle.load(fp)
