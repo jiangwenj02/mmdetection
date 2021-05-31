@@ -277,7 +277,7 @@ def peval_m(result_dir, coco_instance, thresh=0.3, with_empty_images=True,catego
     
     fp = open(result_dir, 'rb')
     results = pickle.load(fp)
-    eval_m = MetricMulticlass()
+    eval_m = MetricMulticlass(classes=classes)
 
 
     category = 2
