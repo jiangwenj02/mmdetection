@@ -5,10 +5,10 @@ import shutil
 image_id = 0
 annotation_id = 0
 
-adenomatous_json_dir = 'data/erosive/'
+adenomatous_json_dir = 'data/erosiveulcer_fine/sub_test/'
 image_root = ''
 dataset_root = ''
-out_json = 'data/erosive/trainall.json'
+out_json = 'data/erosiveulcer_fine/test.json'
 
 merged_data = {
                 "licenses": [{"name": "", "id": 0, "url": ""}],

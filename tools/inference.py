@@ -98,7 +98,7 @@ def test_data(with_gt=False):
 colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]
 classes = ('ulcer', 'erosive')
 classes = ('Adenomatous','non-Adenomatous')
-classes = ('erosive',)
+classes = ('erosive', 'ulcer')
 
 def inference_and_save_result(model, coco_instance, img_folder_dir,
                               result_save_dir, imshow=False, score_thr=0.3):
@@ -418,11 +418,11 @@ def test_images(model_name = 'cascade_rcnn_r50_fpn_1x_coco_fine',model_epoch = '
     # test images and show the results
     # test_data()
 
-    sets = ['train', 'fine_test']
+    sets = ['train', 'test']
     set_name = sets[1]
     #anns_file = '/data1/qilei_chen/DATA/polyp_xinzi/annotations/'+set_name+'.json'
     #anns_file = '/data1/qilei_chen/DATA/erosive/annotations/'+set_name+'4.19.json'
-    anns_file = '/data3/zzhang/annotation/ulcer_fine/'+set_name+'.json'
+    anns_file = '/data3/zzhang/annotation/erosiveulcer_fine/'+set_name+'.json'
     coco_instance = COCO(anns_file)
 
     
@@ -449,7 +449,7 @@ def test_images(model_name = 'cascade_rcnn_r50_fpn_1x_coco_fine',model_epoch = '
     # results_file_dir = os.path.join(
     #     work_dir, model_name, model_epoch+"_"+set_name+".pkl")
     results_file_dir = generate_result(
-       model_name, work_dir, model_epoch, coco_instance,data_set_name = 'ulcer', set_name = set_name, imshow=True)
+       model_name, work_dir, model_epoch, coco_instance,data_set_name = 'erosiveulcer', set_name = set_name, imshow=True)
     for thresh in range(0,100,5):
         thresh = float(thresh)/100
         print('------------threshold:'+str(thresh)+'--------------')
@@ -676,4 +676,4 @@ if __name__ == "__main__":
     test_images(model_name = 'faster_rcnn_r50_fpn_1x_coco_fine',model_epoch = 'epoch_9.pth')
     '''
     # test_video_batch()
-    test_images(model_name = 'faster_rcnn_r50_fpn_1x_ulcer_9x',model_epoch = 'latest.pth')
+    test_images(model_name = 'atss_r50_fpn_1x_coco_erosiveulcer_9x',model_epoch = 'latest.pth')
