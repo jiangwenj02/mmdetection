@@ -178,9 +178,9 @@ optimizer_config = dict(grad_clip=None)
 lr_config = dict(
     policy='step',
     warmup='linear',
-    warmup_iters=3665,
-    warmup_ratio=1.0 / 80,
-    step=[17, 23])
-runner = dict(type='EpochBasedRunner', max_epochs=25)
-
+    warmup_iters=500,
+    warmup_ratio=0.001,
+    step=[8, 11])
 checkpoint_config = dict(interval=1)
+# runtime settings
+runner = dict(type='EpochBasedRunner', max_epochs=12)
