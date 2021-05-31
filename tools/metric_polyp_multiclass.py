@@ -36,7 +36,7 @@ class MetricMulticlass(object):
         if classes is not None:
             self.classes = ['background']
             self.classes.extend(list(classes))
-        print(self.classes)
+            print(self.classes)
         self.TPs = defaultdict(list)
         self.FNs = defaultdict(list)
         self.FPs = defaultdict(list)
