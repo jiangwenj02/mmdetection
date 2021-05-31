@@ -280,7 +280,7 @@ def peval_m(result_dir, coco_instance, thresh=0.3, with_empty_images=True,catego
     eval_m = MetricMulticlass(classes=classes)
 
 
-    category = 2
+    category = MetricMulticlass.classes
 
     for img_id in results:
         filed_boxes = filt_boxes(results[img_id]['result'],categories, thresh)
