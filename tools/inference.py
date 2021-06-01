@@ -132,9 +132,9 @@ def inference_and_save_result(model, coco_instance, img_folder_dir,
                                                       int(y+h)), colors[ann['category_id']-1], 2)
             out_file = result_save_dir+'_result_' + \
                 str(score_thr)+'/'+img_file_name
-            print(len(result))
-            if len(result) != 0:
-                model.show_result(img, result, score_thr=score_thr, bbox_color=colors[2],
+            # print(len(result))
+            # if len(result) != 0:
+            model.show_result(img, result, score_thr=score_thr, bbox_color=colors[2],
                               text_color=colors[2], font_size=10,
                               out_file=out_file)
 
