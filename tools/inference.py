@@ -113,7 +113,7 @@ def inference_and_save_result(model, coco_instance, img_folder_dir,
         import datetime
         time0 = datetime.datetime.now()
         result = inference_detector(model, img)
-        print(result.shape, result)
+        print(result)
         import pdb
         pdb.set_trace()
         time1 = datetime.datetime.now()
