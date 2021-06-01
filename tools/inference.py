@@ -113,9 +113,9 @@ def inference_and_save_result(model, coco_instance, img_folder_dir,
         import datetime
         time0 = datetime.datetime.now()
         result = inference_detector(model, img)
-        print(result)
-        import pdb
-        pdb.set_trace()
+
+        if type(result) != type([]):
+            result=[np.zeros((0,5)).astype(np.float32)]
         time1 = datetime.datetime.now()
         #print("--------inference_detector process--------")
         # print((time1-time0).microseconds/1000)
