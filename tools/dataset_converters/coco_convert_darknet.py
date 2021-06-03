@@ -17,7 +17,7 @@ def convert(size,box):
     return (x,y,w,h)
 
 def convert_annotation():
-    coco_instance = COCO(anns_file)
+    coco_instance = COCO('/data3/zzhang/annotation/erosiveulcer_fine/train.json')
     coco_imgs = coco_instance.imgs
     for key in coco_imgs:
         annIds = coco_instance.getAnnIds(imgIds= coco_imgs[key]['id'])
