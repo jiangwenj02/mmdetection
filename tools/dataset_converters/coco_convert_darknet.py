@@ -17,9 +17,9 @@ def convert(size,box):
     return (x,y,w,h)
 
 def convert_annotation():
-    coco_instance = COCO('/data3/zzhang/annotation/erosiveulcer_fine/train.json')
+    coco_instance = COCO('/data3/zzhang/annotation/erosiveulcer_fine/test.json')
     coco_imgs = coco_instance.imgs
-    sumfile = open('/data3/zzhang/annotation/erosiveulcer_fine/train.txt', 'w')
+    sumfile = open('/data3/zzhang/annotation/erosiveulcer_fine/test.txt', 'w')
     for key in tqdm(coco_imgs):
         annIds = coco_instance.getAnnIds(imgIds= coco_imgs[key]['id'])
         file_name = coco_imgs[key]['file_name']
