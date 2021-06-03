@@ -23,7 +23,7 @@ def convert_annotation():
     for key in tqdm(coco_imgs):
         annIds = coco_instance.getAnnIds(imgIds= coco_imgs[key]['id'])
         file_name = coco_imgs[key]['file_name']
-        sumfile.write(file_name  + '\n')
+        sumfile.write('/data3/zzhang/annotation/erosiveulcer_fine/train/images/' + file_name  + '\n')
         width = coco_imgs[key]['width']
         height = coco_imgs[key]['height']
         anns = coco_instance.loadAnns(annIds)
