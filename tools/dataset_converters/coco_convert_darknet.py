@@ -27,7 +27,7 @@ def convert_annotation():
         width = coco_imgs[key]['width']
         height = coco_imgs[key]['height']
         anns = coco_instance.loadAnns(annIds)
-        outfile = open('/data3/zzhang/annotation/erosiveulcer_fine/darknetlabel/%s.txt'%(file_name[:-4]), 'w')
+        outfile = open('/data3/zzhang/annotation/erosiveulcer_fine/train/labels/%s.txt'%(file_name[:-4]), 'w')
         for item2 in anns:
             category_id = item2['category_id']
             class_id = category_id - 1
