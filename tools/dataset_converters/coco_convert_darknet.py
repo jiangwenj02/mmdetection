@@ -2,6 +2,7 @@ import os
 import json
 from os import listdir, getcwd
 from os.path import join
+from pycocotools.coco import COCO
 
 classes = ['erosive', 'ulcer']
 
@@ -16,20 +17,18 @@ def convert(size,box):
     return (x,y,w,h)
 
 def convert_annotation():
-    with open('/data3/zzhang/annotation/erosiveulcer_fine/train.json','r') as f:
-        data = json.load(f)
-    for item in data['images']:
-        image_id = item['id']
-        file_name = item['file_name']
-        width = item['width']
-        height = item['height']
-        value = filter(lambda item1: item1['image_id'] == image_id,data['annotations'])
+    coco_instance = COCO(anns_file)
+    coco_imgs = coco_instance.imgs
+    for key in coco_imgs:
+        annIds = coco_instance.getAnnIds(imgIds= coco_imgs[key]['id'])
+        file_name = coco_imgs[key]['file_name']
+        width = coco_imgs[key]['width']
+        height = coco_imgs[key]['height']
+        anns = coco_instance.loadAnns(annIds)
         outfile = open('/data3/zzhang/annotation/erosiveulcer_fine/darknetlabel/%s.txt'%(file_name[:-4]), 'a+')
-        for item2 in value:
+        for item2 in anns:
             category_id = item2['category_id']
-            value1 = filter(lambda item3: item3['id'] == category_id,data['categories'])
-            name = value1[0]['name']
-            class_id = classes.index(name)
+            class_id = category_id - 1
             box = item2['bbox']
             bb = convert((width,height),box)
             outfile.write(str(class_id)+" "+" ".join([str(a) for a in bb]) + '\n')
