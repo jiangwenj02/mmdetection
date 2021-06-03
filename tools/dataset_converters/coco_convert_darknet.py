@@ -35,7 +35,7 @@ def convert_annotation():
             bb = convert((width,height),box)
             outfile.write(str(class_id)+" "+" ".join([str(a) for a in bb]) + '\n')
         outfile.close()
-	sumfile.close()
+    sumfile.close()
             
 if __name__ == '__main__':
     convert_annotation()
