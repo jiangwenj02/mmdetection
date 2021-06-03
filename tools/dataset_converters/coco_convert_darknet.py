@@ -3,7 +3,7 @@ import json
 from os import listdir, getcwd
 from os.path import join
 from pycocotools.coco import COCO
-
+from tqdm import tqdm
 classes = ['erosive', 'ulcer']
 
 #box form[x,y,w,h]
@@ -20,7 +20,7 @@ def convert_annotation():
     coco_instance = COCO('/data3/zzhang/annotation/erosiveulcer_fine/train.json')
     coco_imgs = coco_instance.imgs
     sumfile = open('/data3/zzhang/annotation/erosiveulcer_fine/train.txt', 'w')
-    for key in coco_imgs:
+    for key in tqdm(coco_imgs):
         annIds = coco_instance.getAnnIds(imgIds= coco_imgs[key]['id'])
         file_name = coco_imgs[key]['file_name']
         sumfile.write(file_name  + '\n')
