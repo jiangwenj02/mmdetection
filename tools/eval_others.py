@@ -2,7 +2,7 @@ from argparse import ArgumentParser
 import json
 import numpy as np
 #from Metric import Metric
-from metric_polyp_multiclass import Metric
+from metric_polyp_multiclass import MetricMulticlass
 from pycocotools.coco import COCO
 import numpy as np
 import pprint
@@ -76,7 +76,8 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
     for thresh in threshold_list:
         # eval = Metric(mode='iou', iou_thresh=0.01,visualize=visualize, visualization_root=visualization_folder+"/{:.3}/".format(thresh), classes=testset.CLASSES)
         # eval = Metric(mode='center', iou_thresh=0.01,visualize=visualize, visualization_root=visualization_folder+"/{:.3}/".format(thresh), classes=testset.CLASSES)
-        eval = Metric(mode='siou', iou_thresh=0.8, visualize=visualize, visualization_root=visualization_folder+"/{:.3}/".format(thresh), classes=testset.CLASSES)
+        #eval = Metric(mode='siou', iou_thresh=0.8, visualize=visualize, visualization_root=visualization_folder+"/{:.3}/".format(thresh), classes=testset.CLASSES)
+        eval = MetricMulticlass(classes=testset.CLASSES)
         #eval_none = Metric(mode='iou', iou_thresh=0.1,visualize=visualize, visualization_root=visualization_folder+"/none/", classes=testset.CLASSES)
         for key in tqdm(pred_lists.keys()):
             pred_list = pred_lists[key]
