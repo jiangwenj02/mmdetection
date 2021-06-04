@@ -29,7 +29,7 @@ def findContours(*args, **kwargs):
     return contours, hierarchy
 
 # import json
-class MetricMulticlass(object):
+class Metric(object):
     def __init__(self, mode='center', iou_thresh=0, visualize=False, visualization_root='demo/',
                  image_classification=False, classes=None):
 
@@ -96,222 +96,222 @@ class MetricMulticlass(object):
             os.popen('rm -r ' + self.ori_image_folder + '*')
             os.popen('rm -r ' + self.non_positive_folder + '*')
 
-    # def eval_add_result(self, ground_truth: list,
-    #                     pred_points: list,
-    #                     image: np.ndarray = None,
-    #                     image_name=None,
-    #                     masks=None,
-    #                     mask_target=None
-    #                     ):
-    #     '''
+    def eval_add_result(self, ground_truth: list,
+                        pred_points: list,
+                        image: np.ndarray = None,
+                        image_name=None,
+                        masks=None,
+                        mask_target=None
+                        ):
+        '''
 
-    #     Args:
-    #         ground_truth: Nx5 array in format of [x,y,x,y,class]
-    #         pred_points: Nx5 array in format of [x,y,x,y,class]
-    #         image:
-    #         image_name:
-    #         masks:
-    #         mask_target:
+        Args:
+            ground_truth: Nx5 array in format of [x,y,x,y,class]
+            pred_points: Nx5 array in format of [x,y,x,y,class]
+            image:
+            image_name:
+            masks:
+            mask_target:
 
-    #     Returns:
+        Returns:
 
-    #     '''
+        '''
 
-    #     self.eval_add_result_binary(ground_truth,pred_points)
-    #     if self.visualize:
-    #         FPimage = image.copy()
-    #         FNimage = image.copy()
-    #         Detectionimage = image.copy()
-
-    #         for idx, pt in enumerate(pred_points):
-    #             pt1 = tuple([int(pt[0]), int(pt[1])])
-    #             pt2 = tuple([int(pt[2]), int(pt[3])])
-    #             cv2.rectangle(Detectionimage, pt1, pt2, self.Detection_color, 2)
-    #             cv2.putText(Detectionimage, self.classes[pt[4]] + '_%.2f' % pt[5], (int(pt[0]), int(pt[1])), cv2.FONT_HERSHEY_SIMPLEX, .5, self.Detection_color, 1)
-
-    #         if masks is not None:
-    #             Detectionimage = self.overlay_mask(Detectionimage, masks)
-
-    #     missing = False
-    #     self.total_gt += len(ground_truth)
-    #     mul_match_flag = False
-    #     mul_det_flag = len(pred_points) > len(ground_truth)
-    #     for index_gt_box, gt_box in enumerate(ground_truth):
-    #         hasTP = False
-    #         gt = gt_box
-    #         if gt[4] == 3:
-    #             gt[4] = 2
-    #         match_num = 0
-    #         not_matched = []
-    #         for index_pred, j in enumerate(pred_points):
-    #             if self.mode == 'center':
-    #                 ctx = j[0] + (j[2] - j[0]) * 0.5
-    #                 cty = j[1] + (j[3] - j[1]) * 0.5
-    #                 bbox_matched = gt[0] < ctx < gt[2] and gt[1] < cty < gt[3]
-
-    #             elif self.mode == 'iou':
-    #                 query_area = (j[2] - j[0]) * (j[3] - j[1])
-    #                 gt_area = (gt[2] - gt[0]) * (gt[3] - gt[1])
-    #                 iw = (min(j[2], gt[2]) - max(j[0], gt[0]))
-    #                 ih = (min(j[3], gt[3]) - max(j[1], gt[1]))
-    #                 iw = max(0, iw)
-    #                 ih = max(0, ih)
-    #                 ua = query_area + gt_area - (iw * ih)
-    #                 overlaps = (iw * ih) / float(ua)
-    #                 bbox_matched = overlaps > self.iou_thresh
-    #             elif self.mode == 'siou':
-    #                 query_area = (j[2] - j[0]) * (j[3] - j[1])
-    #                 gt_area = (gt[2] - gt[0]) * (gt[3] - gt[1])
-    #                 iw = (min(j[2], gt[2]) - max(j[0], gt[0]))
-    #                 ih = (min(j[3], gt[3]) - max(j[1], gt[1]))
-    #                 iw = max(0, iw)
-    #                 ih = max(0, ih)
-    #                 # ua = query_area + gt_area - (iw * ih)
-    #                 overlaps = (iw * ih) / float(query_area + 1e-4)
-    #                 bbox_matched = overlaps > self.iou_thresh
-    #             # 如果打中GT框
-    #             if bbox_matched:
-    #                 match_num += 1
-    #                 # 如果GT框没有被match 过， 并且pred和GT 的class一样 判定为TP +1
-    #                 if (not hasTP and gt[4] == j[4]) or (self.mode == 'siou' and gt[4] == j[4]):
-    #                     if not hasTP:
-    #                         self.TPs[int(j[4])].append(j)
-    #                         hasTP = True
-    #                 # 如果match到GT 但是 class不一样 添加到候选框，等待下一轮GT match
-    #                 elif gt[4] != j[4]:
-    #                     not_matched.append(j)
-    #                 # 不管gt match的唯一性， 所有的match的prediction都要添加到confusion matrix
-    #                 gt_cls = int(j[4])
-    #                 pred_cls = int(gt[4])
-    #                 self.confusion_matrix[pred_cls][gt_cls] += 1
-    #                 if masks is not None:
-    #                     self.mask_iou_sum += self._mask_iou(masks[index_pred].squeeze(), mask_target[index_gt_box])
-    #                     self.dice_sum += self._dice(masks[index_pred].squeeze(), mask_target[index_gt_box])
-    #                     self.mask_iou_count += 1
-    #             else:
-    #                 not_matched.append(j)
-
-    #         pred_points = not_matched
-
-    #         if match_num > 1:
-    #             mul_match_flag = True
-    
-    #         # 如果GT 没有被match过 FN+1
-    #         if not hasTP:
-    #             self.FNs[int(gt[4])].append(gt)
-
-    #             if self.visualize:
-    #                 # Draw False negative rect
-    #                 missing = True
-    #                 pt1 = tuple([int(gt[0]), int(gt[1])])
-    #                 pt2 = tuple([int(gt[2]), int(gt[3])])
-    #                 cv2.rectangle(FNimage, pt1, pt2, self.GT_color, 2)
-    #                 cv2.putText(FNimage, self.classes[gt[4]], pt1, cv2.FONT_HERSHEY_SIMPLEX, .5, self.GT_color, 1)
-
-    #         if self.visualize:
-    #             # Draw groundturth on detection and FP images
-    #             pt1 = tuple([int(gt[0]), int(gt[1])])
-    #             pt2 = tuple([int(gt[2]), int(gt[3])])
-    #             cv2.rectangle(Detectionimage, pt1, pt2, self.GT_color, 2)
-    #             cv2.rectangle(FPimage, pt1, pt2, self.GT_color, 2)
-    #             cv2.putText(Detectionimage, self.classes[gt[4]], pt1, cv2.FONT_HERSHEY_SIMPLEX, .5, self.GT_color, 1)
-    #             cv2.putText(FPimage, self.classes[gt[4]], pt1, cv2.FONT_HERSHEY_SIMPLEX, .5, self.GT_color, 1)
-
-    #     if self.visualize:
-    #         if missing:
-    #             cv2.imwrite(self.false_negative_folder + str(image_name), FNimage)
-    #         cv2.imwrite(self.detection_folder + str(image_name), Detectionimage)
-    #         if mul_match_flag:
-    #             cv2.imwrite(self.detection_mul_match_folder + str(image_name), Detectionimage)
-    #         if mul_det_flag:
-    #             cv2.imwrite(self.detection_mul_det_folder + str(image_name), Detectionimage)
-
-    #     if mul_det_flag or mul_match_flag:
-    #         if self.visualize:
-    #             cv2.imwrite(self.ori_image_folder + str(image_name), image)
-    #         self.filter_filename.append(image_name)
-
-    #     if len(pred_points) > 0 and self.visualize:
-    #         # Draw false positive rect
-    #         for fp in pred_points:
-    #             pt1 = tuple([int(fp[0]), int(fp[1])])
-    #             pt2 = tuple([int(fp[2]), int(fp[3])])
-    #             cv2.rectangle(FPimage, pt1, pt2, self.FP_color, 2)
-    #             cv2.putText(FPimage, self.classes[fp[4]], pt1, cv2.FONT_HERSHEY_SIMPLEX, .5, self.FP_color, 1)
-            
-    #         cv2.imwrite(self.false_positive_folder + str(image_name), FPimage)
-        
-    #     if len(ground_truth) == 0 and self.visualize:
-    #         cv2.imwrite(self.non_positive_folder + str(image_name), image)
-
-    #     # 剩下的predict框都是FP
-    #     for p in pred_points:
-    #         self.FPs[int(p[4])].append(p)
-
-    def eval_add_result(self,ground_truth:list,pred_points:list, image:np.ndarray = None, image_name= None, dup_TP=False):
+        self.eval_add_result_binary(ground_truth,pred_points)
         if self.visualize:
             FPimage = image.copy()
             FNimage = image.copy()
             Detectionimage = image.copy()
-            for pt in pred_points:
+
+            for idx, pt in enumerate(pred_points):
                 pt1 = tuple([int(pt[0]), int(pt[1])])
                 pt2 = tuple([int(pt[2]), int(pt[3])])
-                cv2.rectangle(Detectionimage, pt1, pt2,self.Detection_color, 2)
+                cv2.rectangle(Detectionimage, pt1, pt2, self.Detection_color, 2)
+                cv2.putText(Detectionimage, self.classes[pt[4]] + '_%.2f' % pt[5], (int(pt[0]), int(pt[1])), cv2.FONT_HERSHEY_SIMPLEX, .5, self.Detection_color, 1)
+
+            if masks is not None:
+                Detectionimage = self.overlay_mask(Detectionimage, masks)
+
         missing = False
-        self.total_gt+=len(ground_truth)
+        self.total_gt += len(ground_truth)
+        mul_match_flag = False
+        mul_det_flag = len(pred_points) > len(ground_truth)
         for index_gt_box, gt_box in enumerate(ground_truth):
             hasTP = False
             gt = gt_box
+            if gt[4] == 3:
+                gt[4] = 2
+            match_num = 0
             not_matched = []
-            for j in pred_points:
+            for index_pred, j in enumerate(pred_points):
                 if self.mode == 'center':
                     ctx = j[0] + (j[2] - j[0]) * 0.5
                     cty = j[1] + (j[3] - j[1]) * 0.5
-                    bbox_matched=gt[0] < ctx < gt[2] and gt[1] < cty < gt[3]
-                elif self.mode =='iou':
-                    query_area =(j[2] - j[0])*(j[3] - j[1])
-                    gt_area = (gt[2] - gt[0])*(gt[3] - gt[1])
-                    iw = (min(j[2],gt[2])-max(j[0],gt[0]))
-                    ih =(min(j[3],gt[3])-max(j[1],gt[1]))
-                    iw =max(0, iw)
+                    bbox_matched = gt[0] < ctx < gt[2] and gt[1] < cty < gt[3]
+
+                elif self.mode == 'iou':
+                    query_area = (j[2] - j[0]) * (j[3] - j[1])
+                    gt_area = (gt[2] - gt[0]) * (gt[3] - gt[1])
+                    iw = (min(j[2], gt[2]) - max(j[0], gt[0]))
+                    ih = (min(j[3], gt[3]) - max(j[1], gt[1]))
+                    iw = max(0, iw)
                     ih = max(0, ih)
-                    ua = query_area+gt_area -(iw*ih)
-                    overlaps = (iw*ih)/float(ua)
-                    bbox_matched= overlaps>self.iou_thresh
+                    ua = query_area + gt_area - (iw * ih)
+                    overlaps = (iw * ih) / float(ua)
+                    bbox_matched = overlaps > self.iou_thresh
+                elif self.mode == 'siou':
+                    query_area = (j[2] - j[0]) * (j[3] - j[1])
+                    gt_area = (gt[2] - gt[0]) * (gt[3] - gt[1])
+                    iw = (min(j[2], gt[2]) - max(j[0], gt[0]))
+                    ih = (min(j[3], gt[3]) - max(j[1], gt[1]))
+                    iw = max(0, iw)
+                    ih = max(0, ih)
+                    # ua = query_area + gt_area - (iw * ih)
+                    overlaps = (iw * ih) / float(query_area + 1e-4)
+                    bbox_matched = overlaps > self.iou_thresh
+                # 如果打中GT框
                 if bbox_matched:
-                    if (not hasTP) or dup_TP:
-                        self.TPs.append(j)
-                        hasTP = True
+                    match_num += 1
+                    # 如果GT框没有被match 过， 并且pred和GT 的class一样 判定为TP +1
+                    if (not hasTP and gt[4] == j[4]) or (self.mode == 'siou' and gt[4] == j[4]):
+                        if not hasTP:
+                            self.TPs[int(j[4])].append(j)
+                            hasTP = True
+                    # 如果match到GT 但是 class不一样 添加到候选框，等待下一轮GT match
+                    elif gt[4] != j[4]:
+                        not_matched.append(j)
+                    # 不管gt match的唯一性， 所有的match的prediction都要添加到confusion matrix
+                    gt_cls = int(j[4])
+                    pred_cls = int(gt[4])
+                    self.confusion_matrix[pred_cls][gt_cls] += 1
+                    if masks is not None:
+                        self.mask_iou_sum += self._mask_iou(masks[index_pred].squeeze(), mask_target[index_gt_box])
+                        self.dice_sum += self._dice(masks[index_pred].squeeze(), mask_target[index_gt_box])
+                        self.mask_iou_count += 1
                 else:
                     not_matched.append(j)
+
             pred_points = not_matched
+
+            if match_num > 1:
+                mul_match_flag = True
+    
+            # 如果GT 没有被match过 FN+1
             if not hasTP:
-                self.FNs.append(gt)
+                self.FNs[int(gt[4])].append(gt)
+
                 if self.visualize:
                     # Draw False negative rect
                     missing = True
                     pt1 = tuple([int(gt[0]), int(gt[1])])
                     pt2 = tuple([int(gt[2]), int(gt[3])])
-                    cv2.rectangle(FNimage, pt1, pt2,self.GT_color, 2)
+                    cv2.rectangle(FNimage, pt1, pt2, self.GT_color, 2)
+                    cv2.putText(FNimage, self.classes[gt[4]], pt1, cv2.FONT_HERSHEY_SIMPLEX, .5, self.GT_color, 1)
+
             if self.visualize:
                 # Draw groundturth on detection and FP images
                 pt1 = tuple([int(gt[0]), int(gt[1])])
                 pt2 = tuple([int(gt[2]), int(gt[3])])
                 cv2.rectangle(Detectionimage, pt1, pt2, self.GT_color, 2)
                 cv2.rectangle(FPimage, pt1, pt2, self.GT_color, 2)
+                cv2.putText(Detectionimage, self.classes[gt[4]], pt1, cv2.FONT_HERSHEY_SIMPLEX, .5, self.GT_color, 1)
+                cv2.putText(FPimage, self.classes[gt[4]], pt1, cv2.FONT_HERSHEY_SIMPLEX, .5, self.GT_color, 1)
+
         if self.visualize:
-            if missing :
-                cv2.imwrite(self.false_negative_folder+str(image_name)+'.jpg', FNimage)
-            cv2.imwrite(self.detection_folder + str(image_name) + '.jpg', Detectionimage)
-        if len(pred_points)>0 and self.visualize:
+            if missing:
+                cv2.imwrite(self.false_negative_folder + str(image_name), FNimage)
+            cv2.imwrite(self.detection_folder + str(image_name), Detectionimage)
+            if mul_match_flag:
+                cv2.imwrite(self.detection_mul_match_folder + str(image_name), Detectionimage)
+            if mul_det_flag:
+                cv2.imwrite(self.detection_mul_det_folder + str(image_name), Detectionimage)
+
+        if mul_det_flag or mul_match_flag:
+            if self.visualize:
+                cv2.imwrite(self.ori_image_folder + str(image_name), image)
+            self.filter_filename.append(image_name)
+
+        if len(pred_points) > 0 and self.visualize:
             # Draw false positive rect
             for fp in pred_points:
                 pt1 = tuple([int(fp[0]), int(fp[1])])
                 pt2 = tuple([int(fp[2]), int(fp[3])])
                 cv2.rectangle(FPimage, pt1, pt2, self.FP_color, 2)
-            cv2.imwrite(self.false_positive_folder + str(image_name) + '.jpg', FPimage)
-        #  add FP here
-        self.FPs += pred_points
+                cv2.putText(FPimage, self.classes[fp[4]], pt1, cv2.FONT_HERSHEY_SIMPLEX, .5, self.FP_color, 1)
+            
+            cv2.imwrite(self.false_positive_folder + str(image_name), FPimage)
+        
+        if len(ground_truth) == 0 and self.visualize:
+            cv2.imwrite(self.non_positive_folder + str(image_name), image)
+
+        # 剩下的predict框都是FP
+        for p in pred_points:
+            self.FPs[int(p[4])].append(p)
+
+    # def eval_add_result(self,ground_truth:list,pred_points:list, image:np.ndarray = None, image_name= None, dup_TP=False):
+    #     if self.visualize:
+    #         FPimage = image.copy()
+    #         FNimage = image.copy()
+    #         Detectionimage = image.copy()
+    #         for pt in pred_points:
+    #             pt1 = tuple([int(pt[0]), int(pt[1])])
+    #             pt2 = tuple([int(pt[2]), int(pt[3])])
+    #             cv2.rectangle(Detectionimage, pt1, pt2,self.Detection_color, 2)
+    #     missing = False
+    #     self.total_gt+=len(ground_truth)
+    #     for index_gt_box, gt_box in enumerate(ground_truth):
+    #         hasTP = False
+    #         gt = gt_box
+    #         not_matched = []
+    #         for j in pred_points:
+    #             if self.mode == 'center':
+    #                 ctx = j[0] + (j[2] - j[0]) * 0.5
+    #                 cty = j[1] + (j[3] - j[1]) * 0.5
+    #                 bbox_matched=gt[0] < ctx < gt[2] and gt[1] < cty < gt[3]
+    #             elif self.mode =='iou':
+    #                 query_area =(j[2] - j[0])*(j[3] - j[1])
+    #                 gt_area = (gt[2] - gt[0])*(gt[3] - gt[1])
+    #                 iw = (min(j[2],gt[2])-max(j[0],gt[0]))
+    #                 ih =(min(j[3],gt[3])-max(j[1],gt[1]))
+    #                 iw =max(0, iw)
+    #                 ih = max(0, ih)
+    #                 ua = query_area+gt_area -(iw*ih)
+    #                 overlaps = (iw*ih)/float(ua)
+    #                 bbox_matched= overlaps>self.iou_thresh
+    #             if bbox_matched:
+    #                 if (not hasTP) or dup_TP:
+    #                     self.TPs.append(j)
+    #                     hasTP = True
+    #             else:
+    #                 not_matched.append(j)
+    #         pred_points = not_matched
+    #         if not hasTP:
+    #             self.FNs.append(gt)
+    #             if self.visualize:
+    #                 # Draw False negative rect
+    #                 missing = True
+    #                 pt1 = tuple([int(gt[0]), int(gt[1])])
+    #                 pt2 = tuple([int(gt[2]), int(gt[3])])
+    #                 cv2.rectangle(FNimage, pt1, pt2,self.GT_color, 2)
+    #         if self.visualize:
+    #             # Draw groundturth on detection and FP images
+    #             pt1 = tuple([int(gt[0]), int(gt[1])])
+    #             pt2 = tuple([int(gt[2]), int(gt[3])])
+    #             cv2.rectangle(Detectionimage, pt1, pt2, self.GT_color, 2)
+    #             cv2.rectangle(FPimage, pt1, pt2, self.GT_color, 2)
+    #     if self.visualize:
+    #         if missing :
+    #             cv2.imwrite(self.false_negative_folder+str(image_name)+'.jpg', FNimage)
+    #         cv2.imwrite(self.detection_folder + str(image_name) + '.jpg', Detectionimage)
+    #     if len(pred_points)>0 and self.visualize:
+    #         # Draw false positive rect
+    #         for fp in pred_points:
+    #             pt1 = tuple([int(fp[0]), int(fp[1])])
+    #             pt2 = tuple([int(fp[2]), int(fp[3])])
+    #             cv2.rectangle(FPimage, pt1, pt2, self.FP_color, 2)
+    #         cv2.imwrite(self.false_positive_folder + str(image_name) + '.jpg', FPimage)
+    #     #  add FP here
+    #     self.FPs += pred_points
 
     def eval_add_result_binary(self, ground_truth: list,
                         pred_points: list,
