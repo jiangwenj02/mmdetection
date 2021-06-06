@@ -381,6 +381,8 @@ def eval_yolof(coco_instance):
 def getResultbyName(file_name, json_results):
     results = []
     for result in json_results:
+        import pdb
+        pdb.set_trace()
         if file_name == result["image_id"]:
             box = xywh2xyxy(result["bbox"])
             box.append(result['score'])
@@ -396,16 +398,14 @@ def peval_yolov5(result_dir, coco_instance, thresh=0.3, with_empty_images=True):
     eval = Metric()
     coco_imgs = coco_instance.imgs
     for img_id in coco_imgs:
-        file_name = coco_imgs[img_id]['file_name']
-        
+        file_name = coco_imgs[img_id]['file_name']        
         filed_boxes = filt_boxes(getResultbyName(img_id, results), classes, thresh)
         gtannIds = coco_instance.getAnnIds(imgIds=img_id)
         gtanns = coco_instance.loadAnns(gtannIds)
         gtboxes = anns2gtboxes(gtanns)
         if len(gtboxes) == 0 and (not with_empty_images):
             continue
-        import pdb
-        pdb.set_trace()
+        
         eval.eval_add_result(gtboxes, filed_boxes)
 
     precision, recall = eval.get_result()
