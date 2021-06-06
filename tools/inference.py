@@ -397,6 +397,8 @@ def peval_yolov5(result_dir, coco_instance, thresh=0.3, with_empty_images=True):
     coco_imgs = coco_instance.imgs
     for img_id in coco_imgs:
         file_name = coco_imgs[img_id]['file_name']
+        import pdb
+        pdb.set_trace()
         filed_boxes = filt_boxes(getResultbyName(
             file_name[:-4], results), classes, thresh)
         gtannIds = coco_instance.getAnnIds(imgIds=img_id)
