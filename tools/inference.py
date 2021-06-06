@@ -415,7 +415,7 @@ def peval_yolov5(result_dir, coco_instance, thresh=0.3, with_empty_images=True):
 
 
 def eval_yolov5(coco_instance):
-    results_file_dir = "/data1/qilei_chen/DEVELOPMENTS/yolov5/runs/test/exp5/best_predictions.json"
+    results_file_dir = "../yolov5/runs/test/exp/best_predictions.json"
     for thresh in np.linspace(0, 1, 10, endpoint=False):
         peval_yolov5(results_file_dir, coco_instance,
                      thresh=thresh, with_empty_images=False)
@@ -456,18 +456,21 @@ def test_images(model_name = 'cascade_rcnn_r50_fpn_1x_coco_fine',model_epoch = '
 
     # results_file_dir = os.path.join(
     #     work_dir, model_name, model_epoch+"_"+set_name+".pkl")
-    results_file_dir = generate_result(
-       model_name, work_dir, model_epoch, coco_instance,data_set_name = 'erosiveulcer', set_name = set_name, imshow=True)
-    for thresh in range(0,100,5):
-        thresh = float(thresh)/100
-        print('------------threshold:'+str(thresh)+'--------------')
-        peval_m(results_file_dir, coco_instance,
-              thresh=thresh, with_empty_images=False)
+
+    # results_file_dir = generate_result(
+    #    model_name, work_dir, model_epoch, coco_instance,data_set_name = 'erosiveulcer', set_name = set_name, imshow=True)
+    # for thresh in range(0,100,5):
+    #     thresh = float(thresh)/100
+    #     print('------------threshold:'+str(thresh)+'--------------')
+    #     peval_m(results_file_dir, coco_instance,
+    #           thresh=thresh, with_empty_images=False)
+
+
         # peval(results_file_dir, coco_instance,
         #       thresh=thresh, with_empty_images=False)
 
     # eval_yolof(coco_instance)
-    # eval_yolov5(coco_instance)
+    eval_yolov5(coco_instance)
 
 
 
