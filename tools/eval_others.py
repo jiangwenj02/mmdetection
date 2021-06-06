@@ -104,10 +104,10 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             # if len(pred_list) > 0 and len(target_list) == 0:
             #     eval_none.eval_add_result(filterd_target, filtered_p, image=image, image_name=filename_lists[key])
             # else:
-            print(filterd_target)
-            print(filtered_p)
-            import pdb
-            pdb.set_trace()
+            # print(filterd_target)
+            # print(filtered_p)
+            # import pdb
+            # pdb.set_trace()
             eval.eval_add_result(filterd_target, filtered_p, image=image, image_name=filename_lists[key])
             #break
         # with open(visualization_folder + '/filter_filename.txt', 'w') as f:
