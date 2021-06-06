@@ -354,7 +354,7 @@ def peval_yolof(result_dir, coco_instance, thresh=0.00, with_empty_images=True):
     eval = Metric()
     coco_imgs = coco_instance.imgs
     for img_id in coco_imgs:
-        filed_boxes = filt_boxes(getResult(img_id, results), thresh)
+        filed_boxes = filt_boxes(getResult(img_id, results), classes, thresh)
         gtannIds = coco_instance.getAnnIds(imgIds=img_id)
         gtanns = coco_instance.loadAnns(gtannIds)
         gtboxes = anns2gtboxes(gtanns)
