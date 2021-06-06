@@ -690,5 +690,5 @@ if __name__ == "__main__":
     test_images(model_name = 'faster_rcnn_mobilev2_fpn_1x_coco_fine',model_epoch = 'epoch_22.pth')
     test_images(model_name = 'faster_rcnn_r50_fpn_1x_coco_fine',model_epoch = 'epoch_9.pth')
     '''
-    # test_video_batch()
-    test_images(model_name = 'grid_rcnn_r50_fpn_gn-head_erosiveulcer_9x',model_epoch = 'latest.pth')
+    test_video_batch()
+    # test_images(model_name = 'grid_rcnn_r50_fpn_gn-head_erosiveulcer_9x',model_epoch = 'latest.pth')
