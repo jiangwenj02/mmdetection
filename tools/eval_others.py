@@ -84,7 +84,7 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             pred_list = pred_lists[key]
             target_list = target_lists[key]
             pred_list = [p for p in pred_list if p[0] >= thresh]
-            filtered_p = [p[1:] + p[0:1] for p in pred_list]
+            filtered_p = [p[1:] for p in pred_list]
             filterd_target = [p for p in target_list]
             image= None
             if visualize:
@@ -104,10 +104,10 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             # if len(pred_list) > 0 and len(target_list) == 0:
             #     eval_none.eval_add_result(filterd_target, filtered_p, image=image, image_name=filename_lists[key])
             # else:
-            print(filterd_target)
-            print(filtered_p)
-            import pdb
-            pdb.set_trace()
+            # print(filterd_target)
+            # print(filtered_p)
+            # import pdb
+            # pdb.set_trace()
             eval.eval_add_result(filterd_target, filtered_p, image=image, image_name=filename_lists[key])
             #break
         # with open(visualization_folder + '/filter_filename.txt', 'w') as f:
