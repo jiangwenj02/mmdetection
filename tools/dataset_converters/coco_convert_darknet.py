@@ -10,8 +10,8 @@ classes = ['erosive', 'ulcer']
 def convert(size,box):
     dw = 1./size[0]
     dh = 1./size[1]
-    x = box[0]*dw
-    y = box[1]*dh
+    x = (box[0] + box[2] /2)*dw
+    y = (box[1] + box[3] /2)*dh
     w = box[2]*dw
     h = box[3]*dh
     return (x,y,w,h)
