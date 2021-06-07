@@ -39,7 +39,7 @@ for idx, f in enumerate(os.listdir(adenomatous_json_dir)):
         for idx in range(len(annos)):
             img = {}            
             img['id'] = len(merged_data["images"]) + 1
-            img['file_name'] = osp.join(f, 'img', str(idx + 1).zfill(5))
+            img['file_name'] = osp.join(f, 'img', str(idx + 1).zfill(4) + '.jpg')
             img = mmcv.imread(osp.join(adenomatous_json_dir, img['file_name']))
             img['height'] = img.shape[0]
             img['width'] = img.shape[1]
