@@ -80,7 +80,7 @@ def test_data(anns_file):
     print(count_zero_ann)
 
 
-anns_dir = 'data/erosiveulcer_fine/*.json'
+anns_dir = 'data/train.json'
 # anns_dir = '/data3/zzhang/tmp/ulcer_gt_det/filterfilejson/filter0.json'
 files = glob.glob(anns_dir)
 for ann_file in files:
