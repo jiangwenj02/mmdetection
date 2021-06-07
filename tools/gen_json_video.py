@@ -59,6 +59,7 @@ for idx, f in enumerate(os.listdir(adenomatous_json_dir)):
                 anno['area'] = anno['bbox'][2] * anno['bbox'][3]
                 anno['iscrowd'] = 0
                 anno['attributes'] = {"occluded": False}
+                merged_data["annotations"].append(anno)
 
 print('images %d, annos %d'%(len(merged_data["images"]), len(merged_data["annotations"])))
 
