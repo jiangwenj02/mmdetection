@@ -17,6 +17,7 @@ def iou(box, clusters):
     """
     x = np.minimum(clusters[:, 0], box[0])
     y = np.minimum(clusters[:, 1], box[1])
+    print(box[0], box[1])
     if np.count_nonzero(x == 0) > 0 or np.count_nonzero(y == 0) > 0:
         raise ValueError("Box has no area")
     intersection = x * y
