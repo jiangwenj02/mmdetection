@@ -168,8 +168,7 @@ def load_dataset(path, types='voc'):
 
                     if (ann_width == 0 or ann_height == 0):
                         print(img['file_name'])
-                        import pdb
-                        pdb.set_trace()
+                        continue
 
                     # 偏移量
                     #ann_width = np.float64(ann_width / width)
