@@ -18,6 +18,7 @@ from .adenomatous import Adenomatous
 from .erosive import Erosive
 from .ulcer import Ulcer
 from .erosiveulcer import ErosiveUlcer
+from .uav import  UAV
 __all__ = [
     'CustomDataset', 'XMLDataset', 'CocoDataset', 'DeepFashionDataset',
     'VOCDataset', 'CityscapesDataset', 'LVISDataset', 'LVISV05Dataset',
@@ -26,6 +27,6 @@ __all__ = [
     'ClassBalancedDataset', 'WIDERFaceDataset', 'DATASETS', 'PIPELINES', 'Erosive', 'Ulcer',
     'build_dataset', 'replace_ImageToTensor', 'GangDataset', 'PolypDataset', 'Adenomatous',
     'ErosiveUlcer', 'ClassBalancedDataset', 'WIDERFaceDataset', 'DATASETS', 'PIPELINES',
-    'build_dataset', 'replace_ImageToTensor', 'get_loading_pipeline',
-    'NumClassCheckHook'
+    'build_dataset', 'get_loading_pipeline',
+    'NumClassCheckHook', 'UAV'
 ]
