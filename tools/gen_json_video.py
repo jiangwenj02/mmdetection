@@ -1,6 +1,8 @@
 import json
 import os
 import shutil
+import os.path as osp
+import mmcv
 
 image_id = 0
 annotation_id = 0
@@ -29,29 +31,40 @@ for idx, f in enumerate(os.listdir(adenomatous_json_dir)):
         data = json.load(json_file)
         import pdb
         pdb.set_trace()
+        exist = data['exist']
+        annos = data['gt_rect']
         # if idx == 0:
         #     merged_data["licenses"] = data["licenses"]
         #     merged_data["info"] = data["info"]
         #     merged_data["categories"] = data["categories"]
 
         id_list = set()
-        for img in data["images"]:
-            img['id'] += image_id
-            img['file_name'] = img['file_name'].split('/')[-1]
+        
+        for idx in range(len(annos)):
+            img = {}            
+            img['id'] = len(merged_data["images"]) + 1
+            img['file_name'] = osp.join(f, 'img', str(idx + 1).zfill(5))
+            img = mmcv.imread(osp.join(adenomatous_json_dir, img['file_name']))
+            img['height'] = img.shape[0]
+            img['width'] = img.shape[1]
+            img['license'] = 0
+            img['flickr_url'] = ''
+            img['coco_url'] = ''
+            img['date_captured'] = 0
             merged_data["images"].append(img)
-            imgs_num += 1
-
-        for anno in data["annotations"]:
-            anno['id'] += annotation_id
-            anno['category_id'] = 1
-            anno['image_id'] += image_id    
             
-            merged_data['annotations'].append(anno)
+            if exist[idx] == 1:
+                anno = {}
+                anno['id'] = len(data["annotations"]) + 1
+                anno['category_id'] = 1
+                anno['image_id'] = len(merged_data["images"]) + 1
+                anno['bbox'] = annos[idx]
+                anno['segmentation'] = []
+                anno['area'] = anno['bbox'][2] * anno['bbox'][3]
+                anno['iscrowd'] = 0
+                anno['attributes'] = {"occluded": False}
 
-            anno_num += 1
-        image_id += len(data["images"])
-        annotation_id += len(data["annotations"])
-print('images %d, annos %d'%(imgs_num, anno_num))
+print('images %d, annos %d'%(len(merged_data["images"]), len(data["annotations"])))
 
 with open(out_json, 'w') as out_file:
     json.dump(merged_data, out_file)
