@@ -51,7 +51,7 @@ for idx, f in enumerate(os.listdir(adenomatous_json_dir)):
             
             if exist[idx] == 1:
                 anno = {}
-                anno['id'] = len(data["annotations"]) + 1
+                anno['id'] = len(merged_data["annotations"]) + 1
                 anno['category_id'] = 1
                 anno['image_id'] = len(merged_data["images"]) + 1
                 anno['bbox'] = annos[idx]
@@ -60,7 +60,7 @@ for idx, f in enumerate(os.listdir(adenomatous_json_dir)):
                 anno['iscrowd'] = 0
                 anno['attributes'] = {"occluded": False}
 
-print('images %d, annos %d'%(len(merged_data["images"]), len(data["annotations"])))
+print('images %d, annos %d'%(len(merged_data["images"]), len(merged_data["annotations"])))
 
 with open(out_json, 'w') as out_file:
     json.dump(merged_data, out_file)
