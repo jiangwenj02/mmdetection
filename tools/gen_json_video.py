@@ -23,14 +23,10 @@ img_id_test = set()
 imgs_num = 0
 anno_num = 0
 for idx, f in enumerate(os.listdir(adenomatous_json_dir)):
-    import pdb
-    pdb.set_trace()
     json_dir = os.path.join(adenomatous_json_dir, f, 'IR_label.json')
     with open(json_dir) as json_file:
 
         data = json.load(json_file)
-        import pdb
-        pdb.set_trace()
         exist = data['exist']
         annos = data['gt_rect']
         # if idx == 0:
