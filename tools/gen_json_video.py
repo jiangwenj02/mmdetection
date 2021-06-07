@@ -3,6 +3,7 @@ import os
 import shutil
 import os.path as osp
 import mmcv
+from tqdm import tqdm
 
 image_id = 0
 annotation_id = 0
@@ -22,7 +23,7 @@ merged_data = {
 img_id_test = set()
 imgs_num = 0
 anno_num = 0
-for idx, f in enumerate(os.listdir(adenomatous_json_dir)):
+for idx, f in tqdm(enumerate(os.listdir(adenomatous_json_dir))):
     json_dir = os.path.join(adenomatous_json_dir, f, 'IR_label.json')
     with open(json_dir) as json_file:
 
