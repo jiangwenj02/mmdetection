@@ -17,7 +17,6 @@ def iou(box, clusters):
     """
     x = np.minimum(clusters[:, 0], box[0])
     y = np.minimum(clusters[:, 1], box[1])
-    print(box[0], box[1])
     if np.count_nonzero(x == 0) > 0 or np.count_nonzero(y == 0) > 0:
         raise ValueError("Box has no area")
     intersection = x * y
@@ -166,6 +165,11 @@ def load_dataset(path, types='voc'):
                     '''
                     ann_width = bbox[2]
                     ann_height = bbox[3]
+
+                    if (ann_width == 0 or ann_height == 0):
+                        print(img['file_name'])
+                        import pdb
+                        pdb.set_trace()
 
                     # 偏移量
                     #ann_width = np.float64(ann_width / width)
