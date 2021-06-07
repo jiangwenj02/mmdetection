@@ -354,7 +354,7 @@ def peval_yolof(result_dir, coco_instance, thresh=0.00, with_empty_images=True):
     eval = Metric()
     coco_imgs = coco_instance.imgs
     for img_id in coco_imgs:
-        filed_boxes = filt_boxes(getResult(img_id, results), thresh)
+        filed_boxes = filt_boxes(getResult(img_id, results), classes, thresh)
         gtannIds = coco_instance.getAnnIds(imgIds=img_id)
         gtanns = coco_instance.loadAnns(gtannIds)
         gtboxes = anns2gtboxes(gtanns)
@@ -396,14 +396,16 @@ def peval_yolov5(result_dir, coco_instance, thresh=0.3, with_empty_images=True):
     eval = Metric()
     coco_imgs = coco_instance.imgs
     for img_id in coco_imgs:
-        file_name = coco_imgs[img_id]['file_name']
-        filed_boxes = filt_boxes(getResultbyName(
-            file_name[:-4], results), thresh)
+        file_name = coco_imgs[img_id]['file_name']    
+        import pdb
+        pdb.set_trace()    
+        filed_boxes = filt_boxes(getResultbyName(img_id, results), classes, thresh)
         gtannIds = coco_instance.getAnnIds(imgIds=img_id)
         gtanns = coco_instance.loadAnns(gtannIds)
         gtboxes = anns2gtboxes(gtanns)
         if len(gtboxes) == 0 and (not with_empty_images):
             continue
+        
         eval.eval_add_result(gtboxes, filed_boxes)
 
     precision, recall = eval.get_result()
@@ -415,7 +417,7 @@ def peval_yolov5(result_dir, coco_instance, thresh=0.3, with_empty_images=True):
 
 
 def eval_yolov5(coco_instance):
-    results_file_dir = "/data1/qilei_chen/DEVELOPMENTS/yolov5/runs/test/exp5/best_predictions.json"
+    results_file_dir = "../yolov5/runs/test/exp11/best_predictions.json"
     for thresh in np.linspace(0, 1, 10, endpoint=False):
         peval_yolov5(results_file_dir, coco_instance,
                      thresh=thresh, with_empty_images=False)
@@ -456,18 +458,21 @@ def test_images(model_name = 'cascade_rcnn_r50_fpn_1x_coco_fine',model_epoch = '
 
     # results_file_dir = os.path.join(
     #     work_dir, model_name, model_epoch+"_"+set_name+".pkl")
-    results_file_dir = generate_result(
-       model_name, work_dir, model_epoch, coco_instance,data_set_name = 'erosiveulcer', set_name = set_name, imshow=True)
-    for thresh in range(0,100,5):
-        thresh = float(thresh)/100
-        print('------------threshold:'+str(thresh)+'--------------')
-        peval_m(results_file_dir, coco_instance,
-              thresh=thresh, with_empty_images=False)
+
+    # results_file_dir = generate_result(
+    #    model_name, work_dir, model_epoch, coco_instance,data_set_name = 'erosiveulcer', set_name = set_name, imshow=True)
+    # for thresh in range(0,100,5):
+    #     thresh = float(thresh)/100
+    #     print('------------threshold:'+str(thresh)+'--------------')
+    #     peval_m(results_file_dir, coco_instance,
+    #           thresh=thresh, with_empty_images=False)
+
+
         # peval(results_file_dir, coco_instance,
         #       thresh=thresh, with_empty_images=False)
 
     # eval_yolof(coco_instance)
-    # eval_yolov5(coco_instance)
+    eval_yolov5(coco_instance)
 
 
 
@@ -685,5 +690,5 @@ if __name__ == "__main__":
     test_images(model_name = 'faster_rcnn_mobilev2_fpn_1x_coco_fine',model_epoch = 'epoch_22.pth')
     test_images(model_name = 'faster_rcnn_r50_fpn_1x_coco_fine',model_epoch = 'epoch_9.pth')
     '''
-    # test_video_batch()
-    test_images(model_name = 'grid_rcnn_r50_fpn_gn-head_erosiveulcer_9x',model_epoch = 'latest.pth')
+    test_video_batch()
+    # test_images(model_name = 'grid_rcnn_r50_fpn_gn-head_erosiveulcer_9x',model_epoch = 'latest.pth')
