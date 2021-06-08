@@ -92,6 +92,8 @@ def main():
             out_file=filename,
             bbox_color=(255, 102, 61),
             text_color=(255, 102, 61))
+        if i > 5:
+            break
 
         progress_bar.update()
 
