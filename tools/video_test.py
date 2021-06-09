@@ -120,7 +120,7 @@ def main():
         dir_name = osp.abspath(osp.dirname(video_out))
         mkdir_or_exist(dir_name)
         if 'RGB' in video:
-            break
+            continue
         detectvideo(model, video, video_out, args)
     
  
