@@ -8,10 +8,10 @@ from tqdm import tqdm
 image_id = 0
 annotation_id = 0
 
-adenomatous_json_dir = 'data/antiUAVimages/'
+adenomatous_json_dir = '/data3/antiUAVtestimages/'
 image_root = ''
 dataset_root = ''
-out_json = 'data/train.json'
+out_json = 'data/test.json'
 
 merged_data = {
                 "licenses": [{"name": "", "id": 0, "url": ""}],
@@ -51,16 +51,17 @@ for idx, f in tqdm(enumerate(os.listdir(adenomatous_json_dir))):
             merged_data["images"].append(img)
             
             if exist[idx] == 1:
-                anno = {}
-                anno['id'] = len(merged_data["annotations"]) + 1
-                anno['category_id'] = 1
-                anno['image_id'] = len(merged_data["images"]) + 1
-                anno['bbox'] = annos[idx]
-                anno['segmentation'] = []
-                anno['area'] = anno['bbox'][2] * anno['bbox'][3]
-                anno['iscrowd'] = 0
-                anno['attributes'] = {"occluded": False}
-                merged_data["annotations"].append(anno)
+                if len(annos[idx]):
+                    anno = {}
+                    anno['id'] = len(merged_data["annotations"]) + 1
+                    anno['category_id'] = 1
+                    anno['image_id'] = len(merged_data["images"]) + 1
+                    anno['bbox'] = annos[idx]
+                    anno['segmentation'] = []
+                    anno['area'] = anno['bbox'][2] * anno['bbox'][3]
+                    anno['iscrowd'] = 0
+                    anno['attributes'] = {"occluded": False}
+                    merged_data["annotations"].append(anno)
 
 print('images %d, annos %d'%(len(merged_data["images"]), len(merged_data["annotations"])))
 
