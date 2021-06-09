@@ -50,12 +50,15 @@ for pred in tqdm(preds):
         if score > 0.1:
             if len(result[video_name][frame]):
                 if score > result[video_name][frame][-1]:
-                    result[video_name][frame] = bboxes.append(score)
+                    bbox = bboxes.append(score)
+                    result[video_name][frame] = bbox[:]
             else:
-                result[video_name][frame] = bboxes.append(score)
+                bbox = bboxes.append(score)
+                result[video_name][frame] = bbox[:]
     else:
         if score > 0.1:
-            result[video_name][frame] = bboxes.append(score)
+            bbox = bboxes.append(score)
+            result[video_name][frame] = bbox[:]
             print(result[video_name][frame])
         else:
             result[video_name][frame] = []
@@ -67,7 +70,7 @@ for video_name, values in result.items():
     
     res_list = {}
     res_list['res'] = []
-    for idx in range(len(values)):
+    for idx in range(1, 1+len(values)):
         res_list.append(values[idx][:-2])
     with open(out_json, 'w') as out_file:
         json.dump(res_list, out_file)
