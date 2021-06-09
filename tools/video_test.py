@@ -72,7 +72,7 @@ def detectvideo(model, video_in, video_out, args):
             if ch == 27 or ch == ord('q') or ch == ord('Q'):
                 break
             frame=model.show_result(
-                img, result, score_thr=args.score_thr, wait_time=1, show=False,thickness=1,font_scale=1)
+                img, result, score_thr=args.score_thr, wait_time=1, show=False,thickness=1)
             if args.show:
                 cv2.imshow('frame',frame)
             if len(frame)>=1 or frame:
