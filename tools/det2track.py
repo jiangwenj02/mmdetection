@@ -25,7 +25,7 @@ result = {}
 
 imgs = anno.imgs
 
-for index, img in imgs.items():
+for index, img in tqdm(imgs.items()):
     imgId = img["id"]
     file_name = anno.loadImgs(imgId)[0]['file_name']
     video_name = file_name.split("/")[0]
@@ -79,7 +79,7 @@ for index, img in imgs.items():
 
 os.makedirs(data_root + 'results/', exist_ok=True)
 os.popen('rm -r ' + data_root + 'results/' + '*')
-for video_name, values in result.items():
+for video_name, values in tqdm(result.items()):
     out_json = data_root + 'results/' + video_name + '_IR.txt'
     
     res_list = {}
