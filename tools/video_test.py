@@ -79,7 +79,7 @@ def detectvideo(model, video_in, video_out, args):
                 #写入视频
                 videoWriter.write(frame)
                 count+=1
-                if count == 100:
+                if count == 25:
                     break
             #############################
             """
