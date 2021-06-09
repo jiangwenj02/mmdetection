@@ -35,7 +35,8 @@ for pred in tqdm(preds):
     image_id = pred["image_id"]
     bboxes = pred["bbox"]
     score = pred["score"]
-
+    import pdb
+    pdb.set_trace()
     file_name = anno.getImgIds(imgIds=image_id)
 
     video_name = file_name.split("/")[0]
