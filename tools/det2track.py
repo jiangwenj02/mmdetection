@@ -40,7 +40,8 @@ for index, img in imgs.items():
         if ann['score'] > score_max:
             score_max = ann['score']
             res = ann['bbox']
-
+    if video_name not in result.keys():
+         result[video_name] = {}
     result[video_name][frame] = res
 
 
