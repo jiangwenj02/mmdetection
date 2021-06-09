@@ -45,20 +45,17 @@ for pred in tqdm(preds):
 
     if video_name not in result.keys():
         result[video_name] = {}
-    
+    bboxes.append(score)
     if frame in result[video_name].keys():
         if score > 0.1:
             if len(result[video_name][frame]):
-                if score > result[video_name][frame][-1]:
-                    bbox = bboxes.append(score)
-                    result[video_name][frame] = bbox[:]
+                if score > result[video_name][frame][-1]:                    
+                    result[video_name][frame] = bboxes[:]
             else:
-                bbox = bboxes.append(score)
-                result[video_name][frame] = bbox[:]
+                result[video_name][frame] = bboxes[:]
     else:
         if score > 0.1:
-            bbox = bboxes.append(score)
-            result[video_name][frame] = bbox[:]
+            result[video_name][frame] = bboxes[:]
             print(result[video_name][frame])
         else:
             result[video_name][frame] = []
