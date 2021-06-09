@@ -26,6 +26,8 @@ result = {}
 imgs = anno.imgs
 
 for img in imgs:
+    import pdb
+    pdb.set_trace()
     imgId = img["image_id"]
     file_name = anno.loadImgs(imgId)[0]['file_name']
     video_name = file_name.split("/")[0]
