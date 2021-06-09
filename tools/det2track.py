@@ -26,9 +26,7 @@ result = {}
 imgs = anno.imgs
 
 for index, img in imgs.items():
-    import pdb
-    pdb.set_trace()
-    imgId = img["image_id"]
+    imgId = img["id"]
     file_name = anno.loadImgs(imgId)[0]['file_name']
     video_name = file_name.split("/")[0]
     frame = int(file_name.split("/")[2][:-4])
@@ -40,6 +38,7 @@ for index, img in imgs.items():
     res = []
     for ann in anns:
         if ann['score'] > score_max:
+            score_max = ann['score']
             res = ann['bbox']
 
     result[video_name][frame] = res
