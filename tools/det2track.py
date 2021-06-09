@@ -48,6 +48,8 @@ for pred in tqdm(preds):
     
     if frame in result[video_name].keys():
         if score > 0.1:
+            import pdb
+            pdb.set_trace()
             if len(result[video_name][frame]):
                 if score > result[video_name][frame][-1]:
                     result[video_name][frame] = bboxes.extend(score)
