@@ -53,8 +53,9 @@ for pred in tqdm(preds):
 
 
 for file_name, values in result.items():
-    out_json = data_root + 'results/' + file_name + '.txt'
-    res_list = []
+    out_json = data_root + 'results/' + file_name + '_IR.txt'
+    res_list = {}
+    res_list['res'] = []
     for idx in range(len(values)):
         res_list.append(values[idx])
     with open(out_json, 'w') as out_file:
