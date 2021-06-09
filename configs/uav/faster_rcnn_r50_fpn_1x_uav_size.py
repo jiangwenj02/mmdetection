@@ -88,3 +88,5 @@ lr_config = dict(
     warmup_ratio=0.001,
     step=[6, 7])
 runner = dict(type='EpochBasedRunner', max_epochs=8)
+
+evaluation = dict(interval=8, metric='bbox')
