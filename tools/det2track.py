@@ -46,7 +46,10 @@ for pred in tqdm(preds):
     
     if frame in result['file_name'].keys():
         if score > 0.1:
-            if len(result['file_name'][frame]) and score > result['file_name'][frame][-1]:
+            if len(result['file_name'][frame]):
+                if score > result['file_name'][frame][-1]:
+                    result['file_name'][frame] = bboxes.extend(score)
+            else:
                 result['file_name'][frame] = bboxes.extend(score)
         else:
             result['file_name'][frame] = []
