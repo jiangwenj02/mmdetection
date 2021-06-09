@@ -119,6 +119,8 @@ def main():
         video_out = video.replace(args.video_in_dir, args.video_out_dir)
         dir_name = osp.abspath(osp.dirname(video_out))
         mkdir_or_exist(dir_name)
+        if 'RGB' in video:
+            break
         detectvideo(model, video, video_out, args)
     
  
