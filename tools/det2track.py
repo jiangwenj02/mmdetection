@@ -56,6 +56,7 @@ for pred in tqdm(preds):
     else:
         if score > 0.1:
             result[video_name][frame] = bboxes.append(score)
+            print(result[video_name][frame])
         else:
             result[video_name][frame] = []
 
