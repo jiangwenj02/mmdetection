@@ -56,9 +56,10 @@ for pred in tqdm(preds):
         else:
             result['file_name'][frame] = []
 
-
+os.makedirs(data_root + 'results/', exist_ok=True)
 for file_name, values in result.items():
     out_json = data_root + 'results/' + file_name + '_IR.txt'
+    
     res_list = {}
     res_list['res'] = []
     for idx in range(len(values)):
