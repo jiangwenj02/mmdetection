@@ -19,7 +19,7 @@ det_json = data_root + 'result.bbox.json'
 
 preds = json_load(det_json)
 anno = COCO(anno_json)
-pred = anno.loadRes(det_json)
+predall = anno.loadRes(det_json)
 
 result = {}
 
@@ -35,12 +35,13 @@ for pred in tqdm(preds):
     image_id = pred["image_id"]
     bboxes = pred["bbox"]
     score = pred["score"]
-    import pdb
-    pdb.set_trace()
-    file_name = anno.getImgIds(imgIds=image_id)
+
+    file_name = anno.loadImgs(image_id)[0]['file_name']
+    # anns_id = predall.getAnnIds(image_id)
+    # anns = predall.loadAnns(anns_id)
 
     video_name = file_name.split("/")[0]
-    frame = int(file_name.split("/")[1])
+    frame = int(file_name.split("/")[2][:-4])
 
     if file_name not in result.keys():
         result['file_name'] = {}
