@@ -61,12 +61,12 @@ data = dict(
         pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'train.json',
+        ann_file=data_root + 'test.json',
         img_prefix=data_root + 'antiUAVimages',
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'train.json',
+        ann_file=data_root + 'test.json',
         img_prefix=data_root + 'antiUAVimages',
         pipeline=test_pipeline))
 evaluation = dict(metric=['bbox'])
