@@ -62,12 +62,12 @@ data = dict(
     val=dict(
         type=dataset_type,
         ann_file=data_root + 'test.json',
-        img_prefix='/data3/publicData/antiUAVtestimages/antiUAVimages',
+        img_prefix='/data3/publicData/antiUAVtestimages',
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
         ann_file=data_root + 'test.json',
-        img_prefix='/data3/publicData/antiUAVtestimages/antiUAVimages',
+        img_prefix='/data3/publicData/antiUAVtestimages',
         pipeline=test_pipeline))
 evaluation = dict(metric=['bbox'])
 
