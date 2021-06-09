@@ -68,9 +68,9 @@ def detectvideo(model, video_in, video_out, args):
                 continue
             #############################
             result = inference_detector(model, img)
-            ch = cv2.waitKey(1)
-            if ch == 27 or ch == ord('q') or ch == ord('Q'):
-                break
+            # ch = cv2.waitKey(1)
+            # if ch == 27 or ch == ord('q') or ch == ord('Q'):
+            #     break
             frame=model.show_result(
                 img, result, score_thr=args.score_thr, wait_time=1, show=False,thickness=1)
             if args.show:
