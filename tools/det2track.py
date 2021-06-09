@@ -84,9 +84,8 @@ for video_name, values in result.items():
     
     res_list = {}
     res_list['res'] = []
-    print(values)
     for idx in range(1, 1+len(values)):
-        res_list['res'].append(values[idx][:-2])
+        res_list['res'].append(values[idx])
     with open(out_json, 'w') as out_file:
         json.dump(res_list, out_file)
 
