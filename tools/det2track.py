@@ -43,22 +43,22 @@ for pred in tqdm(preds):
     video_name = file_name.split("/")[0]
     frame = int(file_name.split("/")[2][:-4])
 
-    if file_name not in result.keys():
-        result[file_name] = {}
+    if video_name not in result.keys():
+        result[video_name] = {}
     
-    if frame in result[file_name].keys():
+    if frame in result[video_name].keys():
         if score > 0.1:
-            if len(result[file_name][frame]):
-                if score > result[file_name][frame][-1]:
-                    result[file_name][frame] = bboxes.extend(score)
+            if len(result[video_name][frame]):
+                if score > result[video_name][frame][-1]:
+                    result[video_name][frame] = bboxes.extend(score)
             else:
-                result[file_name][frame] = bboxes.extend(score)
+                result[video_name][frame] = bboxes.extend(score)
         else:
-            result[file_name][frame] = []
+            result[video_name][frame] = []
 
 os.makedirs(data_root + 'results/', exist_ok=True)
-for file_name, values in result.items():
-    out_json = data_root + 'results/' + file_name + '_IR.txt'
+for video_name, values in result.items():
+    out_json = data_root + 'results/' + video_name + '_IR.txt'
     
     res_list = {}
     res_list['res'] = []
