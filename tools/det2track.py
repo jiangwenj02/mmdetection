@@ -25,7 +25,7 @@ result = {}
 
 imgs = anno.imgs
 
-for index, img in imgs.items:
+for index, img in imgs.items():
     import pdb
     pdb.set_trace()
     imgId = img["image_id"]
