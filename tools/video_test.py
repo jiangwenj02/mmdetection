@@ -111,7 +111,7 @@ def main():
  
     model = init_detector(args.config, args.checkpoint, device=device)
     
-    input_videos = list_files(args.video_in_dir, '.avi')
+    input_videos = list_files(args.video_in_dir, '.mp4')
     print(input_videos)
     for video in input_videos:        
         video_out = video.replace(args.video_in_dir, args.video_out_dir)
