@@ -24,7 +24,7 @@ def parse_args():
     parser.add_argument(
         '--video_in_dir', type=str, default='',help='test video path')
     parser.add_argument(
-    '--video_out_dir', type=str, help='output video path')
+    '--video_out_dir', type=str, default='', help='output video path')
     parser.add_argument(
         '--score-thr', type=float, default=0.3, help='bbox score threshold')
     parser.add_argument(
