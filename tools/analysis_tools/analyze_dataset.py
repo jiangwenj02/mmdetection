@@ -49,7 +49,7 @@ class kMean_parse:
         self.one_data = (self.data[:,1] / self.data[:,0]).reshape(-1, 1)
         # print(self.data.shape, self.one_data.shape)
         self.y_k = self.ratio_km.fit_predict(self.one_data)
-        print('ratio: ', sorted(self.ratio_km.cluster_ratio_centers_))
+        print('ratio: ', sorted(self.ratio_km.cluster_centers_))
 
         self.one_data = np.sqrt((self.data[:,1] ** 2 + self.data[:,0] ** 2).reshape(-1, 1))
         self.y_k = self.size_km.fit_predict(self.data)
