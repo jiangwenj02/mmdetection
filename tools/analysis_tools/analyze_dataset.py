@@ -137,6 +137,9 @@ def load_dataset(cfg):
     dataset = build_dataset(cfg.data.train)
     for i in tqdm(range(len(dataset))):
         item = dataset.__getitem__(i)
+        print(item)
+        import pdb
+        pdb.set_trace()
         bboxes.append(item['gt_bboxes'])
 
     return np.array(bboxes)
