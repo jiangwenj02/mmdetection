@@ -37,19 +37,23 @@ def avg_iou(boxes, clusters):
     return np.mean([np.max(iou(boxes[i], clusters)) for i in range(boxes.shape[0])])
 
 class kMean_parse:
-    def __init__(self,n_clusters, data):
-        self.n_clusters = n_clusters
-        self.km = KMeans(n_clusters=self.n_clusters,init="k-means++",n_init=10,max_iter=3000000,tol=1e-3,random_state=0)
+    def __init__(self, ration_n_clusters, size_n_clusters, data):
+        self.ration_n_clusters = ration_n_clusters
+        self.size_n_clusters = size_n_clusters
+        self.ratio_km = KMeans(n_clusters=self.ration_n_clusters,init="k-means++",n_init=10,max_iter=3000000,tol=1e-3,random_state=0)
+        self.size_km = KMeans(n_clusters=self.size_n_clusters,init="k-means++",n_init=10,max_iter=3000000,tol=1e-3,random_state=0)
         self.data = data
  
  
     def parse_data (self):
         self.one_data = (self.data[:,1] / self.data[:,0]).reshape(-1, 1)
-        print(self.data.shape, self.one_data.shape)
-        self.y_k = self.km.fit_predict(self.one_data)
-        print('ratio', sorted(self.km.cluster_centers_))
-        self.y_k = self.km.fit_predict(self.data)
-        print(self.km.cluster_centers_)
+        # print(self.data.shape, self.one_data.shape)
+        self.y_k = self.ratio_km.fit_predict(self.one_data)
+        print('ratio: ', sorted(self.ratio_km.cluster_ratio_centers_))
+
+        self.one_data = np.sqrt((self.data[:,1] ** 2 + self.data[:,0] ** 2).reshape(-1, 1))
+        self.y_k = self.size_km.fit_predict(self.data)
+        print('size: ', self.size_km.cluster_centers_)
  
     def plot_data (self):
  
@@ -153,6 +157,10 @@ def main():
         default=3,
         help='config file path')
     parser.add_argument(
+        '--size_clusters',
+        default=5,
+        help='config file path')
+    parser.add_argument(
         '--skip-type',
         type=str,
         nargs='+',
@@ -171,13 +179,12 @@ def main():
     args = parser.parse_args()
     cfg = retrieve_data_cfg(args.config, args.skip_type, args.cfg_options)
     data = load_dataset(cfg)
-    out = Iou_Kmeans(data, k=args.ratio_clusters)
 
-    kmean_parse = kMean_parse(args.ratio_clusters, data)
+    kmean_parse = kMean_parse(args.ratio_clusters, args.size_clusters, data)
     kmean_parse.parse_data()
-    kmean_parse.plot_data()
+    # kmean_parse.plot_data()
 
-    print('ratio : ', out)
+    # print('ratio : ', out)
     # print('size', size)
     # anchor = np.array(out) * Inputdim
     # print("Boxes: {} ".format(anchor))
