@@ -133,7 +133,7 @@ def main():
         default=3,
         help='config file path')
     args = parser.parse_args()
-    data = load_dataset(args)
+    data = load_dataset(args.config)
     out = Iou_Kmeans(data, k=args.ratio_clusters)
 
     kmean_parse = kMean_parse(args.ratio_clusters, data)
