@@ -132,17 +132,15 @@ def retrieve_data_cfg(config_path, skip_type, cfg_options):
 
 def load_dataset(cfg):
 
-    bboxes = []
+    bboxes = np.zeros((0,2))
 
     dataset = build_dataset(cfg.data.train)
     for i in tqdm(range(len(dataset))):
         item = dataset.__getitem__(i)
-        print(item)
-        import pdb
-        pdb.set_trace()
-        bboxes.append(item['gt_bboxes'])
+        gt_bboxes_wh = item['gt_bboxes'][:, 2:] - item['gt_bboxes'][:, :2] 
+        bboxes = np.concatenate((bboxes, gt_bboxes_wh), axis=0)
 
-    return np.array(bboxes)
+    return bboxes
 
 def main():
     parser = ArgumentParser(description='COCO Dataset Analysis Tool')
