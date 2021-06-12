@@ -14,7 +14,7 @@ dataset_root = ''
 out_json = '/data3/zzhang/annotation/erosiveulcer_fine/test2.json'
 
 with open(image_summary, 'r') as f:
-    image_filenames = f.readlines().strip()
+    image_filenames = f.readlines()
 
 
 merged_data = {
@@ -28,7 +28,7 @@ img_id_test = set()
 imgs_num = 0
 anno_num = 0
 for idx, image in tqdm(enumerate(image_filenames)):
-        
+        image = image.strip()
         img = {}            
         img['id'] = len(merged_data["images"]) + 1
         img['file_name'] = image.split('/')[-1]
