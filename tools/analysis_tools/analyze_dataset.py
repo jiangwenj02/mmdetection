@@ -9,6 +9,9 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from mmdet.datasets.builder import build_dataset
 from tqdm import tqdm
+import mmcv
+from mmcv import Config, DictAction
+
 def iou(box, clusters):
     """
     计算一个ground truth边界盒和k个先验框(Anchor)的交并比(IOU)值。
@@ -110,6 +113,22 @@ def id2name(coco):
         classes_id.append(key)
     return classes, classes_id
 
+def retrieve_data_cfg(config_path, skip_type, cfg_options):
+    cfg = Config.fromfile(config_path)
+    if cfg_options is not None:
+        cfg.merge_from_dict(cfg_options)
+    # import modules from string list.
+    if cfg.get('custom_imports', None):
+        from mmcv.utils import import_modules_from_strings
+        import_modules_from_strings(**cfg['custom_imports'])
+    train_data_cfg = cfg.data.train
+    if train_data_cfg.type == 'RepeatDataset':
+        train_data_cfg = train_data_cfg.dataset
+    train_data_cfg['pipeline'] = [
+        x for x in train_data_cfg.pipeline if x['type'] not in skip_type
+    ]
+
+    return cfg
 
 def load_dataset(cfg):
 
@@ -132,8 +151,25 @@ def main():
         '--ratio_clusters',
         default=3,
         help='config file path')
+    parser.add_argument(
+        '--skip-type',
+        type=str,
+        nargs='+',
+        default=['DefaultFormatBundle', 'Normalize', 'Collect'],
+        help='skip some useless pipeline')
+    parser.add_argument(
+        '--cfg-options',
+        nargs='+',
+        action=DictAction,
+        help='override some settings in the used config, the key-value pair '
+        'in xxx=yyy format will be merged into config file. If the value to '
+        'be overwritten is a list, it should be like key="[a,b]" or key=a,b '
+        'It also allows nested list/tuple values, e.g. key="[(a,b),(c,d)]" '
+        'Note that the quotation marks are necessary and that no white space '
+        'is allowed.')
     args = parser.parse_args()
-    data = load_dataset(args.config)
+    cfg = retrieve_data_cfg(args.config, args.skip_type, args.cfg_options)
+    data = load_dataset(cfg)
     out = Iou_Kmeans(data, k=args.ratio_clusters)
 
     kmean_parse = kMean_parse(args.ratio_clusters, data)
