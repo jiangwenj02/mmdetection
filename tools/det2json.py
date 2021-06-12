@@ -12,12 +12,13 @@ def json_load(file_name):
 
 image_root = ''
 dataset_root = ''
-pre_json = '/data3/zzhang/annotation/ulcer/trainall.json'
-out_jsons = ['/data3/zzhang/tmp/ulcer_gt_det/filterfilejson/filter' + str(i) + '.json' for i in range(12)]
-before_images = '/data2/dataset/gastric_object_detection/ulcer/'
-filter_filenames = ['/data3/zzhang/tmp/ulcer_gt_det/filterfiletxt/filter_filename' + str(i) + '.txt' for i in range(12)]
-filter_images_dir = ['/data3/zzhang/tmp/ulcer_gt_det/filterimages/filter' + str(i) for i in range(12)]
+pre_json = '/data3/zzhang/annotation/erosiveulcer_fine/test2.json'
+out_jsons = ['/data3/zzhang/annotation/erosiveulcer_fine/filt_fp.json']
+before_images = '/data3/zzhang/tmp/erosive_ulcer_videos/'
+filter_filenames = ['/data3/zzhang/annotation/erosiveulcer_fine/test2.txt']
+filter_images_dir = ['/data2/dataset/gastric_object_detection/erosive']
 det_json = '/data3/zzhang/yolov5/runs/test/exp5/259_predictions.json'
+fp_filter = True
 preds = json_load(det_json)
 
 for i in range(len(filter_filenames)):
@@ -66,7 +67,10 @@ for i in range(len(filter_filenames)):
             if pred['image_id'] in img_id_map.keys():
                 anno = {}
                 anno['id'] = len(merged_data['annotations']) + 1
-                anno['category_id'] = pred['category_id']
+                if fp_filter:
+                    anno['category_id'] = 1
+                else:
+                    anno['category_id'] = pred['category_id']
                 anno['image_id'] = img_id_map[pred['image_id']]
                 anno['bbox'] = pred['bbox']  
                 anno['iscrowd'] = 0
