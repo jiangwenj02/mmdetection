@@ -7,6 +7,7 @@ from pycocotools.coco import COCO
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
+from mmdet.datasets.builder import build_dataset
 
 def iou(box, clusters):
     """
@@ -110,111 +111,37 @@ def id2name(coco):
     return classes, classes_id
 
 
-def load_dataset(path, types, args):
-    dataset = []
-    dataset_size = []
-    if types == 'voc':
-        for xml_file in glob.glob("{} /*xml".format(path)):
-            tree = ET.parse(xml_file)
-            # 图片高度
-            height = int(tree.findtext("./size/height"))
-            # 图片宽度
-            width = int(tree.findtext("./size/width"))
+def load_dataset(path, cfg):
 
-            for obj in tree.iter("object"):
-                # 偏移量
-                xmin = int(obj.findtext("bndbox/xmin")) / width
-                ymin = int(obj.findtext("bdbox/ymin")) / height
-                xmax = int(obj.findtext("bndbox/xmax")) / width
-                ymax = int(obj.findtext("bndbox/ymax")) / height
-                xmin = np.float64(xmin)
-                ymin = np.float64(ymin)
-                xmax = np.float64(xmax)
-                ymax = np.float64(ymax)
-                if xmax == xmin or ymax == ymin:
-                    print(xml_file)
-                # 将Anchor的长宽放入dateset，运行kmeans获得Anchor
-                dataset.append([xmax - xmin, ymax - ymin])
+    bboxes = []
 
-    if types == 'coco':
-        
-        coco = COCO(path)
-        classes, classes_id = id2name(coco)
-        print(classes)
-        print('class_ids:', classes_id)
+    dataset = build_dataset(cfg.data.train)
+    for i in range(len(dataset)):
+        item = dataset.__getitem__(i)
+        bboxes.append(item['gt_bboxes'])
 
-        img_ids = coco.getImgIds()
-        print(len(img_ids))
-
-        for imgId in img_ids:
-            i = 0
-            img = coco.loadImgs(imgId)[i]
-            height = img['height']
-            width = img['width']
-            ratio_height
-            i = i + 1
-            if imgId % 500 == 0:
-                print('process {} images'.format(imgId))
-            annIds = coco.getAnnIds(imgIds=img['id'], iscrowd=None)
-            anns = coco.loadAnns(annIds)
-            # time.sleep(0.2)
-            for ann in anns:
-                if 'bbox' in ann:
-                    bbox = ann['bbox']
-                    '''
-                     coco:
-                    annotation: [x, y, width, height] 
-                    '''
-                    ann_width = bbox[2]
-                    ann_height = bbox[3]
-
-                    if (ann_width == 0 or ann_height == 0):
-                        print(img['file_name'])
-                        continue
-
-                    # 偏移量
-                    #ann_width = np.float64(ann_width / width)
-                    #ann_height = np.float64(ann_height / height)
-                    dataset.append([ann_width, ann_height])
-                    
-                else:
-                    raise ValueError("coco no bbox -- wrong!!!")
-
-    return np.array(dataset)
+    return np.array(bboxes)
 
 def main():
     parser = ArgumentParser(description='COCO Dataset Analysis Tool')
     parser.add_argument(
-        '--ann',
-        default='/data0/zzhang/annotation/adenomatous/train.json',
-        help='annotation file path')
+        '--config',
+        default='configs/faster_rcnn/faster_rcnn_r50_caffe_c4_1x_coco.py',
+        help='config file path')
     parser.add_argument(
-        '--min_w',
-        default=800,
-        type=int,
-        help='input image size')
-    parser.add_argument(
-        '--max_w',
-        default=1333,
-        type=int,
-        help='input image size')
-    parser.add_argument(
-        '--types',
-        default='coco',
-        help='annotation file types')
+        '--ratio_clusters',
+        default=3,
+        help='config file path')
     args = parser.parse_args()
-    clusters = 3
-    Inputdim = 800
-    data = load_dataset(args.ann, args.types, args)
-    out = Iou_Kmeans(data, k=clusters)
-    size = Iou_Kmeans(size, k=5)
+    data = load_dataset(args)
+    out = Iou_Kmeans(data, k=args.ratio_clusters)
 
-    kmean_parse = kMean_parse(clusters, data)
+    kmean_parse = kMean_parse(args.ratio_clusters, data)
     kmean_parse.parse_data()
     kmean_parse.plot_data()
 
     print('ratio : ', out)
-    print('size', size)
+    # print('size', size)
     # anchor = np.array(out) * Inputdim
     # print("Boxes: {} ".format(anchor))
     # print("Accuracy: {:.2f}%".format(avg_iou(data, out) * 100))
