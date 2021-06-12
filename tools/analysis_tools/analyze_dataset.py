@@ -111,7 +111,7 @@ def id2name(coco):
     return classes, classes_id
 
 
-def load_dataset(path, cfg):
+def load_dataset(cfg):
 
     bboxes = []
 
