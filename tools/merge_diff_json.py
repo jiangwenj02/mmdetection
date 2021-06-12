@@ -6,6 +6,9 @@ image_id = 0
 annotation_id = 0
 
 adenomatous_json_dir = 'data/erosiveulcer_fine/sub_train/'
+adenomatous_json_dir = ['/data3/zzhang/annotation/erosiveulcer_fine/train.json', '/data3/zzhang/annotation/erosiveulcer_fine/filt_fp.json']
+if type(adenomatous_json_dir) is type(''):
+    adenomatous_json_dir = os.listdir(adenomatous_json_dir)
 image_root = ''
 dataset_root = ''
 out_json = 'data/erosiveulcer_fine/train.json'
@@ -22,7 +25,7 @@ imgs_num = 0
 anno_num = 0
 filename_to_id = {}
 category_to_id = {}
-for idx, f in enumerate(os.listdir(adenomatous_json_dir)):
+for idx, f in enumerate(adenomatous_json_dir):
     if f == '.DS_Store' or not('.json' in f):
         continue
     json_dir = os.path.join(adenomatous_json_dir, f)
