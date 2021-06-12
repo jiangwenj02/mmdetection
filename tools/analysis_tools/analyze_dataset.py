@@ -8,7 +8,7 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from mmdet.datasets.builder import build_dataset
-
+from tqdm import tqdm
 def iou(box, clusters):
     """
     计算一个ground truth边界盒和k个先验框(Anchor)的交并比(IOU)值。
@@ -116,7 +116,7 @@ def load_dataset(path, cfg):
     bboxes = []
 
     dataset = build_dataset(cfg.data.train)
-    for i in range(len(dataset)):
+    for i in tqdm(range(len(dataset))):
         item = dataset.__getitem__(i)
         bboxes.append(item['gt_bboxes'])
 
