@@ -12,7 +12,7 @@ if type(adenomatous_json_dir) is type(''):
     json_dir = [os.path.join(adenomatous_json_dir, f) for f in files]
 image_root = ''
 dataset_root = ''
-out_json = 'data/erosiveulcer_fine/train.json'
+out_json = '/data3/zzhang/annotation/erosiveulcer_fine/trainfp.json'
 
 merged_data = {
                 "licenses": [{"name": "", "id": 0, "url": ""}],
