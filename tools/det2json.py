@@ -34,7 +34,7 @@ for i in range(len(filter_filenames)):
 
     with open(filter_filename, 'r') as f:
         filter_file = f.readlines()
-        filter_file = [file.strip() for file in filter_file]
+        filter_file = [file.strip().split('/')[-1] for file in filter_file]
         mkdir_or_exist(filter_images_dir[i])
         for file in filter_file:
             shutil.copy(osp.join(before_images, file), osp.join(filter_images_dir[i], file))
