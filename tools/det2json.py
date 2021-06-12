@@ -17,7 +17,7 @@ out_jsons = ['/data3/zzhang/annotation/erosiveulcer_fine/filt_fp.json']
 before_images = '/data3/zzhang/FP_Z/'
 filter_filenames = ['/data3/zzhang/annotation/erosiveulcer_fine/test2.txt']
 filter_images_dir = ['/data2/dataset/gastric_object_detection/erosive']
-det_json = '/data3/zzhang/yolov5/runs/test/exp5/259_predictions.json'
+det_json = '/data3/zzhang/yolov5/runs/test/exp6/259_predictions.json'
 fp_filter = True
 preds = json_load(det_json)
 
