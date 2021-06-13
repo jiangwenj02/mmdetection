@@ -163,12 +163,10 @@ class GridRoIHead(StandardRoIHead):
                     bbox_results.append(
                         bbox2result(det_bbox, det_labels[i],
                                     self.bbox_head.num_classes))
-                print(bbox_results)
         else:
             bbox_results = [
                 [np.zeros((0, 5), dtype=np.float32) for i in range(self.bbox_head.num_classes)] for _ in range(len(det_bboxes))
             ]
-            print(bbox_results)
 
         if not self.with_mask:
             return bbox_results
