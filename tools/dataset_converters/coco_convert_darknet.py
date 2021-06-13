@@ -41,8 +41,4 @@ def convert_annotation():
     sumfile.close()
             
 if __name__ == '__main__':
-    convert_annotation()
-
-
-        
-    
+    convert_annotation()    
