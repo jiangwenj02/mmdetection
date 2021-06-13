@@ -274,8 +274,6 @@ class ErosiveUlcer(CustomDataset):
             dict[str: str]: Possible keys are "bbox", "segm", "proposal", and \
                 values are corresponding filenames.
         """
-        import pdb
-        pdb.set_trace()
         result_files = dict()
         if isinstance(results[0], list):
             json_results = self._det2json(results)
