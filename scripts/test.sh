@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+python tools/eval_others.py --result ../yolov5/runs/test/exp9/best_predictions.json --ann /data3/zzhang/annotation/erosiveulcer_fine/test.json --config configs/erosiveulcer/grid_rcnn_r50_fpn_gn-head_erosiveulcer_9x.py --visualize True --out_dir work_dirs/yolov5/
 OMP_NUM_THREADS=4 CUDA_VISIBLE_DEVICES=0,1,2,3 ./tools/dist_train.sh configs/ulcer/faster_rcnn_r50_fpn_1x_ulcer_9x.py 4
 OMP_NUM_THREADS=12 CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7,8,9,10,11 ./tools/dist_train.sh configs/adenomatous/mask_rcnn_r50_fpn_1x_adenomatous.py 12
 python tools/test.py configs/gang/mask_rcnn_r50_fpn_1x_gang_left.py work_dirs/mask_rcnn_r50_fpn_1x_gang_left/latest.pth --eval bbox segm --options "classwise=True" --out work_dirs/mask_rcnn_r50_fpn_1x_gang_left/result.pkl

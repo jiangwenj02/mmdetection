@@ -85,6 +85,7 @@ def analyze_results(anno, result, cfg, visualize=False, visualization_folder='./
             target_list = target_lists[key]
             pred_list = [p for p in pred_list if p[0] >= thresh]
             filtered_p = [p[1:] + p[0:1] for p in pred_list] # concat
+            print(filtered_p)
             filterd_target = [p for p in target_list]
             image= None
             if visualize:
