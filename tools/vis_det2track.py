@@ -67,6 +67,7 @@ def main(mode='IR', visulization=False):
     # setup experiments
     video_paths = glob.glob(os.path.join('/data3/publicData/Anti_UAV_new_test/', '*'))
     save_path = 'work_dirs/faster_rcnn_r50_fpn_1x_uav/results_video/'
+    os.makedirs(save_path, exist_ok=True)
     os.popen('rm -r ' + save_path + '*')
     video_num = len(video_paths)
     overall_performance = []
