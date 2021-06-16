@@ -39,7 +39,7 @@ for index, img in tqdm(imgs.items()):
     for ann in anns:
         if ann['score'] > score_max:
             score_max = ann['score']
-            res = ann['bbox']
+            res = ann['bbox'].append(score_max)
     if video_name not in result.keys():
          result[video_name] = {}
     result[video_name][frame] = res
