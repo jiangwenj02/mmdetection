@@ -7,14 +7,31 @@ import shutil
 import os.path as osp
 from pycocotools.coco import COCO
 from pycocotools.cocoeval import COCOeval
+import argparse
+ 
+def parse_args():
+    parser = argparse.ArgumentParser(description='MMDetection webcam demo')
+    parser.add_argument(
+        '--data_root', type=str, default= 'work_dirs/faster_rcnn_r50_fpn_1x_uav/', help='CPU/CUDA device option')
+    parser.add_argument(
+        '--anno_json', type=str, default='./data/test.json',help='anno file')
+    parser.add_argument(
+        '--det_json', type=str, default='', help='det file')
+    parser.add_argument(
+        '--score', type=bool, default=True, help='det file')
+    parser.add_argument(
+        '--score-thr', type=float, default=0.1, help='bbox score threshold')
+    args = parser.parse_args()
+    return args
 
+args = parse_args()
 def json_load(file_name):
     with open(file_name,'r') as f:
         data = json.load(f)
         return data
 
-data_root = 'work_dirs/faster_rcnn_r50_fpn_1x_uav/'
-anno_json = './data/test.json'
+data_root = args.data_root
+anno_json = args.anno_json
 det_json = data_root + 'result.bbox.json'
 score = False
 preds = json_load(det_json)
@@ -34,7 +51,7 @@ for index, img in tqdm(imgs.items()):
     annIds = predall.getAnnIds(imgId)
     anns = predall.loadAnns(annIds)
 
-    score_max = 0.1
+    score_max = args.score_thr
     res = []
     for ann in anns:
         if ann['score'] > score_max:
