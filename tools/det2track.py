@@ -18,7 +18,7 @@ def parse_args():
     parser.add_argument(
         '--det_json', type=str, default='', help='det file')
     parser.add_argument(
-        '--score', type=bool, default=True, help='det file')
+        '--score', type=bool, default=False, help='det file')
     parser.add_argument(
         '--score-thr', type=float, default=0.1, help='bbox score threshold')
     args = parser.parse_args()
