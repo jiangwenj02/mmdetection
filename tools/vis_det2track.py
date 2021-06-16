@@ -69,7 +69,7 @@ def main(mode='IR', visulization=False):
     overall_performance = []
 
     # run tracking experiments and report performance
-    for video_id, video_path in enumerate(video_paths, start=1):
+    for video_id, video_path in tqdm(enumerate(video_paths, start=1)):
         video_name = os.path.basename(video_path)
         video_file = os.path.join(video_path, '%s.mp4'%mode)
         label_file = os.path.join(video_path, '%s_label.json'%mode)
@@ -97,6 +97,7 @@ def main(mode='IR', visulization=False):
                 cv2.putText(frame, 'exist' if _exist else 'not exist',
                             (frame.shape[1] // 2 - 20, 30), 1, 2, (0, 255, 0) if _exist else (0, 0, 255), 2)
 
+                print(out, type(out[0]))
                 cv2.rectangle(frame, (int(out[0]), int(out[1])), (int(out[0] + out[2]), int(out[1] + out[3])),
                               (0, 255, 255))
                 cv2.imshow(video_name, frame)
