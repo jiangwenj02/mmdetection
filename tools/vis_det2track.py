@@ -116,8 +116,8 @@ def main(mode='IR', visulization=False):
                 else:
                     cv2.putText(frame, 'not exist',
                             (frame.shape[1] // 2 + 100, 30), 1, 2, (0, 255, 255), 2)
-                cv2.imshow(video_name, frame)
-                cv2.waitKey(1)
+                # cv2.imshow(video_name, frame)
+                # cv2.waitKey(1)
                 frame_list.append(frame)
             frame_id += 1
         if visulization:
