@@ -103,9 +103,14 @@ def main(mode='IR', visulization=False):
                                   (0, 255, 0))
                 cv2.putText(frame, 'exist' if _exist else 'not exist',
                             (frame.shape[1] // 2 - 20, 30), 1, 2, (0, 255, 0) if _exist else (0, 0, 255), 2)
-
-                cv2.rectangle(frame, (int(out[0]), int(out[1])), (int(out[0] + out[2]), int(out[1] + out[3])),
-                              (0, 255, 255))
+                if len(out) > 0:
+                    cv2.putText(frame, '%.3f'%(out[-1]),
+                                (frame.shape[1] // 2 + 40, 30), 1, 2, (0, 255, 255), 2)
+                    cv2.rectangle(frame, (int(out[0]), int(out[1])), (int(out[0] + out[2]), int(out[1] + out[3])),
+                                (0, 255, 255))
+                else:
+                    cv2.putText(frame, 'not exist',
+                            (frame.shape[1] // 2 + 40, 30), 1, 2, (0, 255, 255), 2)
                 cv2.imshow(video_name, frame)
                 cv2.waitKey(1)
                 frame_list.append(frame)
