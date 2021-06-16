@@ -80,6 +80,8 @@ def main(mode='IR', visulization=False):
         with open(res_file, 'r') as f:
             res = json.load(f)
 
+        import pdb
+        pdb.set_trace()
         capture = cv2.VideoCapture(video_file)
         frame_id = 0
         while True:
