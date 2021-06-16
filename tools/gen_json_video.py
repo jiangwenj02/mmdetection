@@ -8,7 +8,7 @@ from tqdm import tqdm
 image_id = 0
 annotation_id = 0
 
-adenomatous_json_dir = '/data3/publicData/antiUAVtestimages/'
+adenomatous_json_dir = '/data3/publicData/Anti_UAV_new_test/'
 image_root = ''
 dataset_root = ''
 out_json = 'data/test.json'

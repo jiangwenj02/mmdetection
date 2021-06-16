@@ -31,6 +31,8 @@ for index, img in tqdm(imgs.items()):
     video_name = file_name.split("/")[0]
     frame = int(file_name.split("/")[2][:-4])
 
+    if ''
+
     annIds = predall.getAnnIds(imgId)
     anns = predall.loadAnns(annIds)
 
@@ -44,38 +46,6 @@ for index, img in tqdm(imgs.items()):
     if video_name not in result.keys():
          result[video_name] = {}
     result[video_name][frame] = res
-
-
-
-# preds = json_load(det_json)
-
-# for pred in tqdm(preds):
-#     image_id = pred["image_id"]
-#     bboxes = pred["bbox"]
-#     score = pred["score"]
-
-#     file_name = anno.loadImgs(image_id)[0]['file_name']
-#     # anns_id = predall.getAnnIds(image_id)
-#     # anns = predall.loadAnns(anns_id)
-
-#     video_name = file_name.split("/")[0]
-#     frame = int(file_name.split("/")[2][:-4])
-
-#     if video_name not in result.keys():
-#         result[video_name] = {}
-#     bboxes.append(score)
-#     if frame in result[video_name].keys():
-#         if score > 0.1:
-#             if len(result[video_name][frame]):
-#                 if score > result[video_name][frame][-1]:                    
-#                     result[video_name][frame] = bboxes[:]
-#             else:
-#                 result[video_name][frame] = bboxes[:]
-#     else:
-#         if score > 0.1:
-#             result[video_name][frame] = bboxes[:]
-#         else:
-#             result[video_name][frame] = []
 
 
 os.makedirs(data_root + 'results/', exist_ok=True)
