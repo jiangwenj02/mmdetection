@@ -4,6 +4,7 @@ import shutil
 import os.path as osp
 import mmcv
 from tqdm import tqdm
+import glob
 
 image_id = 0
 annotation_id = 0
@@ -30,6 +31,8 @@ for idx, f in tqdm(enumerate(os.listdir(adenomatous_json_dir))):
         data = json.load(json_file)
         exist = data['exist']
         annos = data['gt_rect']
+        images = glob.glob(os.path.join(adenomatous_json_dir, f, '*.jpg'))
+        assert len(images) == len(annos),"image length not equal to anno: %s" %(f)
         # if idx == 0:
         #     merged_data["licenses"] = data["licenses"]
         #     merged_data["info"] = data["info"]
