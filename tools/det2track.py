@@ -16,7 +16,7 @@ def json_load(file_name):
 data_root = 'work_dirs/faster_rcnn_r50_fpn_1x_uav/'
 anno_json = './data/test.json'
 det_json = data_root + 'result.bbox.json'
-
+score = True
 preds = json_load(det_json)
 anno = COCO(anno_json)
 predall = anno.loadRes(det_json)
@@ -31,8 +31,6 @@ for index, img in tqdm(imgs.items()):
     video_name = file_name.split("/")[0]
     frame = int(file_name.split("/")[2][:-4])
 
-    if ''
-
     annIds = predall.getAnnIds(imgId)
     anns = predall.loadAnns(annIds)
 
@@ -42,7 +40,8 @@ for index, img in tqdm(imgs.items()):
         if ann['score'] > score_max:
             score_max = ann['score']
             res = ann['bbox']
-            res.append(score_max)
+            if score:
+                res.append(score_max)
     if video_name not in result.keys():
          result[video_name] = {}
     result[video_name][frame] = res
