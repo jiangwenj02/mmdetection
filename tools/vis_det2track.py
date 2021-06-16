@@ -91,12 +91,14 @@ def main(mode='IR', visulization=False):
         fps = capture.get(cv2.CAP_PROP_FPS)
         frame_id = 0
         frame_list = []
+        res_out = []
         while True:
             ret, frame = capture.read()
             if not ret:
                 capture.release()
                 break
             out = res[frame_id]
+            res_out.append(out[:-1])
             if visulization:
                 _gt = label_res['gt_rect'][frame_id]
                 _exist = label_res['exist'][frame_id]
@@ -122,7 +124,7 @@ def main(mode='IR', visulization=False):
 
         visual_clip = ImageSequenceClip(frame_list, fps=fps) #put frames together using moviepy
         visual_clip.write_videofile(save_file, threads=8, logger=None) #export the video
-        mixed_measure = eval(res, label_res)
+        mixed_measure = eval(res_out, label_res)
         overall_performance.append(mixed_measure)
         print('[%03d/%03d] %20s %5s Fixed Measure: %.03f' % (video_id, video_num, video_name, mode, mixed_measure))
 
