@@ -8,7 +8,7 @@ from tqdm import tqdm
 image_id = 0
 annotation_id = 0
 
-adenomatous_json_dir = '/data3/publicData/Anti_UAV_new_test/'
+adenomatous_json_dir = '/data3/publicData/antiUAVtestimages/'
 image_root = ''
 dataset_root = ''
 out_json = 'data/test.json'
@@ -24,7 +24,7 @@ img_id_test = set()
 imgs_num = 0
 anno_num = 0
 for idx, f in tqdm(enumerate(os.listdir(adenomatous_json_dir))):
-    json_dir = os.path.join(adenomatous_json_dir, f, 'IR_label.json')
+    json_dir = os.path.join('/data3/publicData/Anti_UAV_new_test', f, 'IR_label.json')
     with open(json_dir) as json_file:
 
         data = json.load(json_file)
