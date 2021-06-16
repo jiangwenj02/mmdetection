@@ -31,7 +31,7 @@ for idx, f in tqdm(enumerate(os.listdir(adenomatous_json_dir))):
         data = json.load(json_file)
         exist = data['exist']
         annos = data['gt_rect']
-        images = glob.glob(os.path.join(adenomatous_json_dir, f, '*.jpg'))
+        images = glob.glob(os.path.join(adenomatous_json_dir, f, 'img', '*.jpg'))
         assert len(images) == len(annos),"image length %d not equal to anno length %d: %s" %(len(images), len(annos), f)
         # if idx == 0:
         #     merged_data["licenses"] = data["licenses"]
