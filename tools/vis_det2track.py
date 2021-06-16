@@ -83,7 +83,7 @@ def main(mode='IR', visulization=False):
         capture = cv2.VideoCapture(video_file)
         frame_id = 0
         while True:
-            out = res_file[frame_id]
+            out = res[frame_id]
             ret, frame = capture.read()
             if not ret:
                 capture.release()
