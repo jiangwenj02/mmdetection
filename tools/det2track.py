@@ -16,7 +16,7 @@ def json_load(file_name):
 data_root = 'work_dirs/faster_rcnn_r50_fpn_1x_uav/'
 anno_json = './data/test.json'
 det_json = data_root + 'result.bbox.json'
-score = True
+score = False
 preds = json_load(det_json)
 anno = COCO(anno_json)
 predall = anno.loadRes(det_json)
