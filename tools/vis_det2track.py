@@ -10,6 +10,7 @@ import glob
 import json
 import cv2
 import numpy as np
+from tqdm import tqdm
 
 def iou(bbox1, bbox2):
     """
@@ -78,7 +79,7 @@ def main(mode='IR', visulization=False):
         res_file = os.path.join('work_dirs/faster_rcnn_r50_fpn_1x_uav/results/', '%s_IR.txt'%video_name)
         with open(res_file, 'r') as f:
             res = json.load(f)
-            
+
         capture = cv2.VideoCapture(video_file)
         frame_id = 0
         while True:
