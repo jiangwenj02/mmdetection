@@ -90,13 +90,12 @@ def main(mode='IR', visulization=False):
         fps = capture.get(cv2.CAP_PROP_FPS)
         frame_id = 0
         frame_list = []
-        print(len(res), frame_sum)
         while True:
-            out = res[frame_id]
             ret, frame = capture.read()
             if not ret:
                 capture.release()
                 break
+            out = res[frame_id]
             if visulization:
                 _gt = label_res['gt_rect'][frame_id]
                 _exist = label_res['exist'][frame_id]
