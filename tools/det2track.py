@@ -33,7 +33,6 @@ def json_load(file_name):
 data_root = args.data_root
 anno_json = args.anno_json
 det_json = data_root + 'result.bbox.json'
-score = False
 preds = json_load(det_json)
 anno = COCO(anno_json)
 predall = anno.loadRes(det_json)
@@ -57,7 +56,7 @@ for index, img in tqdm(imgs.items()):
         if ann['score'] > score_max:
             score_max = ann['score']
             res = ann['bbox']
-            if score:
+            if args.score:
                 res.append(score_max)
     if video_name not in result.keys():
          result[video_name] = {}
