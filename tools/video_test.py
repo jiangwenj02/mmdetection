@@ -73,6 +73,7 @@ def detectvideo(model, video_in, video_out, args):
             #     break
             frame=model.show_result(
                 img, result, score_thr=args.score_thr, wait_time=1, show=True,thickness=1)
+            print(frame)
             if args.show:
                 cv2.imshow('frame',frame)
             print(frame)
