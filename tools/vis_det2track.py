@@ -11,6 +11,7 @@ import json
 import cv2
 import numpy as np
 from tqdm import tqdm
+from moviepy.editor import ImageSequenceClip
 
 def iou(bbox1, bbox2):
     """
@@ -65,6 +66,8 @@ def main(mode='IR', visulization=False):
 
     # setup experiments
     video_paths = glob.glob(os.path.join('/data3/publicData/Anti_UAV_new_test/', '*'))
+    save_path = 'work_dirs/faster_rcnn_r50_fpn_1x_uav/results_video/'
+    os.popen('rm -r ' + save_path + '*')
     video_num = len(video_paths)
     overall_performance = []
 
@@ -77,13 +80,15 @@ def main(mode='IR', visulization=False):
             label_res = json.load(f)
 
         res_file = os.path.join('work_dirs/faster_rcnn_r50_fpn_1x_uav/results/', '%s_IR.txt'%video_name)
+        save_file = os.path.join(save_path, '%s_IR.mp4'%video_name)
         with open(res_file, 'r') as f:
             res = json.load(f)
+            res = res['res']
 
-        import pdb
-        pdb.set_trace()
         capture = cv2.VideoCapture(video_file)
+        fps = capture.get(cv2.CAP_PROP_FPS)
         frame_id = 0
+        frame_list = []
         while True:
             out = res[frame_id]
             ret, frame = capture.read()
@@ -99,15 +104,17 @@ def main(mode='IR', visulization=False):
                 cv2.putText(frame, 'exist' if _exist else 'not exist',
                             (frame.shape[1] // 2 - 20, 30), 1, 2, (0, 255, 0) if _exist else (0, 0, 255), 2)
 
-                print(out, type(out[0]))
                 cv2.rectangle(frame, (int(out[0]), int(out[1])), (int(out[0] + out[2]), int(out[1] + out[3])),
                               (0, 255, 255))
                 cv2.imshow(video_name, frame)
                 cv2.waitKey(1)
+                frame_list.append(frame)
             frame_id += 1
         if visulization:
             cv2.destroyAllWindows()
 
+        visual_clip = ImageSequenceClip(frame_list, fps=fps) #put frames together using moviepy
+        visual_clip.write_videofile(save_file, threads=8, logger=None) #export the video
         mixed_measure = eval(res, label_res)
         overall_performance.append(mixed_measure)
         print('[%03d/%03d] %20s %5s Fixed Measure: %.03f' % (video_id, video_num, video_name, mode, mixed_measure))
