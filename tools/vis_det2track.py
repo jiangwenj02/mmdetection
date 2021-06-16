@@ -92,6 +92,7 @@ def main(mode='IR', visulization=False):
         frame_id = 0
         frame_list = []
         res_out = []
+        print(frame_sum, len(res))
         while True:
             ret, frame = capture.read()
             if not ret:
