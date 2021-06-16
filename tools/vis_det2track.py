@@ -86,9 +86,11 @@ def main(mode='IR', visulization=False):
             res = res['res']
 
         capture = cv2.VideoCapture(video_file)
+        frame_sum = capture.get(cv2.CAP_PROP_FRAME_COUNT)
         fps = capture.get(cv2.CAP_PROP_FPS)
         frame_id = 0
         frame_list = []
+        print(len(res), frame_sum)
         while True:
             out = res[frame_id]
             ret, frame = capture.read()
