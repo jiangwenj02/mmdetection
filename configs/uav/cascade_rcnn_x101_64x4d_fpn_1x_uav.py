@@ -138,4 +138,4 @@ lr_config = dict(
 runner = dict(type='EpochBasedRunner', max_epochs=8)
 
 load_from = 'pretrained/htc_dconv_c3-\
-             c5_mstrain_400_1400_x101_64x4d_fpn_20e_20190408-0e50669c.pth'
+c5_mstrain_400_1400_x101_64x4d_fpn_20e_20190408-0e50669c.pth'
