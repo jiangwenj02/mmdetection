@@ -17,7 +17,7 @@ model = dict(
         norm_cfg=dict(type='BN', requires_grad=True),
         norm_eval=True,
         style='pytorch',
-        dcn=dict(type='DCN', groups=64, deformable_groups=1,
+        dcn=dict(type='DCN', deformable_groups=1,
                  fallback_on_stride=False),
         stage_with_dcn=(False, True, True, True)),
     roi_head=dict(
