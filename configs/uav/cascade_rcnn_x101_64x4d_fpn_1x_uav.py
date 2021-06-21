@@ -1,24 +1,9 @@
-_base_ = [
-    '../_base_/models/cascade_rcnn_r50_fpn.py',
-    '../_base_/datasets/coco_detection.py',
-    '../_base_/schedules/schedule_1x.py', '../_base_/default_runtime.py'
-]
+_base_ = '../cascade_rcnn/cascade_rcnn_x101_64x4d_fpn_1x_coco.py'
 
 model = dict(
     pretrained=None,
     backbone=dict(
-        type='ResNeXt',
-        depth=101,
-        groups=64,
-        base_width=4,
-        num_stages=4,
-        out_indices=(0, 1, 2, 3),
-        frozen_stages=1,
-        norm_cfg=dict(type='BN', requires_grad=True),
-        norm_eval=True,
-        style='pytorch',
-        dcn=dict(type='DCN', groups=64, deform_groups=1,
-                 fallback_on_stride=False),
+        dcn=dict(type='DCN', deform_groups=1, fallback_on_stride=False),
         stage_with_dcn=(False, True, True, True)),
     roi_head=dict(
         bbox_head=[
