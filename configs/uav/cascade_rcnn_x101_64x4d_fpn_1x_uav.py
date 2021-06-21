@@ -87,6 +87,21 @@ train_pipeline = [
     dict(type='RandomFlip', flip_ratio=0.5),
     dict(type='Normalize', **img_norm_cfg),
     dict(type='Pad', size_divisor=32),
+    dict(type='Albu',
+         transforms=[dict(type='RandomRotate90', always_apply=False, p=0.5)],
+         bbox_params=dict(
+             type='BboxParams',
+             format='pascal_voc',
+             label_fields=['gt_labels'],
+             min_visibility=0.0,
+             filter_lost_elements=True),
+         keymap={
+             'img': 'image',
+             # 'gt_masks': 'masks',
+             'gt_bboxes': 'bboxes'
+         },
+         update_pad_shape=False,
+         skip_img_without_anno=True),
     dict(type='DefaultFormatBundle'),
     dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
 ]
