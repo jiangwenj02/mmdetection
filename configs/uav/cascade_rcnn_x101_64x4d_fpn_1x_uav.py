@@ -106,7 +106,7 @@ test_pipeline = [
         ])
 ]
 data = dict(
-    samples_per_gpu=2,
+    samples_per_gpu=1,
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
@@ -126,7 +126,7 @@ data = dict(
 evaluation = dict(metric=['bbox'])
 
 # optimizer
-optimizer = dict(type='SGD', lr=0.03, momentum=0.9, weight_decay=0.0001)
+optimizer = dict(type='SGD', lr=0.005, momentum=0.9, weight_decay=0.0001)
 optimizer_config = dict(grad_clip=None)
 # learning policy
 lr_config = dict(
@@ -134,7 +134,7 @@ lr_config = dict(
     warmup='linear',
     warmup_iters=500,
     warmup_ratio=0.001,
-    step=[6, 7])
+    step=[5, 6])
 runner = dict(type='EpochBasedRunner', max_epochs=8)
 
 load_from = 'pretrained/htc_dconv_c3-\
