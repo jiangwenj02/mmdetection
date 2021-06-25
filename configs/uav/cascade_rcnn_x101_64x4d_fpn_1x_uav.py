@@ -135,7 +135,9 @@ lr_config = dict(
     warmup_iters=500,
     warmup_ratio=0.001,
     step=[5, 6])
-runner = dict(type='EpochBasedRunner', max_epochs=8)
+runner = dict(type='EpochBasedRunner', max_epochs=7)
+
+evaluation = dict(interval=7, metric='bbox')
 
 load_from = 'pretrained/htc_dconv_c3-\
 c5_mstrain_400_1400_x101_64x4d_fpn_20e_20190408-0e50669c.pth'
