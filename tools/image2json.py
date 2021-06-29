@@ -8,10 +8,10 @@ from tqdm import tqdm
 image_id = 0
 annotation_id = 0
 
-image_summary = '/data3/zzhang/annotation/erosiveulcer_fine/test2.txt'
+image_summary = 'data/erosiveulcer/fp.txt'
 image_root = ''
 dataset_root = ''
-out_json = '/data3/zzhang/annotation/erosiveulcer_fine/test2.json'
+out_json = 'data/erosiveulcer/test2.json'
 
 with open(image_summary, 'r') as f:
     image_filenames = f.readlines()
