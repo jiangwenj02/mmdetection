@@ -5,14 +5,14 @@ import shutil
 image_id = 0
 annotation_id = 0
 
-adenomatous_json_dir = 'data/erosiveulcer_fine/sub_train/'
-adenomatous_json_dir = ['/data3/zzhang/annotation/erosiveulcer_fine/train.json', '/data3/zzhang/annotation/erosiveulcer_fine/filt_fp.json']
+adenomatous_json_dir = 'data/erosiveulcer/sub_train/'
+adenomatous_json_dir = ['data/erosiveulcer/train.json', 'data/erosiveulcer/filt_fp.json']
 if type(adenomatous_json_dir) is type(''):
     files = os.listdir(adenomatous_json_dir)
     json_dir = [os.path.join(adenomatous_json_dir, f) for f in files]
 image_root = ''
 dataset_root = ''
-out_json = '/data3/zzhang/annotation/erosiveulcer_fine/trainfp.json'
+out_json = 'data/erosiveulcer/trainfp.json'
 
 merged_data = {
                 "licenses": [{"name": "", "id": 0, "url": ""}],

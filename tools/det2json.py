@@ -29,6 +29,7 @@ for i in range(len(filter_filenames)):
                 "images": [],
                 "annotations": []
                 }
+    
     filter_filename = filter_filenames[i]
     out_json = out_jsons[i]
 
