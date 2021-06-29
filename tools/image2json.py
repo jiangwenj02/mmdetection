@@ -9,7 +9,7 @@ image_id = 0
 annotation_id = 0
 
 image_summary = 'data/erosiveulcer/fp.txt'
-image_root = ''
+image_root = 'data/erosiveulcer/images/'
 dataset_root = ''
 out_json = 'data/erosiveulcer/test2.json'
 
@@ -32,7 +32,7 @@ for idx, image in tqdm(enumerate(image_filenames)):
         img = {}            
         img['id'] = len(merged_data["images"]) + 1
         img['file_name'] = image.split('/')[-1]
-        img_ori = mmcv.imread(image)
+        img_ori = mmcv.imread(osp.join(image_root, image))
         img['height'] = img_ori.shape[0]
         img['width'] = img_ori.shape[1]
         img['license'] = 0
