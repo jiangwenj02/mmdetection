@@ -64,18 +64,18 @@ data = dict(
         times=9,
         dataset=dict(
         type=dataset_type,
-        ann_file='/data3/zzhang/annotation/erosiveulcer/train.json',
-        img_prefix='/data2/dataset/gastric_object_detection/erosive',
+        ann_file='data/erosiveulcer/train.json',
+        img_prefix='data/erosiveulcer/images',
         pipeline=train_pipeline)),
     val=dict(
         type=dataset_type,
-        ann_file='/data3/zzhang/annotation/erosiveulcer/test.json',
-        img_prefix='/data2/dataset/gastric_object_detection/erosive',
+        ann_file='data/erosiveulcer/test.json',
+        img_prefix='data/erosiveulcer/images',
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file='/data3/zzhang/annotation/erosiveulcer/test.json',
-        img_prefix='/data2/dataset/gastric_object_detection/erosive',
+        ann_file='data/erosiveulcer/test.json',
+        img_prefix='data/erosiveulcer/images',
         pipeline=test_pipeline))
 evaluation = dict(metric=['bbox'])
 
