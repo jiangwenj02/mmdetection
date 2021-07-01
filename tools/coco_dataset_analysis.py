@@ -151,7 +151,6 @@ def load_dataset(path, types, args):
             img = coco.loadImgs(imgId)[i]
             height = img['height']
             width = img['width']
-            ratio_height
             i = i + 1
             if imgId % 500 == 0:
                 print('process {} images'.format(imgId))
