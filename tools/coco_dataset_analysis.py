@@ -205,15 +205,15 @@ def main():
     clusters = 3
     Inputdim = 800
     data = load_dataset(args.ann, args.types, args)
-    out = Iou_Kmeans(data, k=clusters)
-    size = Iou_Kmeans(size, k=5)
+    # out = Iou_Kmeans(data, k=clusters)
+    # size = Iou_Kmeans(size, k=5)
 
     kmean_parse = kMean_parse(clusters, data)
     kmean_parse.parse_data()
     kmean_parse.plot_data()
 
-    print('ratio : ', out)
-    print('size', size)
+    # print('ratio : ', out)
+    # print('size', size)
     # anchor = np.array(out) * Inputdim
     # print("Boxes: {} ".format(anchor))
     # print("Accuracy: {:.2f}%".format(avg_iou(data, out) * 100))
