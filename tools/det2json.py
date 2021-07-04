@@ -17,7 +17,7 @@ out_jsons = ['data/erosiveulcer/filt_fp.json']
 before_images = 'data/erosiveulcer/images/'
 filter_filenames = ['data/erosiveulcer/fp.txt']
 filter_images_dir = ['data/erosive/fp']
-det_json = '../yolov5/runs/test/exp10/best_predictions.json'
+det_json = '../yolov5/runs/test/exp17/best_predictions.json'
 fp_filter = True
 preds = json_load(det_json)
 
