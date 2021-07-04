@@ -75,7 +75,7 @@ with open(adenomatous_json_dir) as json_file:
         anno['category_id'] = 1
         if anno['image_id'] not in oldid_to_filename:
             continue
-        anno['image_id'] = filename_to_id[oldid_to_filename[anno['image_id']]]                  
+        anno['image_id'] = filename_to_id[oldid_to_filename[anno['image_id']]]
         merged_data['annotations'].append(anno)
     print(len(data['images']), len(merged_data["images"]))
     image_id = len(merged_data["images"]) + 1
