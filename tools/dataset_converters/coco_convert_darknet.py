@@ -17,23 +17,23 @@ def convert(size,box):
     return (x,y,w,h)
 
 def convert_annotation():
-    # coco_instance = COCO('/data3/zzhang/annotation/erosiveulcer_fine/trainfp.json')
-    coco_instance = COCO('data/erosiveulcer/trainfp.json')
+    coco_instance = COCO('/data3/zzhang/annotation/erosiveulcer_fine/trainfp.json')
+    # coco_instance = COCO('data/erosiveulcer/trainfp.json')
     # coco_instance = COCO('E:/Users/jiangwenj02/Downloads/coco/annotations/instances_val2017.json')
     coco_imgs = coco_instance.imgs
-    # sumfile = open('/data3/zzhang/annotation/erosiveulcer_fine/train.txt', 'w')
-    sumfile = open('data/erosiveulcer/trainfp.txt', 'w')
+    sumfile = open('/data3/zzhang/annotation/erosiveulcer_fine/train.txt', 'w')
+    # sumfile = open('data/erosiveulcer/trainfp.txt', 'w')
     # sumfile = open('E:/Users/jiangwenj02/Downloads/coco/annotations/test.txt', 'w')
     for key in tqdm(coco_imgs):
         annIds = coco_instance.getAnnIds(imgIds= coco_imgs[key]['id'])
         file_name = coco_imgs[key]['file_name']
-        # sumfile.write('/data3/zzhang/annotation/erosiveulcer_fine/train/images/' + file_name  + '\n')
-        sumfile.write('data/erosiveulcer/images/' + file_name  + '\n')
+        sumfile.write('/data3/zzhang/annotation/erosiveulcer_fine/train/images/' + file_name  + '\n')
+        # sumfile.write('data/erosiveulcer/images/' + file_name  + '\n')
         width = coco_imgs[key]['width']
         height = coco_imgs[key]['height']
         anns = coco_instance.loadAnns(annIds)
-        # outfile = open('/data3/zzhang/annotation/erosiveulcer_fine/train/labels/%s.txt'%(file_name[:-4]), 'w')
-        outfile = open('data/erosiveulcer/labels/%s.txt'%(file_name[:-4]), 'w')
+        outfile = open('/data3/zzhang/annotation/erosiveulcer_fine/train/labels/%s.txt'%(file_name[:-4]), 'w')
+        # outfile = open('data/erosiveulcer/labels/%s.txt'%(file_name[:-4]), 'w')
         # outfile = open('E:/Users/jiangwenj02/Downloads/coco/labels_verify/%s.txt'%(file_name[:-4]), 'w')
         for item2 in anns:
             category_id = item2['category_id']
