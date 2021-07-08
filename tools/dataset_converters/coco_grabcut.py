@@ -102,7 +102,7 @@ def grabcut(args):
                     data_ann['area'] = mask_util.area(data_ann['segmentation'])
                     if data_ann['iscrowd'] is None:
                         data_ann['iscrowd'] = False
-                    data['annotations'][idx] = data_ann
+                    # data['annotations'][idx] = data_ann
                     
                     break
         if i > 5:
