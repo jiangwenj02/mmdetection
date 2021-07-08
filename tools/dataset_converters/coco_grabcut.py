@@ -61,7 +61,7 @@ def grabcut(args):
         # info['filename'] = info['file_name']
         img = cv.imread(osp.join(args.imgdir, info['file_name']))
         img_infos.append(info)      
-        for ann in anns:
+        for ann_id, ann in zip(anns_ids, anns):
             mask = np.zeros((info['height'], info['width'])).astype(np.uint8)      
             bgdModel = np.zeros((1, 65), np.float64)
             fgdModel = np.zeros((1, 65), np.float64)
@@ -94,9 +94,15 @@ def grabcut(args):
                 IOU = np.sum(intersection) / np.sum(union)
                 if IOU <= IOU_THRESHOLD:
                     img_mask = box_mask
-            import pdb
-            pdb.set_trace()
-            ann['segmentation'] = mask_util(np.array(img_mask[:, :, np.newaxis], order='F', dtype='uint8'))[0]
+            
+            for idx, data_ann in enumerate(data['annotations']):
+                if data_ann['id'] == ann_id:
+                    data_ann['segmentation'] = mask_util.encode(np.array(img_mask[:, :, np.newaxis], order='F', dtype='uint8'))[0]
+                    data['annotations'][idx] = data_ann['segmentation']
+                    break
+    
+    with open(args.out, 'w') as out_file:
+        json.dump(data, out_file)
  
 def main():
     args = parse_args()
