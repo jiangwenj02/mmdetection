@@ -96,6 +96,7 @@ def grabcut(args):
                     img_mask = box_mask
             
             for idx, data_ann in enumerate(data['annotations']):
+                print(data_ann)
                 if data_ann['id'] == ann_id:
                     data_ann['segmentation'] = mask_util.encode(np.array(img_mask[:, :, np.newaxis], order='F', dtype='uint8'))[0]
                     data['annotations'][idx] = data_ann['segmentation']
