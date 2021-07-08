@@ -97,10 +97,13 @@ def grabcut(args):
             
             for idx, data_ann in enumerate(data['annotations']):
 
-                if data_ann['id'] == ann_id:
-                    data_ann['area'] = img_mask.sum()
+                if data_ann['id'] == ann_id:                    
                     data_ann['segmentation'] = mask_util.encode(np.array(img_mask[:, :, np.newaxis], order='F', dtype='uint8'))
+                    data_ann['area'] = mask_util.area(data_ann['segmentation'])
+                    if data_ann['iscrowd'] is None:
+                        data_ann['iscrowd'] = False
                     data['annotations'][idx] = data_ann
+                    
                     break
         if i > 5:
             break
