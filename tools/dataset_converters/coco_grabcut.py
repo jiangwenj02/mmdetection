@@ -8,7 +8,7 @@ from tqdm import tqdm
 from pycocotools.coco import COCO
 import cv2 as cv
 import json
-import pycocotools.mask as mask_util
+import pycocotools.masktools as mask_util
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -99,7 +99,7 @@ def grabcut(args):
 
                 if data_ann['id'] == ann_id:
                     data_ann['area'] = img_mask.sum()
-                    data_ann['segmentation'] = mask_util.encode(np.array(img_mask[:, :, np.newaxis], order='F', dtype='uint8'))[0]
+                    data_ann['segmentation'] = mask_util.encode(np.array(img_mask[:, :, np.newaxis], order='F', dtype='uint8'))
                     data['annotations'][idx] = data_ann
                     break
         if i > 5:
