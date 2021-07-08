@@ -63,6 +63,8 @@ def grabcut(args):
             mask = np.zeros((info['height'], info['width'])).astype(np.uint8)      
             bgdModel = np.zeros((1, 65), np.float64)
             fgdModel = np.zeros((1, 65), np.float64)
+            import pdb
+            pdb.set_trace()
             rect=ann['bboxes']
             xmin, ymin, box_w, box_h = rect[0], rect[1], rect[2], rect[3]
             ymax, xmax = ymin + box_h, xmin + box_w
