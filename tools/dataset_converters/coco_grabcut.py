@@ -15,10 +15,10 @@ def parse_args():
         description='Convert Coco bbox annotations to instance segmentation by grabcut')
     parser.add_argument(
         '--ann',
-        default='/data3/publicData/PASCALVOC/VOCdevkit/voc12_train.json')
+        default='/data3/publicData/PASCALVOC/VOCdevkit/voc12_trainval.json')
     parser.add_argument(
         '--out',
-        default='/data3/publicData/PASCALVOC/VOCdevkit/voc12_train_grab.json')
+        default='/data3/publicData/PASCALVOC/VOCdevkit/voc12_trainval_grab.json')
     parser.add_argument(
         '--imgdir',
         default='/data3/publicData/PASCALVOC/VOCdevkit/')
@@ -102,6 +102,8 @@ def grabcut(args):
                     data_ann['segmentation'] = mask_util.encode(np.array(img_mask[:, :, np.newaxis], order='F', dtype='uint8'))[0]
                     data['annotations'][idx] = data_ann
                     break
+        if i > 5:
+            break
     
     with open(args.out, 'w') as out_file:
         json.dump(data, out_file)
