@@ -47,8 +47,8 @@ def grabcut(args):
         export_dir (string): output path
     """
 
-    coco = COCO(args.json_file)
-    data = json_load(args.json_file)
+    coco = COCO(args.ann)
+    data = json_load(args.ann)
     img_ids = coco.getImgIds()
     img_infos = []
     cats = coco.getCatIds()
