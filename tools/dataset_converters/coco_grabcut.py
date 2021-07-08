@@ -8,6 +8,8 @@ from tqdm import tqdm
 from pycocotools.coco import COCO
 import cv2 as cv
 import json
+import pycocotools.mask as mask_util
+
 def parse_args():
     parser = argparse.ArgumentParser(
         description='Convert Coco bbox annotations to instance segmentation by grabcut')
@@ -94,7 +96,7 @@ def grabcut(args):
                     img_mask = box_mask
             import pdb
             pdb.set_trace()
-            ann['segmentation'] = COCO.encodeMask(img_mask)
+            ann['segmentation'] = mask_util(np.array(img_mask[:, :, np.newaxis], order='F', dtype='uint8'))[0]
  
 def main():
     args = parse_args()
