@@ -51,6 +51,10 @@ def grabcut(args):
 
     coco = COCO(args.ann)
     data = json_load(args.ann)
+
+    with open(args.out, 'w') as out_file:
+        json.dump(data, out_file)
+        
     img_ids = coco.getImgIds()
     img_infos = []
     cats = coco.getCatIds()
@@ -108,8 +112,7 @@ def grabcut(args):
         if i > 5:
             break
     
-    with open(args.out, 'w') as out_file:
-        json.dump(data, out_file)
+    
  
 def main():
     args = parse_args()
