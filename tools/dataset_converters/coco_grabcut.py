@@ -8,7 +8,7 @@ from tqdm import tqdm
 from pycocotools.coco import COCO
 import cv2 as cv
 import json
-import pycocotools.masktools as mask_util
+import pycocotools.mask as mask_util
 
 def parse_args():
     parser = argparse.ArgumentParser(
